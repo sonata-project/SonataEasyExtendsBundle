@@ -36,10 +36,6 @@ class EasyExtendsExtension extends Extension {
      */
     public function configLoad($config, ContainerBuilder $container) {
 
-        $definition = new Definition('Bundle\\EasyExtends\\Service\\Service');
-        $definition->addMethodCall('setMapping', array($this->retrieveEntitiesList($container)));
-
-        $container->setDefinition('easy_extends', $definition);
     }
 
     /**
@@ -60,51 +56,5 @@ class EasyExtendsExtension extends Extension {
     public function getAlias() {
 
         return "easy_extends";
-    }
-
-    public function retrieveEntitiesList($container) {
-        $bundleDirs = $container->getParameter('kernel.bundle_dirs');
-
-        unset($bundleDirs['Application']);
-
-        $mapping = array();
-
-        $finder = new Finder;
-        $finder = $finder
-            ->files()
-            ->name('*.php');
-
-
-        foreach ($container->getParameter('kernel.bundles') as $className) {
-            $tmp = dirname(str_replace('\\', '/', $className));
-            $namespace = str_replace('/', '\\', dirname($tmp));
-            $class = basename($tmp);
-
-            if (!isset($bundleDirs[$namespace])) {
-                continue;
-            }
-
-            $directory = false;
-            foreach($bundleDirs as $dir) {
-
-                if(!is_dir($dir.'/'.$class.'/Entity')) {
-                    continue;
-                }
-
-                $directory = $dir.'/'.$class.'/Entity';
-            }
-
-            if(!$directory) {
-                continue;
-            }
-
-            foreach($finder->in($directory) as $file) {
-                $mapped_class       = sprintf('%s\%s\Entity\%s', $namespace, $class, $file->getbaseName('.php'));
-                $application_class  = sprintf('Application\%s\Entity\%s', $class, $file->getbaseName('.php'));
-                $mapping[$mapped_class] = $application_class;
-            }
-        }
-
-        return $mapping;
     }
 }
