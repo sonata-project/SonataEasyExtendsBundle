@@ -50,7 +50,7 @@ class EasyExtendsExtension extends Extension {
 
     public function getNamespace() {
 
-        return 'http://www.sonata-project.org/schema/dic/sonata-basket';
+        return 'http://www.sonata-project.org/schema/dic/easy-extends';
     }
 
     public function getAlias() {

@@ -74,6 +74,7 @@ EOT
             if ($metadatas = $this->getBundleMetadatas($bundle)) {
 
                 $this->generateEntityFiles($output, $bundle, $metadatas, $application_dir);
+                $this->generateEntityRepositoryFiles($output, $bundle, $metadatas, $application_dir);
                 $this->generateMetadataFiles($output, $bundle, $metadatas, $application_dir);
             }
         }
@@ -124,8 +125,16 @@ EOT
         foreach ($metadatas as $metadata) {
             $class = substr($metadata->name, strripos($metadata->name, '\\') + 1);
 
+            $ns = $bundle->getNamespacePrefix().'\\'.$bundle->getName().'\\Entity';
+
+            // metadata loader is broken, load all entities
+            if(strpos($metadata->name, $ns) === false)
+            {
+                continue;
+            }
+
             // only extends Base class
-            if(strpos($class, "Base" ) !== 0) {
+            if(strpos($class, "Base" ) !== 0 && substr($class, 0, -10) !== "Repository") {
                 continue;
             }
 
@@ -140,7 +149,7 @@ EOT
                 continue;
             }
 
-            $output->writeln(sprintf('  > generating <comment>%s</comment>', $class));
+            $output->writeln(sprintf('  > generating entity <comment>%s</comment>', $class));
 
             $string = Mustache::renderString($this->getEntityTemplate(), array(
                 'bundle'    => $bundle->getName(),
@@ -152,6 +161,73 @@ EOT
         }
     }
 
+    public function generateEntityRepositoryFiles($output, $bundle, $metadatas, $application_dir)
+    {
+        $output->writeln(sprintf('Generating entity repository files for "<info>%s</info>"', $bundle->getName()));
+
+        foreach ($metadatas as $metadata) {
+            $class = substr($metadata->name, strripos($metadata->name, '\\') + 1).'Repository';
+
+            $ns = $bundle->getNamespacePrefix().'\\'.$bundle->getName().'\\Entity';
+
+            $repository_file = sprintf('%s/Entity/%s.php', $bundle->getPath(), $class);
+
+            // metadata loader is broken, load all entities
+            if(strpos($metadata->name, $ns) === false)
+            {
+                continue;
+            }
+
+            if(!is_file($repository_file)) {
+                $output->writeln(sprintf('  > file <comment>%s</comment> does not exist', $class));
+                continue;    
+            }
+
+            
+            // only extends Base class
+            if(strpos($class, "Base") !== 0 && substr($class, 0, -10) === "Repository") {
+                continue;
+            }
+
+            $class = substr($class, 4);
+
+            $file = sprintf("%s/%s/Entity/%s.php",
+                $application_dir,
+                $bundle->getName(),
+                $class
+            );
+
+            if(is_file($file)) {
+                continue;
+            }
+
+            $output->writeln(sprintf('  > generating <comment>%s</comment>', $class));
+
+            $string = Mustache::renderString($this->getEntityRepositoryTemplate(), array(
+                'bundle'    => $bundle->getName(),
+                'class'     => $class,
+                'extends'   => $metadata->name
+            ));
+
+            file_put_contents($file, $string);
+        }
+    }
+
+    public function hasRepositoryClass($bundle, $metadata)
+    {
+
+        $class = substr($metadata->name, strripos($metadata->name, '\\') + 1).'Repository';
+
+        $repository_file = sprintf('%s/Entity/%s.php', $bundle->getPath(), $class);
+        
+        if(!is_file($repository_file)) {
+
+            return false;
+        }
+
+        return true;
+    }
+    
     public function generateMetadataFiles($output, $bundle, $metadatas, $application_dir)
     {
         $output->writeln(sprintf('Generating metadata files for "<info>%s</info>"', $bundle->getName()));
@@ -159,6 +235,14 @@ EOT
         foreach ($metadatas as $metadata) {
             $class = substr($metadata->name, strripos($metadata->name, '\\') + 1);
 
+            $ns = $bundle->getNamespacePrefix().'\\'.$bundle->getName().'\\Entity';
+
+            // metadata loader is broken, load all entities
+            if(strpos($metadata->name, $ns) === false)
+            {
+                continue;
+            }
+            
             // only extends Base class
             if(strpos($class, "Base" ) !== 0) {
                 continue;
@@ -176,12 +260,19 @@ EOT
                 continue;
             }
 
+            if($this->hasRepositoryClass($bundle, $metadata)) {
+                $repository = sprintf('Application\\%s\\Entity\\%sRepository', $bundle->getName(), $class);
+            } else {
+                $repository = 'Doctrine\\ORM\\EntityRepository';
+            }
+
             $output->writeln(sprintf('  > generating metadata <comment>Entity.%s.dcm.xml</comment>', $class));
 
             $string = Mustache::renderString($this->getMetadataTemplate(), array(
-                'bundle'    => $bundle->getName(),
-                'class'     => $class,
-                'table'     => \Doctrine\Common\Util\Inflector::tableize(str_replace("Bundle", "", $bundle->getName()).'_'.$class)
+                'bundle'        => $bundle->getName(),
+                'class'         => $class,
+                'table'         => \Doctrine\Common\Util\Inflector::tableize(str_replace("Bundle", "", $bundle->getName()).'_'.$class),
+                'repository'    => $repository
             ));
 
             file_put_contents($file, $string);
@@ -191,7 +282,7 @@ EOT
     public function getEntityTemplate()
     {
         return '<?php
-/*
+/**
  * This file is part of the <name> project.
  *
  * (c) <yourname> <youremail>
@@ -203,7 +294,12 @@ EOT
 namespace Application\{{ bundle }}\Entity;
 
 /**
+ * This file has been generated by the EasyExtends bundle ( http://sonata-project.org/easy-extends )
  *
+ * References :
+ *   working with object : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/working-with-objects/en
+ *
+ * @author <yourname> <youremail>
  */
 class {{ class }} extends \{{ extends }} {
 
@@ -225,11 +321,41 @@ class {{ class }} extends \{{ extends }} {
 }';
     }
 
+    public function getEntityRepositoryTemplate()
+    {
+        return '<?php
+/**
+ * This file is part of the <name> project.
+ *
+ * (c) <yourname> <youremail>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Application\{{ bundle }}\Entity;
+
+/**
+ * This file has been generated by the EasyExtends bundle ( http://sonata-project.org/easy-extends )
+ *
+ * References :
+ *   custom repository : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/working-with-objects/en#querying:custom-repositories
+ *   query builder     : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/query-builder/en
+ *   dql               : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/dql-doctrine-query-language/en
+ *
+ * @author <yourname> <youremail>
+ */
+class {{ class }} extends \{{ extends }}Repository {
+
+}';
+    }
+
+    
     public function getBundleTemplate()
     {
 
         return '<?php
-/*
+/**
  * This file is part of the <name> project.
  *
  * (c) <yourname> <youremail>
@@ -242,6 +368,17 @@ namespace Application\{{ bundle }};
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+
+/**
+ * This file has been generated by the EasyExtends bundle ( http://sonata-project.org/easy-extends )
+ *
+ * References :
+ *   custom repository : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/working-with-objects/en#querying:custom-repositories
+ *   query builder     : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/query-builder/en
+ *   dql               : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/dql-doctrine-query-language/en
+ *
+ * @author <yourname> <youremail>
+ */
 class {{ bundle }} extends Bundle {
 
 }';
@@ -252,7 +389,18 @@ class {{ bundle }} extends Bundle {
     {
         return '<?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xsi="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="Application\{{ bundle }}\Entity\{{ class }}" table="{{ table }}">
+    <!--
+         This file has been generated by the EasyExtends bundle ( http://sonata-project.org/easy-extends )
+
+         References :
+            xsd                  : https://github.com/doctrine/doctrine2/blob/master/doctrine-mapping.xsd
+            xml mapping          : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/xml-mapping/en
+            association mapping  : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/association-mapping/en
+    -->
+    <entity
+        name="Application\{{ bundle }}\Entity\{{ class }}"
+        table="{{ table }}"
+        repository-class="{{ repository }}">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
