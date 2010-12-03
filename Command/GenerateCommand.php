@@ -83,21 +83,25 @@ EOT
 
     public function generateBundleDirectory($output, $bundle, $application_dir)
     {
-        $dir = sprintf('%s/%s', $application_dir, $bundle->getName());
 
-        if(is_dir($dir))
-        {
-            return;
+        $base_directory = sprintf('%s/%s', $application_dir, $bundle->getName());
+
+        $directories = array(
+            '',
+            '/Resources/config/doctrine/metadata/orm',
+            '/Resources/config/routing',
+            '/Resources/view',
+            '/Entity',
+            '/Controller'
+        );
+
+        foreach($directories as $directory) {
+            $dir = sprintf('%s/%s', $base_directory, $directory);
+            if(!is_dir($dir)) {
+                $output->writeln(sprintf('  > generating bundle directory <comment>%s</comment>', $dir));
+                mkdir($dir, 0755, true);
+            }
         }
-
-        $output->writeln(sprintf('  > generating bundle directory <comment>%s</comment>', $dir));
-        
-        mkdir($dir, 0755, true);
-        mkdir($dir.'/Resources/config/doctrine/metadata/orm', 0755, true);
-        mkdir($dir.'/Resources/config/routing', 0755, true);
-        mkdir($dir.'/Resources/view', 0755, true);
-        mkdir($dir.'/Entity', 0755, true);
-        mkdir($dir.'/Controller', 0755, true);
     }
 
     public function generateBundleFile($output, $bundle, $application_dir)
