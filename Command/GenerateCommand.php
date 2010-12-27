@@ -48,10 +48,10 @@ EOT
         // find a better way to detect the Application folder
         $application_dir = sprintf(
             "%s/../src/Application",
-            $this->container->getKernelService()->getRootDir()
+            $this->container->get('kernel')->getRootDir()
         );
 
-        foreach ($this->container->getKernelService()->getBundles() as $bundle) {
+        foreach ($this->container->get('kernel')->getBundles() as $bundle) {
 
             // retrieve the full bundle classname
             $class = $bundle->getReflection()->getName();
@@ -90,7 +90,7 @@ EOT
             '',
             '/Resources/config/doctrine/metadata/orm',
             '/Resources/config/routing',
-            '/Resources/view',
+            '/Resources/views',
             '/Entity',
             '/Controller'
         );
