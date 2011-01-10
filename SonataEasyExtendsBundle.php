@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Bundle\EasyExtendsBundle;
+namespace Bundle\Sonata\EasyExtendsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class EasyExtendsBundle extends Bundle {
+class SonataEasyExtendsBundle extends Bundle {
 
 }
