@@ -82,9 +82,12 @@ EOT
 
             $this->generateBundleFile($output, $bundle_metadata);
 
+            $this->generateMappingEntityFiles($output, $bundle_metadata);
+
             $this->generateEntityFiles($output, $bundle_metadata);
 
             $this->generateEntityRepositoryFiles($output, $bundle_metadata);
+            $output->writeln('');
         }
 
         $output->writeln('done!');
@@ -130,29 +133,72 @@ EOT
         file_put_contents($file, $string);
     }
 
-    public function generateEntityFiles($output, BundleMetadata $bundle_metadata)
+    public function generateMappingEntityFiles($output, BundleMetadata $bundle_metadata)
     {
-        $output->writeln(sprintf('Copy entity files for "<info>%s</info>"', $bundle_metadata->getName()));
+        $output->writeln(' - Copy entity files');
 
         $files = $bundle_metadata->getEntityMappingFiles();
 
         foreach ($files as $file) {
 
+            // copy mapping definition
             $dest_file  = sprintf('%s/%s', $bundle_metadata->getExtendedMappingEntityDirectory(), $file->getFileName());
             $src_file   = sprintf('%s/%s', $bundle_metadata->getMappingEntityDirectory(), $file->getFileName());
 
             if(is_file($dest_file)) {
-                $output->writeln(sprintf('  > ~ <info>%s</info>', $file->getFileName()));
+                $output->writeln(sprintf('   ~ <info>%s</info>', $file->getFileName()));
             } else {
-                $output->writeln(sprintf('  > + <info>%s</info>', $file->getFileName()));
+                $output->writeln(sprintf('   + <info>%s</info>', $file->getFileName()));
                 copy($src_file, $dest_file);
+            }
+        }
+    }
+
+    public function generateEntityFiles(OutputInterface $output, BundleMetadata $bundle_metadata)
+    {
+        $output->writeln(' - Generating entity files');
+
+        $names = $bundle_metadata->getEntityNames();
+
+        foreach ($names as $name) {
+
+            $extended_name = $name;
+
+            $dest_file  = sprintf('%s/%s.php', $bundle_metadata->getExtendedEntityDirectory(), $name);
+            $src_file = sprintf('%s/%s.php', $bundle_metadata->getEntityDirectory(), $extended_name);
+
+            if(!is_file($src_file)) {
+                $extended_name = 'Base'.$name;
+                $src_file = sprintf('%s/%s.php', $bundle_metadata->getEntityDirectory(), $extended_name);
+
+                if(!is_file($src_file)) {
+                    $output->writeln(sprintf('   ! <info>%s</info>', $extended_name));
+
+                    continue;
+                }
+            }
+
+            if(is_file($dest_file)) {
+                $output->writeln(sprintf('   ~ <info>%s</info>', $name));
+            } else {
+                $output->writeln(sprintf('   + <info>%s</info>', $name));
+
+                $string = Mustache::renderString($this->getEntityTemplate(), array(
+                    'extended_namespace'    => $bundle_metadata->getExtendedNamespace(),
+                    'name'                  => $name != $extended_name ? $extended_name : $name,
+                    'class'                 => $name,
+                    'extended_name'         => $name == $extended_name ? 'Base'.$name : $extended_name,
+                    'namespace'             => $bundle_metadata->getNamespace()
+                ));
+
+                file_put_contents($dest_file, $string);
             }
         }
     }
 
     public function generateEntityRepositoryFiles(OutputInterface $output, BundleMetadata $bundle_metadata)
     {
-        $output->writeln(sprintf('Generating entity repository files for "<info>%s</info>"', $bundle_metadata->getName()));
+        $output->writeln(' - Generating entity repository files');
 
         $names = $bundle_metadata->getEntityNames();
 
@@ -162,14 +208,14 @@ EOT
             $src_file   = sprintf('%s/Base%sRepository.php', $bundle_metadata->getEntityDirectory(), $name);
 
             if(!is_file($src_file)) {
-                $output->writeln(sprintf('  > ! <info>%sRepository</info>', $name));
+                $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));
                 continue;
             }
             
             if(is_file($dest_file)) {
-                $output->writeln(sprintf('  > ~ <info>%sRepository</info>', $name));
+                $output->writeln(sprintf('   ~ <info>%sRepository</info>', $name));
             } else {
-                $output->writeln(sprintf('  > + <info>%sRepository</info>', $name));
+                $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
                 $string = Mustache::renderString($this->getEntityRepositoryTemplate(), array(
                     'extended_namespace'    => $bundle_metadata->getExtendedNamespace(),
@@ -195,7 +241,9 @@ EOT
  * file that was distributed with this source code.
  */
 
-namespace Application\{{ bundle }}\Entity;
+namespace {{ extended_namespace }}\Entity;
+
+use {{ namespace }}\Entity\{{ name }} as {{ extended_name }};
 
 /**
  * This file has been generated by the EasyExtends bundle ( http://sonata-project.org/easy-extends )
@@ -205,7 +253,8 @@ namespace Application\{{ bundle }}\Entity;
  *
  * @author <yourname> <youremail>
  */
-class {{ class }} extends \{{ extends }} {
+class {{ class }} extends {{ extended_name }}
+{
 
     /**
      * @var integer $id
@@ -240,6 +289,7 @@ class {{ class }} extends \{{ extends }} {
 namespace {{ extended_namespace }}\Entity;
 
 use {{ namespace}}\Entity\Base{{ name }}Repository;
+
 /**
  * This file has been generated by the EasyExtends bundle ( http://sonata-project.org/easy-extends )
  *
@@ -250,7 +300,8 @@ use {{ namespace}}\Entity\Base{{ name }}Repository;
  *
  * @author <yourname> <youremail>
  */
-class {{ name }}Repository extends Base{{ name }}Repository {
+class {{ name }}Repository extends Base{{ name }}Repository
+{
 
 }';
     }
@@ -284,7 +335,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @author <yourname> <youremail>
  */
-class {{ bundle }} extends Bundle {
+class {{ bundle }} extends Bundle
+{
 
 }';
         
