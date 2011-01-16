@@ -1,5 +1,6 @@
 Prototype to easily share entities accross Bundle and Application
 
+
 ## Installation
 
 ### Add EasyExtendsBundle to your src/Bundle dir
@@ -22,3 +23,5 @@ Prototype to easily share entities accross Bundle and Application
 ### Add this line into your config.yml file 
 
     easy_extends.config: ~
+
+

@@ -259,7 +259,7 @@ class {{ class }} extends {{ extended_name }}
     /**
      * @var integer $id
      */
-    private $id;
+    protected $id;
 
     /**
      * Get id

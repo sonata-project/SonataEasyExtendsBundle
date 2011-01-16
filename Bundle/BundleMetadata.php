@@ -177,16 +177,23 @@ class BundleMetadata
 
         return sprintf('Bundle\%s', $this->getName());
     }
-    
+
+    /**
+     * return the bundle name (without the vendor information)
+     *
+     * @param bool $with_vendor
+     * @return string return the bundle name
+     */
     public function getName($with_vendor = false)
     {
+        
         if($with_vendor && $this->getVendor())
         {
-            return sprintf("%s%s", $this->getVendor(), $this->bundle->getName());
+            
+            return $this->bundle->getName();
         }
 
-        return $this->bundle->getName();
+        return substr($this->bundle->getName(), strlen($this->getVendor()));
     }
-
 
 }
