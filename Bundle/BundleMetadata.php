@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Bundle\Sonata\EasyExtendsBundle\Bundle;
+namespace Sonata\EasyExtendsBundle\Bundle;
 
 use Symfony\Component\Finder\Finder;
 
@@ -20,7 +20,13 @@ class BundleMetadata
 
     protected $valid = false;
 
+    protected $namespace;
+
+    protected $name;
+    
     protected $extendedDirectory = false;
+
+    protected $extendedNamespace = false;
 
     protected $configuration = array();
 
@@ -32,28 +38,44 @@ class BundleMetadata
         $this->buildInformation();
     }
 
+    /**
+     * build basic information and check if the bundle respect the following convention
+     *   Vendor/BundleNameBundle/VendorBundleNameBundle
+     *
+     * if the bundle does not respect this convention then the easy extends command will ignore
+     * this bundle
+     *
+     * @return void
+     */
     protected function buildInformation()
     {
 
         $information = explode('\\', $this->getClass());
-        
-        if($information[0] == 'Bundle' && count($information) == 4)  { // with vendor name
 
-            $this->extendedDirectory = sprintf('%s/%s/%s', $this->configuration['application_dir'], $information[1], $information[2]);
-            $this->vendor = $information[1];
-            $this->valid = true;
-            
-        } else if($information[0] == 'Bundle' && count($information) == 3) { // wo vendor name
-
-            $this->extendedDirectory = sprintf('%s/%s', $this->configuration['application_dir'], $information[1]);
-            $this->valid = true;
-            
-        } else {
-
+        if(!$this->isExtendable()) {
             $this->valid = false;
-            
+            return;
         }
 
+        if(count($information) != 3) {
+            $this->valid = false;
+            return;
+        }
+
+        if($information[0].$information[1] != $information[2]) {
+            $this->valid = false;
+            return;
+        }
+
+
+        $parts = explode('\\', $this->getclass());
+
+        $this->name = $parts[count($parts) - 1];
+        $this->vendor = $information[0];
+        $this->namespace =  sprintf('%s\%s', $this->vendor, $information[1]);
+        $this->extendedDirectory = sprintf('%s/%s/%s', $this->configuration['application_dir'], $this->vendor, $information[1]);
+        $this->extendedNamespace = sprintf('Application\\%s\\%s', $this->vendor, $information[1]);
+        $this->valid = true;
     }
 
     public function isExtendable()
@@ -67,7 +89,7 @@ class BundleMetadata
     }
     public function getClass()
     {
-        return $this->bundle->getReflection()->getName();
+        return get_class($this->bundle);
     }
 
     public function isValid()
@@ -160,40 +182,24 @@ class BundleMetadata
 
     public function getExtendedNamespace()
     {
-        if($this->getVendor())
-        {
-            return sprintf('Application\%s\%s', $this->getVendor(), $this->getName());
-        }
-
-        return sprintf('Application\%s', $this->getName());
+        return $this->extendedNamespace;
     }
 
     public function getNamespace()
     {
-        if($this->getVendor())
-        {
-            return sprintf('Bundle\%s\%s', $this->getVendor(), $this->getName());
-        }
 
-        return sprintf('Bundle\%s', $this->getName());
+        return $this->namespace;
     }
 
     /**
-     * return the bundle name (without the vendor information)
+     * return the bundle name
      *
-     * @param bool $with_vendor
      * @return string return the bundle name
      */
-    public function getName($with_vendor = false)
+    public function getName()
     {
         
-        if($with_vendor && $this->getVendor())
-        {
-            
-            return $this->bundle->getName();
-        }
-
-        return substr($this->bundle->getName(), strlen($this->getVendor()));
+        return $this->name;
     }
 
 }

@@ -9,7 +9,7 @@
  */
 
 
-namespace Bundle\Sonata\EasyExtendsBundle\Command;
+namespace Sonata\EasyExtendsBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -22,7 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Util\Mustache;
 
 
 
-use Bundle\Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
+use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
 /**
  * Generate Application entities from bundle entities
@@ -64,15 +64,15 @@ EOT
             $bundle_metadata = new BundleMetadata($bundle, $configuration);
 
             // generate the bundle file
-            if(!$bundle_metadata->isValid()) {
-                $output->writeln(sprintf('%s : <comment>wrong folder structure</comment>', $bundle_metadata->getClass()));
-                
+            if(!$bundle_metadata->isExtendable()) {
+                $output->writeln(sprintf('Ignoring bundle : "<comment>%s</comment>"', $bundle_metadata->getClass()));
                 continue;
             }
 
             // generate the bundle file
-            if(!$bundle_metadata->isExtendable()) {
-                $output->writeln(sprintf('Ignoring bundle : "<comment>%s</comment>"', $bundle_metadata->getName()));
+            if(!$bundle_metadata->isValid()) {
+                $output->writeln(sprintf('%s : <comment>wrong folder structure</comment>', $bundle_metadata->getClass()));
+                
                 continue;
             }
 
@@ -117,7 +117,7 @@ EOT
 
     public function generateBundleFile(OutputInterface $output, BundleMetadata $bundle_metadata)
     {
-        $file = sprintf('%s/%s.php', $bundle_metadata->getExtendedDirectory(), $bundle_metadata->getName(true));
+        $file = sprintf('%s/Application%s.php', $bundle_metadata->getExtendedDirectory(), $bundle_metadata->getName());
 
         if(is_file($file)) {
             return;
@@ -126,7 +126,7 @@ EOT
         $output->writeln(sprintf('  > generating bundle file <comment>%s</comment>', $file));
 
         $string = Mustache::renderString($this->getBundleTemplate(), array(
-            'bundle'    => $bundle_metadata->getName(true),
+            'bundle'    => $bundle_metadata->getName(),
             'namespace' => $bundle_metadata->getExtendedNamespace(),
         ));
 
@@ -135,6 +135,7 @@ EOT
 
     public function generateMappingEntityFiles($output, BundleMetadata $bundle_metadata)
     {
+
         $output->writeln(' - Copy entity files');
 
         $files = $bundle_metadata->getEntityMappingFiles();
@@ -193,6 +194,7 @@ EOT
 
                 file_put_contents($dest_file, $string);
             }
+
         }
     }
 
@@ -231,7 +233,8 @@ EOT
     
     public function getEntityTemplate()
     {
-        return '<?php
+        return <<<MUSTACHE
+<?php
 /**
  * This file is part of the <name> project.
  *
@@ -257,26 +260,29 @@ class {{ class }} extends {{ extended_name }}
 {
 
     /**
-     * @var integer $id
+     * @var integer \$id
      */
-    protected $id;
+    protected \$id;
 
     /**
      * Get id
      *
-     * @return integer $id
+     * @return integer \$id
      */
     public function getId()
     {
-        return $this->id;
+        return \$this->id;
     }
 
-}';
+}
+MUSTACHE;
+        
     }
 
     public function getEntityRepositoryTemplate()
     {
-        return '<?php
+        return <<<MUSTACHE
+<?php
 /**
  * This file is part of the <name> project.
  *
@@ -303,14 +309,16 @@ use {{ namespace}}\Entity\Base{{ name }}Repository;
 class {{ name }}Repository extends Base{{ name }}Repository
 {
 
-}';
+}
+MUSTACHE;
     }
 
     
     public function getBundleTemplate()
     {
 
-        return '<?php
+        return <<<MUSTACHE
+<?php
 /**
  * This file is part of the <name> project.
  *
@@ -335,10 +343,33 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @author <yourname> <youremail>
  */
-class {{ bundle }} extends Bundle
+class Application{{ bundle }} extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return '{{ bundle }}';
+    }
 
-}';
+    /**
+     * {@inheritdoc}
+     */
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPath()
+    {
+        return strtr(__DIR__, '\\\', '/');
+    }
+}
+MUSTACHE;
         
     }
 }

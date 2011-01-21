@@ -5,7 +5,7 @@ Prototype to easily share entities accross Bundle and Application
 
 ### Add EasyExtendsBundle to your src/Bundle dir
 
-    git submodule add git@github.com:sonata-project/EasyExtendsBundle.git src/Bundle/Sonata/EasyExtendsBundle
+    git submodule add git@github.com:sonata-project/EasyExtendsBundle.git src/Sonata/EasyExtendsBundle
 
 ### Add EasyExtendsBundle to your application kernel
 
@@ -14,7 +14,7 @@ Prototype to easily share entities accross Bundle and Application
     {
         return array(
             // ...
-            new Bundle\Sonata\EasyExtendsBundle\EasyExtendsBundle(),
+            new Sonata\EasyExtendsBundle\EasyExtendsBundle(),
             // ...
         );
     }
