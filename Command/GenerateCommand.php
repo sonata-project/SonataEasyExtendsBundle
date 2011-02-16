@@ -100,6 +100,7 @@ EOT
         $directories = array(
             '',
             'Resources/config/doctrine/metadata/orm',
+            'Resources/config/doctrine/metadata/odm',
             'Resources/config/routing',
             'Resources/views',
             'Entity',
