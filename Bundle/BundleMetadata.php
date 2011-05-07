@@ -23,12 +23,16 @@ class BundleMetadata
     protected $namespace;
 
     protected $name;
-    
+
     protected $extendedDirectory = false;
 
     protected $extendedNamespace = false;
 
     protected $configuration = array();
+
+    protected $ormMetadata = null;
+
+    protected $odmMetadata = null;
 
     public function __construct($bundle, array $configuration = array())
     {
@@ -49,7 +53,6 @@ class BundleMetadata
      */
     protected function buildInformation()
     {
-
         $information = explode('\\', $this->getClass());
 
         if(!$this->isExtendable()) {
@@ -67,7 +70,6 @@ class BundleMetadata
             return;
         }
 
-
         $parts = explode('\\', $this->getclass());
 
         $this->name = $parts[count($parts) - 1];
@@ -76,6 +78,9 @@ class BundleMetadata
         $this->extendedDirectory = sprintf('%s/%s/%s', $this->configuration['application_dir'], $this->vendor, $information[1]);
         $this->extendedNamespace = sprintf('Application\\%s\\%s', $this->vendor, $information[1]);
         $this->valid = true;
+
+        $this->ormMetadata = new OrmMetadata($this);
+        $this->odmMetadata = new OdmMetadata($this);
     }
 
     public function isExtendable()
@@ -107,79 +112,6 @@ class BundleMetadata
         return $this->vendor;
     }
 
-    public function getMappingEntityDirectory()
-    {
-
-        return sprintf('%s/Resources/config/doctrine/metadata/orm', $this->bundle->getPath());
-    }
-
-    public function getExtendedMappingEntityDirectory()
-    {
-
-        return sprintf('%s/Resources/config/doctrine/metadata/orm', $this->getExtendedDirectory());
-    }
-
-    public function getEntityDirectory()
-    {
-
-        return sprintf('%s/Entity', $this->bundle->getPath());
-    }
-
-    public function getExtendedEntityDirectory()
-    {
-
-        return sprintf('%s/Entity', $this->getExtendedDirectory());
-    }
-    
-    public function getEntityMappingFiles()
-    {
-        try {
-            $f = new Finder;
-            $f->name('Application.*.dcm.xml');
-            $f->in($this->getMappingEntityDirectory());
-
-            return $f->getIterator();
-        } catch(\Exception $e) {
-            
-            return array();
-        }
-    }
-
-    public function getEntityNames()
-    {
-        $names = array();
-        
-        try {
-            $f = new Finder;
-            $f->name('Application.*.dcm.xml');
-            $f->in($this->getMappingEntityDirectory());
-
-            foreach($f->getIterator() as $file) {
-                $e = explode('.', $file);
-                $names[] = $e[count($e) - 3];
-            }
-
-        } catch(\Exception $e) {
-
-        }
-
-        return $names;
-    }
-
-    public function getRepositoryFiles()
-    {
-        try {
-            $f = new Finder;
-            $f->name('Application.*.dcm.xml');
-            $f->in($this->getEntityDirectory());
-
-            return $f->getIterator();
-        } catch(\Exception $e) {
-
-            return array();
-        }
-    }
-
     public function getExtendedNamespace()
     {
         return $this->extendedNamespace;
@@ -187,7 +119,6 @@ class BundleMetadata
 
     public function getNamespace()
     {
-
         return $this->namespace;
     }
 
@@ -198,8 +129,21 @@ class BundleMetadata
      */
     public function getName()
     {
-        
         return $this->name;
     }
 
+    public function getBundle()
+    {
+        return $this->bundle;
+    }
+
+    public function getOdmMetadata()
+    {
+      return $this->odmMetadata;
+    }
+
+    public function getOrmMetadata()
+    {
+      return $this->ormMetadata;
+    }
 }
