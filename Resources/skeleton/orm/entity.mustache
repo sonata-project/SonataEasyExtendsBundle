@@ -23,19 +23,18 @@ use {{ namespace }}\Entity\{{ name }} as {{ extended_name }};
 class {{ class }} extends {{ extended_name }}
 {
 
-  /**
-   * @var integer \$id
-   */
-  protected \$id;
+    /**
+     * @var integer $id
+     */
+    protected $id;
 
-  /**
-   * Get id
-   *
-   * @return integer \$id
-   */
-  public function getId()
-  {
-      return \$this->id;
-  }
-
+    /**
+     * Get id
+     *
+     * @return integer $id
+     */
+    public function getId()
+    {
+      return $this->id;
+    }
 }

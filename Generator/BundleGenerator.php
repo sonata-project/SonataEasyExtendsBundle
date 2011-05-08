@@ -42,7 +42,6 @@ class BundleGenerator implements GeneratorInterface
      */
     protected function generateBundleDirectory(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-
         $directories = array(
             '',
             'Resources/config/doctrine/metadata/orm',
