@@ -40,16 +40,18 @@ The <info>easy-extends:generate:entities</info> command generates a set of Entit
 in your Application Entity folder from the Entities set in bundles. This command
 will allow to generate create custom code from the model.
 
-  <info>./symfony easy-extends:generate</info>
+  <info>./symfony easy-extends:generate SonataUserBundle</info>
 EOT
         );
+
+        $this->addArgument('bundle', InputArgument::REQUIRED, 'The bundle name to "easy-extends"');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // find a better way to detect the Application folder
         $application_dir = sprintf(
-            "%s/../src/Application",
+            "%s/Application",
             $this->container->get('kernel')->getRootDir()
         );
 
@@ -58,6 +60,10 @@ EOT
         );
 
         foreach ($this->container->get('kernel')->getBundles() as $bundle) {
+
+            if ($bundle->getName() != $input->getArgument('bundle')) {
+                continue;
+            }
 
             $bundleMetadata = new BundleMetadata($bundle, $configuration);
 

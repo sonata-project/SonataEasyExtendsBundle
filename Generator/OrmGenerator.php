@@ -50,7 +50,6 @@ class OrmGenerator implements GeneratorInterface
         $files = $bundleMetadata->getOrmMetadata()->getEntityMappingFiles();
 
         foreach ($files as $file) {
-
             // copy mapping definition
             $dest_file  = sprintf('%s/%s', $bundleMetadata->getOrmMetadata()->getExtendedMappingEntityDirectory(), $file->getFileName());
             $src_file   = sprintf('%s/%s', $bundleMetadata->getOrmMetadata()->getMappingEntityDirectory(), $file->getFileName());
@@ -98,7 +97,7 @@ class OrmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $name));
 
-                $string = Mustache::renderString($this->getOrmMetadata()->getEntityTemplate(), array(
+                $string = Mustache::renderString($this->getEntityTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name != $extendedName ? $extendedName : $name,
                     'class'                 => $name,

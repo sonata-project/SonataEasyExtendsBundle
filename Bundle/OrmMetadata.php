@@ -21,8 +21,8 @@ class OrmMetadata
 
     public function __construct(BundleMetadata $bundleMetadata)
     {
-        $this->mappingEntityDirectory           = sprintf('%s/Resources/config/doctrine/metadata/orm', $bundleMetadata->getBundle()->getPath());
-        $this->extendedMappingEntityDirectory   = sprintf('%s/Resources/config/doctrine/metadata/orm', $bundleMetadata->getExtendedDirectory());
+        $this->mappingEntityDirectory           = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
+        $this->extendedMappingEntityDirectory   = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
         $this->entityDirectory                  = sprintf('%s/Entity', $bundleMetadata->getBundle()->getPath());
         $this->extendedEntityDirectory          = sprintf('%s/Entity', $bundleMetadata->getExtendedDirectory());
     }
@@ -51,7 +51,7 @@ class OrmMetadata
     {
         try {
             $f = new Finder;
-            $f->name('Application.*.dcm.xml');
+            $f->name('Application.*.orm.xml');
             $f->in($this->getMappingEntityDirectory());
 
             return $f->getIterator();
@@ -67,7 +67,7 @@ class OrmMetadata
 
         try {
             $f = new Finder;
-            $f->name('Application.*.dcm.xml');
+            $f->name('Application.*.orm.xml');
             $f->in($this->getMappingEntityDirectory());
 
             foreach($f->getIterator() as $file) {
@@ -86,7 +86,7 @@ class OrmMetadata
     {
         try {
             $f = new Finder;
-            $f->name('Application.*.dcm.xml');
+            $f->name('Application.*.orm.xml');
             $f->in($this->getEntityDirectory());
 
             return $f->getIterator();

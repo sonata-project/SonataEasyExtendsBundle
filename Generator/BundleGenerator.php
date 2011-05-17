@@ -21,7 +21,7 @@ class BundleGenerator implements GeneratorInterface
 
     public function __construct()
     {
-        $this->bundleTemplate = file_get_contents(__DIR__.'../Resources/skeleton/bundle/bundle.mustache');
+        $this->bundleTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/bundle/bundle.mustache');
     }
 
     /**
@@ -44,8 +44,7 @@ class BundleGenerator implements GeneratorInterface
     {
         $directories = array(
             '',
-            'Resources/config/doctrine/metadata/orm',
-            'Resources/config/doctrine/metadata/odm',
+            'Resources/config/doctrine',
             'Resources/config/routing',
             'Resources/views',
             'Command',

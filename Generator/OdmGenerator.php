@@ -134,7 +134,7 @@ class OdmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
-                $string = Mustache::renderString($this->getOdmMetadata()->getDocumentRepositoryTemplate(), array(
+                $string = Mustache::renderString($this->getDocumentRepositoryTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name,
                     'namespace'             => $bundleMetadata->getNamespace()

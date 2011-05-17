@@ -21,8 +21,8 @@ class OdmMetadata
 
     public function __construct(BundleMetadata $bundleMetadata)
     {
-        $this->mappingDocumentDirectory           = sprintf('%s/Resources/config/doctrine/metadata/odm', $bundleMetadata->getBundle()->getPath());
-        $this->extendedMappingDocumentDirectory   = sprintf('%s/Resources/config/doctrine/metadata/odm', $bundleMetadata->getExtendedDirectory());
+        $this->mappingDocumentDirectory           = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
+        $this->extendedMappingDocumentDirectory   = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
         $this->documentDirectory                  = sprintf('%s/Document', $bundleMetadata->getBundle()->getPath());
         $this->extendedDocumentDirectory          = sprintf('%s/Document', $bundleMetadata->getExtendedDirectory());
     }
@@ -51,7 +51,7 @@ class OdmMetadata
     {
         try {
             $f = new Finder;
-            $f->name('Application.*.dcm.xml');
+            $f->name('Application.*.mongodb.xml');
             $f->in($this->getMappingDocumentDirectory());
 
             return $f->getIterator();
@@ -67,7 +67,7 @@ class OdmMetadata
 
         try {
             $f = new Finder;
-            $f->name('Application.*.dcm.xml');
+            $f->name('Application.*.mongodb.xml');
             $f->in($this->getMappingDocumentDirectory());
 
             foreach($f->getIterator() as $file) {
@@ -86,7 +86,7 @@ class OdmMetadata
     {
         try {
             $f = new Finder;
-            $f->name('Application.*.dcm.xml');
+            $f->name('Application.*.mongodb.xml');
             $f->in($this->getDocumentDirectory());
 
             return $f->getIterator();
