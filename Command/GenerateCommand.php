@@ -77,12 +77,14 @@ EOT
             return;
         }
 
+        $processed = false;
         foreach ($this->container->get('kernel')->getBundles() as $bundle) {
 
             if ($bundle->getName() != $bundleName) {
                 continue;
             }
 
+            $processed = true;
             $bundleMetadata = new BundleMetadata($bundle, $configuration);
 
             // generate the bundle file
@@ -113,7 +115,13 @@ EOT
             $output->writeln('');
         }
 
-        $output->writeln('done!');
+        if ($processed) {
+            $output->writeln('done!');
+            return true;
+        }
 
+        $output->writeln(sprintf('<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>', $bundleName));
+
+        return false;
     }
 }
