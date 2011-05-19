@@ -44,24 +44,42 @@ will allow to generate create custom code from the model.
 EOT
         );
 
-        $this->addArgument('bundle', InputArgument::REQUIRED, 'The bundle name to "easy-extends"');
+        $this->addArgument('bundle', InputArgument::OPTIONAL, 'The bundle name to "easy-extends"', false);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
         // find a better way to detect the Application folder
-        $application_dir = sprintf(
-            "%s/Application",
-            $this->container->get('kernel')->getRootDir()
+        $configuration = array(
+            'application_dir' => sprintf("%s/Application", $this->container->get('kernel')->getRootDir())
         );
 
-        $configuration = array(
-            'application_dir' => $application_dir
-        );
+        $bundleName = $input->getArgument('bundle');
+
+        if ($bundleName == false) {
+            $output->writeln('');
+            $output->writeln('<error>You must provide a bundle name!</error>');
+            $output->writeln('');
+            $output->writeln('  Bundles availables :');
+            foreach ($this->container->get('kernel')->getBundles() as $bundle) {
+                $bundleMetadata = new BundleMetadata($bundle, $configuration);
+
+                if (!$bundleMetadata->isExtendable()) {
+                    continue;
+                }
+
+                $output->writeln(sprintf('     - %s', $bundle->getName()));
+            }
+
+            $output->writeln('');
+
+            return;
+        }
 
         foreach ($this->container->get('kernel')->getBundles() as $bundle) {
 
-            if ($bundle->getName() != $input->getArgument('bundle')) {
+            if ($bundle->getName() != $bundleName) {
                 continue;
             }
 
