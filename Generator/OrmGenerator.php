@@ -50,13 +50,15 @@ class OrmGenerator implements GeneratorInterface
         $files = $bundleMetadata->getOrmMetadata()->getEntityMappingFiles();
         foreach ($files as $file) {
             // copy mapping definition
-            $dest_file  = sprintf('%s/%s', $bundleMetadata->getOrmMetadata()->getExtendedMappingEntityDirectory(), $file->getFileName());
+            $fileName = substr($file->getFileName(), 0, strrpos($file->getFileName(), '.'));
+
+            $dest_file  = sprintf('%s/%s', $bundleMetadata->getOrmMetadata()->getExtendedMappingEntityDirectory(), $fileName);
             $src_file   = sprintf('%s/%s', $bundleMetadata->getOrmMetadata()->getMappingEntityDirectory(), $file->getFileName());
 
             if(is_file($dest_file)) {
-                $output->writeln(sprintf('   ~ <info>%s</info>', $file->getFileName()));
+                $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
             } else {
-                $output->writeln(sprintf('   + <info>%s</info>', $file->getFileName()));
+                $output->writeln(sprintf('   + <info>%s</info>', $fileName));
                 copy($src_file, $dest_file);
             }
         }

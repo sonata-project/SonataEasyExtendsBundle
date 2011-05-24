@@ -51,8 +51,7 @@ class OdmMetadata
     {
         try {
             $f = new Finder;
-            $f->name('*.mongodb.xml');
-            $f->notName('Base*.mongodb.xml');
+            $f->name('*.mongodb.xml.skeleton');
             $f->in($this->getMappingDocumentDirectory());
 
             return $f->getIterator();
@@ -68,13 +67,12 @@ class OdmMetadata
 
         try {
             $f = new Finder;
-            $f->name('*.mongodb.xml');
-            $f->notName('Base*.mongodb.xml');
+            $f->name('*.mongodb.xml.skeleton');
             $f->in($this->getMappingDocumentDirectory());
 
             foreach($f->getIterator() as $file) {
                 $e = explode('.', $file);
-                $names[] = $e[count($e) - 3];
+                $names[] = substr($e[0], strrpos($e[0], DIRECTORY_SEPARATOR) + 1);
             }
 
         } catch(\Exception $e) {
@@ -88,8 +86,7 @@ class OdmMetadata
     {
         try {
             $f = new Finder;
-            $f->name('*.mongodb.xml');
-            $f->notName('Base*.mongodb.xml');
+            $f->name('*Repository.php');
             $f->in($this->getDocumentDirectory());
 
             return $f->getIterator();

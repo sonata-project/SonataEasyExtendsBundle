@@ -50,15 +50,16 @@ class OdmGenerator implements GeneratorInterface
         $files = $bundleMetadata->getOdmMetadata()->getDocumentMappingFiles();
 
         foreach ($files as $file) {
-
             // copy mapping definition
-            $dest_file  = sprintf('%s/%s', $bundleMetadata->getOdmMetadata()->getExtendedMappingDocumentDirectory(), $file->getFileName());
-            $src_file   = sprintf('%s/%s', $bundleMetadata->getOdmMetadata()->getMappingDocumentDirectory(), $file->getFileName());
+            $fileName = substr($file->getFileName(), 0, strrpos($file->getFileName(), '.'));
+
+            $dest_file  = sprintf('%s/%s', $bundleMetadata->getOdmMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
+            $src_file   = sprintf('%s/%s.skeleton', $bundleMetadata->getOdmMetadata()->getMappingDocumentDirectory(), $fileName);
 
             if(is_file($dest_file)) {
-                $output->writeln(sprintf('   ~ <info>%s</info>', $file->getFileName()));
+                $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
             } else {
-                $output->writeln(sprintf('   + <info>%s</info>', $file->getFileName()));
+                $output->writeln(sprintf('   + <info>%s</info>', $fileName));
                 copy($src_file, $dest_file);
             }
         }
