@@ -51,7 +51,8 @@ class OrmMetadata
     {
         try {
             $f = new Finder;
-            $f->name('Application.*.orm.xml');
+            $f->name('*.orm.xml');
+            $f->notName('Base*.orm.xml');
             $f->in($this->getMappingEntityDirectory());
 
             return $f->getIterator();
@@ -67,12 +68,13 @@ class OrmMetadata
 
         try {
             $f = new Finder;
-            $f->name('Application.*.orm.xml');
+            $f->name('*.orm.xml');
+            $f->notName('Base*.orm.xml');
             $f->in($this->getMappingEntityDirectory());
 
             foreach($f->getIterator() as $file) {
                 $e = explode('.', $file);
-                $names[] = $e[count($e) - 3];
+                $names[] = substr($e[0], strrpos($e[0], DIRECTORY_SEPARATOR) + 1);
             }
 
         } catch(\Exception $e) {
@@ -86,7 +88,7 @@ class OrmMetadata
     {
         try {
             $f = new Finder;
-            $f->name('Application.*.orm.xml');
+            $f->name('*Repository.php');
             $f->in($this->getEntityDirectory());
 
             return $f->getIterator();

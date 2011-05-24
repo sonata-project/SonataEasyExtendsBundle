@@ -11,7 +11,7 @@
 namespace Sonata\EasyExtendsBundle\Generator;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Bundle\FrameworkBundle\Util\Mustache;
+use Symfony\Bundle\FrameworkBundle\Generator\Generator;
 
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
@@ -78,7 +78,7 @@ class BundleGenerator implements GeneratorInterface
 
         $output->writeln(sprintf('  > generating bundle file <comment>%s</comment>', $file));
 
-        $string = Mustache::renderString($this->getBundleTemplate(), array(
+        $string = Generator::renderString($this->getBundleTemplate(), array(
             'bundle'    => $bundleMetadata->getName(),
             'namespace' => $bundleMetadata->getExtendedNamespace(),
         ));

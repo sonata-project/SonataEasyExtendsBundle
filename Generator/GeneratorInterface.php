@@ -11,7 +11,7 @@
 namespace Sonata\EasyExtendsBundle\Generator;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Bundle\FrameworkBundle\Util\Mustache;
+use Symfony\Bundle\FrameworkBundle\Generator\Generator;
 
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 

@@ -18,8 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Bundle\DoctrineBundle\Command\DoctrineCommand;
 
-use Symfony\Bundle\FrameworkBundle\Util\Mustache;
-
+use Symfony\Bundle\FrameworkBundle\Generator\Generator;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
 /**

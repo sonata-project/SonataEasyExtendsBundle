@@ -11,7 +11,7 @@
 namespace Sonata\EasyExtendsBundle\Generator;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Bundle\FrameworkBundle\Util\Mustache;
+use Symfony\Bundle\FrameworkBundle\Generator\Generator;
 
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
@@ -48,7 +48,6 @@ class OrmGenerator implements GeneratorInterface
         $output->writeln(' - Copy entity files');
 
         $files = $bundleMetadata->getOrmMetadata()->getEntityMappingFiles();
-
         foreach ($files as $file) {
             // copy mapping definition
             $dest_file  = sprintf('%s/%s', $bundleMetadata->getOrmMetadata()->getExtendedMappingEntityDirectory(), $file->getFileName());
@@ -97,7 +96,7 @@ class OrmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $name));
 
-                $string = Mustache::renderString($this->getEntityTemplate(), array(
+                $string = Generator::renderString($this->getEntityTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name != $extendedName ? $extendedName : $name,
                     'class'                 => $name,
@@ -137,7 +136,7 @@ class OrmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
-                $string = Mustache::renderString($this->getOrmMetadata()->getEntityRepositoryTemplate(), array(
+                $string = Generator::renderString($this->getOrmMetadata()->getEntityRepositoryTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name,
                     'namespace'             => $bundleMetadata->getNamespace()

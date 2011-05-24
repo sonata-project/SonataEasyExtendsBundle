@@ -51,7 +51,8 @@ class OdmMetadata
     {
         try {
             $f = new Finder;
-            $f->name('Application.*.mongodb.xml');
+            $f->name('*.mongodb.xml');
+            $f->notName('Base*.mongodb.xml');
             $f->in($this->getMappingDocumentDirectory());
 
             return $f->getIterator();
@@ -67,7 +68,8 @@ class OdmMetadata
 
         try {
             $f = new Finder;
-            $f->name('Application.*.mongodb.xml');
+            $f->name('*.mongodb.xml');
+            $f->notName('Base*.mongodb.xml');
             $f->in($this->getMappingDocumentDirectory());
 
             foreach($f->getIterator() as $file) {
@@ -86,7 +88,8 @@ class OdmMetadata
     {
         try {
             $f = new Finder;
-            $f->name('Application.*.mongodb.xml');
+            $f->name('*.mongodb.xml');
+            $f->notName('Base*.mongodb.xml');
             $f->in($this->getDocumentDirectory());
 
             return $f->getIterator();
