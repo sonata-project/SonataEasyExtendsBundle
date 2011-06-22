@@ -51,7 +51,7 @@ EOT
 
         // find a better way to detect the Application folder
         $configuration = array(
-            'application_dir' => sprintf("%s/Application", $this->container->get('kernel')->getRootDir())
+            'application_dir' => sprintf("%s/Application", $this->getContainer()->get('kernel')->getRootDir())
         );
 
         $bundleName = $input->getArgument('bundle');
@@ -61,7 +61,7 @@ EOT
             $output->writeln('<error>You must provide a bundle name!</error>');
             $output->writeln('');
             $output->writeln('  Bundles availables :');
-            foreach ($this->container->get('kernel')->getBundles() as $bundle) {
+            foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
                 $bundleMetadata = new BundleMetadata($bundle, $configuration);
 
                 if (!$bundleMetadata->isExtendable()) {
@@ -77,7 +77,7 @@ EOT
         }
 
         $processed = false;
-        foreach ($this->container->get('kernel')->getBundles() as $bundle) {
+        foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
 
             if ($bundle->getName() != $bundleName) {
                 continue;
@@ -100,15 +100,15 @@ EOT
 
             $output->writeln(sprintf('Processing bundle : "<info>%s</info>"', $bundleMetadata->getName()));
 
-            $this->container->get('sonata.easy_extends.generator.bundle')
+            $this->getContainer()->get('sonata.easy_extends.generator.bundle')
                 ->generate($output, $bundleMetadata);
 
             $output->writeln(sprintf('Processing orm : "<info>%s</info>"', $bundleMetadata->getName()));
-            $this->container->get('sonata.easy_extends.generator.orm')
+            $this->getContainer()->get('sonata.easy_extends.generator.orm')
                 ->generate($output, $bundleMetadata);
 
             $output->writeln(sprintf('Processing odm : "<info>%s</info>"', $bundleMetadata->getName()));
-            $this->container->get('sonata.easy_extends.generator.odm')
+            $this->getContainer()->get('sonata.easy_extends.generator.odm')
                 ->generate($output, $bundleMetadata);
 
             $output->writeln('');
