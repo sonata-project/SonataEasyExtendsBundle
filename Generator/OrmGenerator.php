@@ -11,8 +11,6 @@
 namespace Sonata\EasyExtendsBundle\Generator;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Bundle\FrameworkBundle\Generator\Generator;
-
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
 class OrmGenerator implements GeneratorInterface
@@ -98,7 +96,7 @@ class OrmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $name));
 
-                $string = Generator::renderString($this->getEntityTemplate(), array(
+                $string = Mustache::replace($this->getEntityTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name != $extendedName ? $extendedName : $name,
                     'class'                 => $name,
@@ -138,7 +136,7 @@ class OrmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
-                $string = Generator::renderString($this->getOrmMetadata()->getEntityRepositoryTemplate(), array(
+                $string = Mustache::replace($this->getOrmMetadata()->getEntityRepositoryTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name,
                     'namespace'             => $bundleMetadata->getNamespace()

@@ -11,8 +11,6 @@
 namespace Sonata\EasyExtendsBundle\Generator;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Bundle\FrameworkBundle\Generator\Generator;
-
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
 class OdmGenerator implements GeneratorInterface
@@ -97,7 +95,7 @@ class OdmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $name));
 
-                $string = Generator::renderString($this->getDocumentTemplate(), array(
+                $string = Mustache::replace($this->getDocumentTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name != $extendedName ? $extendedName : $name,
                     'class'                 => $name,
@@ -135,7 +133,7 @@ class OdmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
-                $string = Generator::renderString($this->getDocumentRepositoryTemplate(), array(
+                $string = Mustache::replace($this->getDocumentRepositoryTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name,
                     'namespace'             => $bundleMetadata->getNamespace()
