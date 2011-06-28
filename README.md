@@ -24,7 +24,7 @@ Installation
         {
             return array(
                 // ...
-                new Sonata\EasyExtendsBundle\EasyExtendsBundle(),
+                new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
                 // ...
             );
         }
