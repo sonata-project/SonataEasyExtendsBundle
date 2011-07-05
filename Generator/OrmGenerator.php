@@ -136,7 +136,7 @@ class OrmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
-                $string = Mustache::replace($this->getEntityTemplate(), array(
+                $string = Mustache::replace($this->getEntityRepositoryTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name,
                     'namespace'             => $bundleMetadata->getNamespace()
