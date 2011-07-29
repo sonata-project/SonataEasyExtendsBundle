@@ -1,7 +1,7 @@
 Prototype to easily share entities accross Bundle and Application
------------------------------------------------------------------
+=================================================================
 
-EasyExtendsBundle is a prototype for generating a valid bundle structure from
+SonataEasyExtendsBundle is a prototype for generating a valid bundle structure from
 a Vendor Bundle. The tool is started with the simple command line: ``easy-extends:generate``.
 
 The command will generate:
@@ -11,13 +11,13 @@ The command will generate:
 
 
 Installation
-============
+------------
 
-  - Add EasyExtendsBundle to your src/Bundle dir
+  - Add SonataEasyExtendsBundle to your src/Bundle dir
 
         git submodule add git://github.com/sonata-project/SonataEasyExtendsBundle.git vendor/bundles/Sonata/EasyExtendsBundle
 
-  - Add EasyExtendsBundle to your application kernel
+  - Add SonataEasyExtendsBundle to your application kernel
 
         // app/AppKernel.php
         public function registerBundles()

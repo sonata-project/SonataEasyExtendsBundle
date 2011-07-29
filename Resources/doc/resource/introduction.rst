@@ -1,7 +1,7 @@
 Introduction
 ============
 
-EasyExtendsBundle is a prototype for generating a valid bundle structure from
+SonataEasyExtendsBundle is a prototype for generating a valid bundle structure from
 a Vendor Bundle. The tool is started with the simple command line: ``easy-extends:generate``.
 
 The command will generate:

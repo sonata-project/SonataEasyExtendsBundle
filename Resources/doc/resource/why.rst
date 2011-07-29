@@ -1,5 +1,5 @@
 Make your Symfony2 bundle extendable
-------------------------------------
+====================================
 
 .. note:
 
@@ -8,7 +8,7 @@ Make your Symfony2 bundle extendable
     recurrent problem I have.
 
 Let’s have a quick Symfony2 and Doctrine tour
-=============================================
+---------------------------------------------
 
 A quick Doctrine tour:
   - Doctrine2 entities are plain PHP objects; there is no database layer information. An ``Comment::post_id`` property
@@ -36,7 +36,7 @@ A namespace tour:
   - A VB and AB are defined with two different namespaces
 
 Let’s start to mix these points together
-========================================
+----------------------------------------
 
   - If an AB bundle A wants to use an entity from a VB bundle B, the fully qualify namespace must be used.
   - If a developer wants to add a new property into a VB entity, the developer needs to create a new child entity
@@ -47,7 +47,7 @@ instantiate the model, BUT ... how ... you just create a new entity. Your VB wil
 too bad.
 
 Can this problem be solved with the Alternate syntax?
-=====================================================
+-----------------------------------------------------
 
 There is actually a start of a solution, the DoctrineBundle allows us to use an alternate syntax,
 ie (‘BlogBundle:Blog’ instead of ‘Bundle\BlogBundle\Entity\Blog’). As you can guess this syntax only works
@@ -63,7 +63,7 @@ At this point, we are stuck with no solution to fully extend a bundle. (Don’t 
 change in a near future, as Symfony2 is not complete yet)
 
 A pragmatic way to solve this issue
-===================================
+-----------------------------------
 
 The easiest way to solve this problem is to use global namespace inside your VB, the global namespace is the only
 namespace allowed  `Application\YourBundle\Entity`.

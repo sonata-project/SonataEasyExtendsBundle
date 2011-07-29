@@ -1,5 +1,5 @@
-Welcome to EasyExtendsBundle Documentation
-====================================
+Welcome to SonataEasyExtendsBundle Documentation
+================================================
 
 Reference Guide
 ---------------
