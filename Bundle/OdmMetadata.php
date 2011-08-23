@@ -71,8 +71,9 @@ class OdmMetadata
             $f->in($this->getMappingDocumentDirectory());
 
             foreach($f->getIterator() as $file) {
-                $e = explode('.', $file);
-                $names[] = substr($e[0], strrpos($e[0], DIRECTORY_SEPARATOR) + 1);
+                $e = explode(DIRECTORY_SEPARATOR, $file);
+                $n = explode('.', $e[count($e)-1]);
+                $names[] = $n[0];
             }
 
         } catch(\Exception $e) {
