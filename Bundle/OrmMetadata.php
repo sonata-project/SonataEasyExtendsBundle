@@ -72,7 +72,7 @@ class OrmMetadata
 
             foreach($f->getIterator() as $file) {
                 $e = explode(DIRECTORY_SEPARATOR, $file);
-		$n = explode('.', $e[count($e)-1]);
+                $n = explode('.', $e[count($e)-1]);
                 $names[] = $n[0];
             }
 
