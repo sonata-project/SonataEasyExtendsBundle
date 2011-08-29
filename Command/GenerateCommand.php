@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
-use Symfony\Bundle\DoctrineBundle\Command\DoctrineCommand;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 use Symfony\Bundle\FrameworkBundle\Generator\Generator;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
@@ -26,7 +26,7 @@ use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class GenerateCommand extends DoctrineCommand
+class GenerateCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
@@ -44,16 +44,23 @@ EOT
         );
 
         $this->addArgument('bundle', InputArgument::OPTIONAL, 'The bundle name to "easy-extends"', false);
+        $this->addOption('dest', 'd', InputOption::VALUE_OPTIONAL, 'The base folder where the Application will be created', false); 
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
-        // find a better way to detect the Application folder
+        $dest = $input->getOption('dest');
+        if ($dest) {
+            $dest = realpath($dest);
+        } else {
+            $dest = $this->getContainer()->get('kernel')->getRootDir();
+        }
+        
         $configuration = array(
-            'application_dir' => sprintf("%s/Application", $this->getContainer()->get('kernel')->getRootDir())
+            'application_dir' =>  sprintf("%s/Application", $dest)
         );
-
+        
         $bundleName = $input->getArgument('bundle');
 
         if ($bundleName == false) {
