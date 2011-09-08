@@ -11,6 +11,7 @@ Let’s have a quick Symfony2 and Doctrine tour
 ---------------------------------------------
 
 A quick Doctrine tour:
+
   - Doctrine2 entities are plain PHP objects; there is no database layer information. An ``Comment::post_id`` property
     is part of the database layer and not part of the domain layer. So a ``comment`` entity will have a `post`` property
     and not a ``post_id`` property.
@@ -24,12 +25,14 @@ A quick Doctrine tour:
   - An entity can extend a SuperClass. A SuperClass is just a mapping definition, a SuperClass cannot be persisted.
 
 A quick Symfony2 bundle tour:
+
   - There are two types of bundles: Application Bundle (AB) and Vendor Bundle (VB), the latter should not be
     modified inside a project.
   - The AB directory is where developers implement the project requirements.
   - An AB can overwrite almost everything from a VB, example: you can redefine a VB template at the AB level.
 
 A namespace tour:
+
   - “a namespace is an abstract container providing context for the items” (http://en.wikipedia.org/wiki/Namespace)
   - An entity is defined by a namespace
   - A bundle is defined by a namespace
