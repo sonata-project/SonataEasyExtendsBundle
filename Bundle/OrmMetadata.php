@@ -71,8 +71,8 @@ class OrmMetadata
             $f->in($this->getMappingEntityDirectory());
 
             foreach($f->getIterator() as $file) {
-                $e = explode('.', $file);
-                $names[] = substr($e[0], strrpos($e[0], DIRECTORY_SEPARATOR) + 1);
+                $name = explode('.', basename($file));
+                $names[] = $name[0];
             }
 
         } catch(\Exception $e) {
