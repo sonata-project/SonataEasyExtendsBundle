@@ -18,14 +18,14 @@ class BundleMetadataTest extends \PHPUnit_Framework_TestCase
     {
         $bundle = new \Sonata\AcmeBundle\SonataAcmeBundle();
 
-        $bundleMetadata = new BundleMetadata($bundle, array('application_dir' => 'Application'));
+        $bundleMetadata = new BundleMetadata($bundle, array('application_dir' => 'app/Application'));
 
         $this->assertTrue($bundleMetadata->isExtendable());
         $this->assertTrue($bundleMetadata->isValid());
         $this->assertEquals('SonataAcmeBundle', $bundleMetadata->getName());
         $this->assertEquals('Sonata', $bundleMetadata->getVendor());
         $this->assertEquals('Sonata\AcmeBundle', $bundleMetadata->getNamespace());
-        $this->assertEquals('Application/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
+        $this->assertEquals('app/Application/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
         $this->assertEquals('Application\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
         $this->assertInstanceOf('Sonata\EasyExtendsBundle\Bundle\OrmMetadata', $bundleMetadata->getOrmMetadata());
         $this->assertInstanceOf('Sonata\EasyExtendsBundle\Bundle\OdmMetadata', $bundleMetadata->getOdmMetadata());
