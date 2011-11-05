@@ -20,10 +20,13 @@ class MustacheTest extends \PHPUnit_Framework_TestCase
           'world' => 'world'
         )), ' Hello world');
 
-
         $this->assertEquals(Mustache::replace(" Hello {{world}}", array(
           'world' => 'world'
         )), ' Hello world');
+
+        $this->assertEquals(Mustache::replace(" Hello {{ world }}", array(
+          'no-world' => 'world'
+        )), ' Hello {{ world }}');
 
         $file = sprintf("%s/../fixtures/test.mustache", __DIR__);
         $this->assertEquals(Mustache::replaceFromFile($file, array(
