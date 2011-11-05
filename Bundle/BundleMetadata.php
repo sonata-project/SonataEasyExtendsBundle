@@ -70,9 +70,7 @@ class BundleMetadata
             return;
         }
 
-        $parts = explode('\\', $this->getClass());
-
-        $this->name = $parts[count($parts) - 1];
+        $this->name = $information[count($information) - 1];
         $this->vendor = $information[0];
         $this->namespace =  sprintf('%s\%s', $this->vendor, $information[1]);
         $this->extendedDirectory = sprintf('%s/%s/%s', $this->configuration['application_dir'], $this->vendor, $information[1]);
