@@ -41,7 +41,7 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
     public function testGetExtendedMappingEntityDirectory()
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
-        $expectedDirectory = 'Application/Sonata/PageBundle/Resources/config/doctrine/';
+        $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/doctrine/';
 
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock($bundlePath));
 
@@ -65,7 +65,7 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
     public function testGetExtendedEntityDirectory()
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
-        $expectedDirectory = 'Application/Sonata/PageBundle/Entity';
+        $expectedDirectory = 'Application/Sonata/AcmeBundle/Entity';
 
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock($bundlePath));
 
@@ -156,10 +156,10 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($bundle));
         $bundleMetadata->expects($this->any())
             ->method('getClass')
-            ->will($this->returnValue('Sonata\\PageBundle\\SonataPageBundle'));
+            ->will($this->returnValue('Sonata\\AcmeBundle\\SonataAcmeBundle'));
         $bundleMetadata->expects($this->any())
             ->method('getExtendedDirectory')
-            ->will($this->returnValue('Application/Sonata/PageBundle'));
+            ->will($this->returnValue('Application/Sonata/AcmeBundle'));
 
         return $bundleMetadata;
     }
