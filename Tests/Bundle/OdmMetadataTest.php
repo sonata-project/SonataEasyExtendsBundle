@@ -12,7 +12,8 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $documentNames = $ormMetadata->getDocumentNames();
 
-        $this->assertEquals(array('Block', 'Page'), $documentNames);
+        $this->assertContains('Block', $documentNames);
+        $this->assertContains('Page', $documentNames);
     }
 
     public function testDirectoryWithDotInPath()
@@ -21,7 +22,8 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $documentNames = $ormMetadata->getDocumentNames();
 
-        $this->assertEquals(array('Block', 'Page'), $documentNames);
+        $this->assertContains('Block', $documentNames);
+        $this->assertContains('Page', $documentNames);
     }
 
     /**

@@ -12,7 +12,8 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $entityNames = $ormMetadata->getEntityNames();
 
-        $this->assertEquals(array('Block', 'Page'), $entityNames);
+        $this->assertContains('Block', $entityNames);
+        $this->assertContains('Page', $entityNames);
     }
 
     public function testDirectoryWithDotInPath()
@@ -21,7 +22,8 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $entityNames = $ormMetadata->getEntityNames();
 
-        $this->assertEquals(array('Block', 'Page'), $entityNames);
+        $this->assertContains('Block', $entityNames);
+        $this->assertContains('Page', $entityNames);
     }
 
     /**
