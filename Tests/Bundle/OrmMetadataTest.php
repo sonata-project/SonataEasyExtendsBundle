@@ -26,6 +26,112 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('Page', $entityNames);
     }
 
+    public function testGetMappingEntityDirectory()
+    {
+        $bundlePath = __DIR__.'/Fixtures/bundle1';
+        $expectedDirectory = $bundlePath.'/Resources/config/doctrine/';
+
+        $ormMetadata = new OrmMetadata($this->getBundleMetadataMock($bundlePath));
+
+        $directory = $ormMetadata->getMappingEntityDirectory();
+
+        $this->assertEquals($expectedDirectory, $directory);
+    }
+
+    public function testGetExtendedMappingEntityDirectory()
+    {
+        $bundlePath = __DIR__.'/Fixtures/bundle1';
+        $expectedDirectory = 'Application/Sonata/PageBundle/Resources/config/doctrine/';
+
+        $ormMetadata = new OrmMetadata($this->getBundleMetadataMock($bundlePath));
+
+        $directory = $ormMetadata->getExtendedMappingEntityDirectory();
+
+        $this->assertEquals($expectedDirectory, $directory);
+    }
+
+    public function testGetEntityDirectory()
+    {
+        $bundlePath = __DIR__.'/Fixtures/bundle1';
+        $expectedDirectory = $bundlePath.'/Entity';
+
+        $ormMetadata = new OrmMetadata($this->getBundleMetadataMock($bundlePath));
+
+        $directory = $ormMetadata->getEntityDirectory();
+
+        $this->assertEquals($expectedDirectory, $directory);
+    }
+
+    public function testGetExtendedEntityDirectory()
+    {
+        $bundlePath = __DIR__.'/Fixtures/bundle1';
+        $expectedDirectory = 'Application/Sonata/PageBundle/Entity';
+
+        $ormMetadata = new OrmMetadata($this->getBundleMetadataMock($bundlePath));
+
+        $directory = $ormMetadata->getExtendedEntityDirectory();
+
+        $this->assertEquals($expectedDirectory, $directory);
+    }
+
+    public function testGetEntityMappingFiles()
+    {
+        $ormMetadata = new OrmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
+
+        $filterIterator = $ormMetadata->getEntityMappingFiles();
+
+        $files = array();
+        foreach ($filterIterator as $file) {
+            $files[] = $file->getFilename();
+        }
+
+        $this->assertInstanceOf('Symfony\Component\Finder\Iterator\FilenameFilterIterator', $filterIterator);
+        $this->assertContainsOnly('Symfony\Component\Finder\SplFileInfo', $filterIterator);
+        $this->assertContains('Block.orm.xml.skeleton', $files);
+        $this->assertContains('Page.orm.xml.skeleton', $files);
+        $this->assertNotContains('Block.mongodb.xml.skeleton', $files);
+        $this->assertNotContains('Page.mongodb.xml.skeleton', $files);
+    }
+
+    public function testGetEntityMappingFilesWithFilesNotFound()
+    {
+        $ormMetadata = new OrmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures'));
+
+        $result = $ormMetadata->getEntityMappingFiles();
+
+        $this->assertInternalType('array', $result);
+        $this->assertEmpty($result);
+    }
+
+    public function testGetRepositoryFiles()
+    {
+        $ormMetadata = new OrmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
+
+        $filterIterator = $ormMetadata->getRepositoryFiles();
+
+        $files = array();
+        foreach ($filterIterator as $file) {
+            $files[] = $file->getFilename();
+        }
+
+        $this->assertInstanceOf('Symfony\Component\Finder\Iterator\FilenameFilterIterator', $filterIterator);
+        $this->assertContainsOnly('Symfony\Component\Finder\SplFileInfo', $filterIterator);
+        $this->assertContains('BlockRepository.php', $files);
+        $this->assertContains('PageRepository.php', $files);
+        $this->assertNotContains('Block.php', $files);
+        $this->assertNotContains('Page.php', $files);
+    }
+
+    public function testGetRepositoryFilesWithFilesNotFound()
+    {
+        $ormMetadata = new OrmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures'));
+
+        $result = $ormMetadata->getRepositoryFiles();
+
+        $this->assertInternalType('array', $result);
+        $this->assertEmpty($result);
+    }
+
     /**
      * @param string $bundlePath
      *
@@ -40,7 +146,7 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $bundleMetadata = $this->getMock(
             'Sonata\EasyExtendsBundle\Bundle\BundleMetadata',
-            null,
+            array(),
             array($bundle),
             '',
             true
@@ -51,6 +157,9 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
         $bundleMetadata->expects($this->any())
             ->method('getClass')
             ->will($this->returnValue('Sonata\\PageBundle\\SonataPageBundle'));
+        $bundleMetadata->expects($this->any())
+            ->method('getExtendedDirectory')
+            ->will($this->returnValue('Application/Sonata/PageBundle'));
 
         return $bundleMetadata;
     }
