@@ -70,7 +70,7 @@ class BundleMetadata
             return;
         }
 
-        $parts = explode('\\', $this->getclass());
+        $parts = explode('\\', $this->getClass());
 
         $this->name = $parts[count($parts) - 1];
         $this->vendor = $information[0];
