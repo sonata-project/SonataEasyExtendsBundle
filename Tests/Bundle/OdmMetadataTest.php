@@ -6,11 +6,11 @@ use Sonata\EasyExtendsBundle\Bundle\OdmMetadata;
 
 class OdmMetadataTest extends \PHPUnit_Framework_TestCase
 {
-    public function testEntityNames()
+    public function testDocumentNames()
     {
-        $ormMetadata = new OdmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
+        $odmMetadata = new OdmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
 
-        $documentNames = $ormMetadata->getDocumentNames();
+        $documentNames = $odmMetadata->getDocumentNames();
 
         $this->assertContains('Block', $documentNames);
         $this->assertContains('Page', $documentNames);
@@ -18,12 +18,118 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
 
     public function testDirectoryWithDotInPath()
     {
-        $ormMetadata = new OdmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle2/dot.dot'));
+        $odmMetadata = new OdmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle2/dot.dot'));
 
-        $documentNames = $ormMetadata->getDocumentNames();
+        $documentNames = $odmMetadata->getDocumentNames();
 
         $this->assertContains('Block', $documentNames);
         $this->assertContains('Page', $documentNames);
+    }
+
+    public function testGetMappingDocumentDirectory()
+    {
+        $bundlePath = __DIR__.'/Fixtures/bundle1';
+        $expectedDirectory = $bundlePath.'/Resources/config/doctrine/';
+
+        $odmMetadata = new OdmMetadata($this->getBundleMetadataMock($bundlePath));
+
+        $directory = $odmMetadata->getMappingDocumentDirectory();
+
+        $this->assertEquals($expectedDirectory, $directory);
+    }
+
+    public function testGetExtendedMappingDocumentDirectory()
+    {
+        $bundlePath = __DIR__.'/Fixtures/bundle1';
+        $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/doctrine/';
+
+        $odmMetadata = new OdmMetadata($this->getBundleMetadataMock($bundlePath));
+
+        $directory = $odmMetadata->getExtendedMappingDocumentDirectory();
+
+        $this->assertEquals($expectedDirectory, $directory);
+    }
+
+    public function testGetDocumentDirectory()
+    {
+        $bundlePath = __DIR__.'/Fixtures/bundle1';
+        $expectedDirectory = $bundlePath.'/Document';
+
+        $odmMetadata = new OdmMetadata($this->getBundleMetadataMock($bundlePath));
+
+        $directory = $odmMetadata->getDocumentDirectory();
+
+        $this->assertEquals($expectedDirectory, $directory);
+    }
+
+    public function testGetExtendedDocumentDirectory()
+    {
+        $bundlePath = __DIR__.'/Fixtures/bundle1';
+        $expectedDirectory = 'Application/Sonata/AcmeBundle/Document';
+
+        $odmMetadata = new OdmMetadata($this->getBundleMetadataMock($bundlePath));
+
+        $directory = $odmMetadata->getExtendedDocumentDirectory();
+
+        $this->assertEquals($expectedDirectory, $directory);
+    }
+
+    public function testGetDocumentMappingFiles()
+    {
+        $odmMetadata = new OdmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
+
+        $filterIterator = $odmMetadata->getDocumentMappingFiles();
+
+        $files = array();
+        foreach ($filterIterator as $file) {
+            $files[] = $file->getFilename();
+        }
+
+        $this->assertInstanceOf('Symfony\Component\Finder\Iterator\FilenameFilterIterator', $filterIterator);
+        $this->assertContainsOnly('Symfony\Component\Finder\SplFileInfo', $filterIterator);
+        $this->assertContains('Block.mongodb.xml.skeleton', $files);
+        $this->assertContains('Page.mongodb.xml.skeleton', $files);
+        $this->assertNotContains('Block.odm.xml.skeleton', $files);
+        $this->assertNotContains('Page.odm.xml.skeleton', $files);
+    }
+
+    public function testGetDocumentMappingFilesWithFilesNotFound()
+    {
+        $odmMetadata = new OdmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures'));
+
+        $result = $odmMetadata->getDocumentMappingFiles();
+
+        $this->assertInternalType('array', $result);
+        $this->assertEmpty($result);
+    }
+
+    public function testGetRepositoryFiles()
+    {
+        $odmMetadata = new OdmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
+
+        $filterIterator = $odmMetadata->getRepositoryFiles();
+
+        $files = array();
+        foreach ($filterIterator as $file) {
+            $files[] = $file->getFilename();
+        }
+
+        $this->assertInstanceOf('Symfony\Component\Finder\Iterator\FilenameFilterIterator', $filterIterator);
+        $this->assertContainsOnly('Symfony\Component\Finder\SplFileInfo', $filterIterator);
+        $this->assertContains('BlockRepository.php', $files);
+        $this->assertContains('PageRepository.php', $files);
+        $this->assertNotContains('Block.php', $files);
+        $this->assertNotContains('Page.php', $files);
+    }
+
+    public function testGetRepositoryFilesWithFilesNotFound()
+    {
+        $odmMetadata = new OdmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures'));
+
+        $result = $odmMetadata->getRepositoryFiles();
+
+        $this->assertInternalType('array', $result);
+        $this->assertEmpty($result);
     }
 
     /**
@@ -40,7 +146,7 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $bundleMetadata = $this->getMock(
             'Sonata\EasyExtendsBundle\Bundle\BundleMetadata',
-            null,
+            array(),
             array($bundle),
             '',
             true
@@ -50,7 +156,10 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($bundle));
         $bundleMetadata->expects($this->any())
             ->method('getClass')
-            ->will($this->returnValue('Sonata\\PageBundle\\SonataPageBundle'));
+            ->will($this->returnValue('Sonata\\AcmeBundle\\SonataAcmeBundle'));
+        $bundleMetadata->expects($this->any())
+            ->method('getExtendedDirectory')
+            ->will($this->returnValue('Application/Sonata/AcmeBundle'));
 
         return $bundleMetadata;
     }
