@@ -35,29 +35,10 @@ class SonataEasyExtendsExtension extends Extension
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
     public function load(array $configs, ContainerBuilder $container) {
-      $config = call_user_func_array('array_merge_recursive', $configs);
+        $config = call_user_func_array('array_merge_recursive', $configs);
 
-      $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-      $loader->load('generator.xml');
-    }
-
-    /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
-     */
-    public function getXsdValidationBasePath() {
-
-        return __DIR__.'/../Resources/config/schema';
-    }
-
-    public function getNamespace() {
-
-        return 'http://www.sonata-project.org/schema/dic/easy-extends';
-    }
-
-    public function getAlias() {
-
-        return "sonata_easy_extends";
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('generator.xml');
+        $loader->load('mapper.xml');
     }
 }
