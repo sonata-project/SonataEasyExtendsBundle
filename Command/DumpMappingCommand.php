@@ -18,6 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
+use Doctrine\ORM\Tools\Export\ClassMetadataExporter;
 
 /**
  * Generate Application entities from bundle entities
@@ -35,7 +36,6 @@ class DumpMappingCommand extends ContainerAwareCommand
 
         $this->addArgument('manager', InputArgument::OPTIONAL, 'The manager name to use', false);
         $this->addArgument('model', InputArgument::OPTIONAL, 'The class to dump', false);
-        $this->addArgument('type', InputArgument::OPTIONAL, 'The option to dump : associations, fields', false);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -44,8 +44,10 @@ class DumpMappingCommand extends ContainerAwareCommand
 
         $metadata = $factory->getMetadataFor($input->getArgument('model'));
 
-        if ($input->getArgument('type') == 'associations') {
-            var_export($metadata->associationMappings);
-        }
+
+        $cme = new ClassMetadataExporter();
+        $exporter = $cme->getExporter('php');
+
+        echo $exporter->exportClassMetadata($metadata);
     }
 }

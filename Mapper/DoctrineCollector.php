@@ -39,13 +39,17 @@ class DoctrineCollector
      * @param $mapping
      * @return void
      */
-    public function addAssociation($class, $field, array $options)
+    public function addAssociation($class, $type, array $options)
     {
         if (!isset($this->associations[$class])) {
             $this->associations[$class] = array();
         }
 
-        $this->associations[$class][$field] = $options;
+        if (!isset($this->associations[$class][$type])) {
+            $this->associations[$class][$type] = array();
+        }
+
+        $this->associations[$class][$type][] = $options;
     }
 
     /**

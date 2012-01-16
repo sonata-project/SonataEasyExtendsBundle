@@ -67,8 +67,10 @@ class DoctrineORMMapper implements EventSubscriber
             return;
         }
 
-        foreach ($this->associations[$metadata->name] as $field => $options) {
-            $metadata->associationMappings[$field] = $options;
+        foreach ($this->associations[$metadata->name] as $type => $mappings) {
+            foreach ($mappings as $mapping) {
+                call_user_func(array($metadata, $type), $mapping);
+            }
         }
     }
 }
