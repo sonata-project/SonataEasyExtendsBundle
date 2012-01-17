@@ -1,19 +1,28 @@
 Installation
 ============
 
-  - Add SonataEasyExtendsBundle to your src/Bundle dir::
+To begin, add the dependent bundles to the ``vendor/bundles`` directory. Add
+the following lines to the file ``deps``::
 
-        git submodule add git://github.com/sonata-project/SonataEasyExtendsBundle.git vendor/bundles/Sonata/EasyExtendsBundle
+  [SonataEasyExtendsBundle]
+      git=git://github.com/sonata-project/SonataEasyExtendsBundle.git
+      target=endor/bundles/Sonata/EasyExtendsBundle
 
-  - Add SonataEasyExtendsBundle to your application kernel::
+and run::
 
-        <?php
-        // app/AppKernel.php
-        public function registerBundles()
-        {
-            return array(
-                // ...
-                new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-                // ...
-            );
-        }
+  bin/vendors install
+
+Next, be sure to enable the new bundles in your application kernel:
+
+.. code-block:: php
+
+  <?php
+  // app/appkernel.php
+  public function registerBundles()
+  {
+      return array(
+          // ...
+          new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+          // ...
+      );
+  }
