@@ -67,10 +67,14 @@ class DoctrineORMMapper implements EventSubscriber
             return;
         }
 
-        foreach ($this->associations[$metadata->name] as $type => $mappings) {
-            foreach ($mappings as $mapping) {
-                call_user_func(array($metadata, $type), $mapping);
+        try {
+            foreach ($this->associations[$metadata->name] as $type => $mappings) {
+                foreach ($mappings as $mapping) {
+                    call_user_func(array($metadata, $type), $mapping);
+                }
             }
+        } catch (\ReflectionException $e) {
+            throw new \RuntimeException(sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404,  $e);
         }
     }
 }
