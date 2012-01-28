@@ -29,6 +29,11 @@ class AddMapperInformationCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        if (!$container->hasDefinition('doctrine')) {
+            $container->removeDefinition('sonata.easy_extends.doctrine.mapper');
+            return;
+        }
+        
         $mapper = $container->getDefinition('sonata.easy_extends.doctrine.mapper');
 
         foreach (DoctrineCollector::getInstance()->getAssociations() as $class => $associations) {
