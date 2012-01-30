@@ -75,7 +75,7 @@ So inside your mapping definition or inside your VB code, you will use one final
 How to achieve this
 
   - Declare only SuperClass inside a VB, don’t use final entity
-  - Call you entity ``BaseXXXX`` and make them abstract, change the property from private to protected.
+  - Call your entity ``BaseXXXX`` and make it abstract, change the properties from private to protected.
   - The same goes for a repository
   - Always use ``Application\YourBundle\Entity\XXXX`` inside your code
 
@@ -87,3 +87,14 @@ Of course, you need to create for each VB bundle
 
 The last part is quite inefficient without an efficient tool to generate for you this structure: EasyExtendsBundle
 to the rescue.
+
+How to make your bundle easy extendable
+---------------------------------------
+
+Mainly all you need is to follow instructions in previous paragraph. 
+
+   - Declare you entity/epository as described above
+   - Use your entity/repostiory as described above.
+   - Before generation you also need "skeleton" file that will describe AB entity. For fully working example see SonataMediaBundle.
+
+At last you can run ``php app/console sonata:easy-extends:generate YourVBBundleName`` and that's it!
