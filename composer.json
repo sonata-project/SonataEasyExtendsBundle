@@ -1,9 +1,9 @@
 {
-    "name": "sonata/easy-extends-bundle",
+    "name": "sonata-project/easy-extends-bundle",
     "type": "symfony-bundle",
     "description": "Symfony SonataEasyExtendsBundle",
-    "keywords": ["Easy Extends", "sonata"],
-    "homepage": "http://sonata-project.org/",
+    "keywords": ["sonata", "easy extends"],
+    "homepage": "http://sonata-project.org/bundles/easy-extends",
     "license": "MIT",
     "authors": [
         {
