@@ -1,31 +1,10 @@
-Prototype to easily share entities accross Bundle and Application
-=================================================================
+[![Build Status](https://secure.travis-ci.org/sonata-project/EasyExtendsBundle.png)](https://secure.travis-ci.org/#!/sonata-project/EasyExtendsBundle)
 
-SonataEasyExtendsBundle is a prototype for generating a valid bundle structure from
-a Vendor Bundle. The tool is started with the simple command line: ``sonata:easy-extends:generate``.
+SonataEasyExtendsBundle is a prototype for generating a valid bundle structure from a Vendor Bundle.
 
-The command will generate:
+Check out the documentation on [http://sonata-project.org/bundles/easy-extends/master/doc/index.html](http://sonata-project.org/bundles/easy-extends/master/doc/index.html)
 
-  - all required directories for one bundle (controller, config, doctrine, views, ...)
-  - the mapping and entity files from those defined in the CPB. The SuperClass must be prefixed by BaseXXXXXX.
-  - the table name from the bundle name + entity name. (blog__post, where blog is the BlogBundle and Post the entity name)
+**Google Groups**: For questions and proposals you can post on this google groups
 
-
-Installation
-------------
-
-  - Add SonataEasyExtendsBundle to your src/Bundle dir
-
-        git submodule add git://github.com/sonata-project/SonataEasyExtendsBundle.git vendor/bundles/Sonata/EasyExtendsBundle
-
-  - Add SonataEasyExtendsBundle to your application kernel
-
-        // app/AppKernel.php
-        public function registerBundles()
-        {
-            return array(
-                // ...
-                new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-                // ...
-            );
-        }
+* [Sonata Users](https://groups.google.com/group/sonata-users): Only for user questions
+* [Sonata Devs](https://groups.google.com/group/sonata-devs): Only for devs
