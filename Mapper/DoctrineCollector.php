@@ -14,11 +14,14 @@ class DoctrineCollector
 {
     protected $associations;
 
+    protected $indexes;
+
     private static $instance;
 
     public function __construct()
     {
         $this->associations = array();
+        $this->indexes = array();
     }
 
     /**
@@ -35,8 +38,8 @@ class DoctrineCollector
 
     /**
      * @param $class
-     * @param $field
-     * @param $mapping
+     * @param $type
+     * @param array $options
      * @return void
      */
     public function addAssociation($class, $type, array $options)
@@ -53,10 +56,37 @@ class DoctrineCollector
     }
 
     /**
-     * @return
+     * @param $class
+     * @param $name
+     * @param array $columns
+     * @return void
+     */
+    public function addIndex($class, $name, array $columns)
+    {
+        if (!isset($this->indexes[$class])) {
+            $this->indexes[$class] = array();
+        }
+
+        if (isset($this->indexes[$class][$name])) {
+            return;
+        }
+
+        $this->indexes[$class][$name] = $columns;
+    }
+
+    /**
+     * @return array
      */
     public function getAssociations()
     {
         return $this->associations;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIndexes()
+    {
+        return $this->indexes;
     }
 }

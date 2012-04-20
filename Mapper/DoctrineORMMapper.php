@@ -19,14 +19,18 @@ class DoctrineORMMapper implements EventSubscriber
 
     protected $doctrine;
 
+    protected $indexes;
+
     /**
      * @param \Symfony\Bundle\DoctrineBundle\Registry $doctrine
      * @param array $associations
+     * @param array $indexes
      */
-    public function __construct($doctrine, $associations = array())
+    public function __construct($doctrine, $associations = array(), $indexes = array())
     {
         $this->doctrine = $doctrine;
         $this->associations = $associations;
+        $this->indexes = $indexes;
     }
 
     /**
@@ -55,6 +59,25 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
+     * @param $class
+     * @param $name
+     * @param array $columns
+     * @return void
+     */
+    public function addIndex($class, $name, array $columns)
+    {
+        if (!isset($this->indexes[$class])) {
+            $this->indexes[$class] = array();
+        }
+
+        if (isset($this->indexes[$class][$name])) {
+            return;
+        }
+
+        $this->indexes[$class][$name] = $columns;
+    }
+
+    /**
      * @param $eventArgs
      * @return void
      */
@@ -62,6 +85,12 @@ class DoctrineORMMapper implements EventSubscriber
     {
         $metadata = $eventArgs->getClassMetadata();
 
+        $this->loadAssociations($metadata);
+        $this->loadIndexes($metadata);
+    }
+
+    private function loadAssociations(ClassMetadataInfo $metadata)
+    {
         if (!array_key_exists($metadata->name, $this->associations)) {
             return;
         }
@@ -80,6 +109,17 @@ class DoctrineORMMapper implements EventSubscriber
             }
         } catch (\ReflectionException $e) {
             throw new \RuntimeException(sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404,  $e);
+        }
+    }
+
+    private function loadIndexes(ClassMetadataInfo $metadata)
+    {
+        if (!array_key_exists($metadata->name, $this->indexes)) {
+            return;
+        }
+
+        foreach ($this->indexes[$metadata->name] as $name => $columns) {
+            $metadata->table['indexes'][$name] = array('columns' => $columns);
         }
     }
 }

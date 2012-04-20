@@ -44,7 +44,6 @@ class DumpMappingCommand extends ContainerAwareCommand
 
         $metadata = $factory->getMetadataFor($input->getArgument('model'));
 
-
         $cme = new ClassMetadataExporter();
         $exporter = $cme->getExporter('php');
 
