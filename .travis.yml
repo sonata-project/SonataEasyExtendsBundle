@@ -7,7 +7,9 @@ env:
   - SYMFONY_VERSION=v2.0.12
   - SYMFONY_VERSION=origin/master
 
-before_script: php Tests/tests/vendors.php
+before_script:
+  - wget -nc http://getcomposer.org/composer.phar
+  - php composer.phar install
 
 notifications:
     webhooks: http://sonata-project.org/bundles/easy-extends/master/travis
