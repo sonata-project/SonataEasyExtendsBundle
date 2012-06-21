@@ -12,6 +12,7 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $entityNames = $ormMetadata->getEntityNames();
 
+        $this->assertEquals(4, count($entityNames));
         $this->assertContains('Block', $entityNames);
         $this->assertContains('Page', $entityNames);
     }
@@ -22,6 +23,7 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $entityNames = $ormMetadata->getEntityNames();
 
+        $this->assertEquals(4, count($entityNames));
         $this->assertContains('Block', $entityNames);
         $this->assertContains('Page', $entityNames);
     }

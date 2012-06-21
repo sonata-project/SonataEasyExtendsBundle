@@ -52,6 +52,7 @@ class OrmMetadata
         try {
             $f = new Finder;
             $f->name('*.orm.xml.skeleton');
+            $f->name('*.orm.yml.skeleton');
             $f->in($this->getMappingEntityDirectory());
 
             return $f->getIterator();
@@ -68,6 +69,7 @@ class OrmMetadata
         try {
             $f = new Finder;
             $f->name('*.orm.xml.skeleton');
+            $f->name('*.orm.yml.skeleton');
             $f->in($this->getMappingEntityDirectory());
 
             foreach($f->getIterator() as $file) {
