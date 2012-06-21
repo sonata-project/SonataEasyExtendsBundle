@@ -93,8 +93,8 @@ How to make your bundle easy extendable
 
 Mainly all you need is to follow instructions in previous paragraph. 
 
-   - Declare you entity/epository as described above
+   - Declare you entity/repository as described above
    - Use your entity/repostiory as described above.
-   - Before generation you also need "skeleton" file that will describe AB entity. For fully working example see SonataMediaBundle.
+   - Before generation you also need "skeleton" file that will describe AB entity. Skeleton file can either xml or yml. For fully working example see SonataMediaBundle.
 
 At last you can run ``php app/console sonata:easy-extends:generate YourVBBundleName`` and that's it!
