@@ -123,8 +123,8 @@ class OrmGenerator implements GeneratorInterface
 
         foreach ($names as $name) {
 
-            $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getOrmMetadata()->getExtendedEntityDirectory(), $name);
-            $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getOrmMetadata()->getEntityDirectory(), $name);
+            $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getOrmMetadata()->getExtendedRepositoryDirectory(), $name);
+            $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getOrmMetadata()->getRepositoryDirectory(), $name);
 
             if(!is_file($src_file)) {
                 $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));

@@ -18,6 +18,16 @@ class OrmMetadata
     protected $extendedMappingEntityDirectory;
     protected $entityDirectory;
     protected $extendedEntityDirectory;
+    
+    /**
+     * @var string
+     */
+    protected $repositoryDirectory;
+    
+    /**
+     * @var string
+     */
+    protected $extendedRepositoryDirectory;
 
     public function __construct(BundleMetadata $bundleMetadata)
     {
@@ -25,6 +35,8 @@ class OrmMetadata
         $this->extendedMappingEntityDirectory   = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
         $this->entityDirectory                  = sprintf('%s/Entity', $bundleMetadata->getBundle()->getPath());
         $this->extendedEntityDirectory          = sprintf('%s/Entity', $bundleMetadata->getExtendedDirectory());
+        $this->repositoryDirectory              = sprintf('%s/Repository', $bundleMetadata->getBundle()->getPath());
+        $this->extendedRepositoryDirectory      = sprintf('%s/Repository', $bundleMetadata->getExtendedDirectory());
     }
 
     public function getMappingEntityDirectory()
@@ -45,6 +57,22 @@ class OrmMetadata
     public function getExtendedEntityDirectory()
     {
         return $this->extendedEntityDirectory;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getRepositoryDirectory()
+    {
+        return $this->repositoryDirectory;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtendedRepositoryDirectory()
+    {
+        return $this->extendedRepositoryDirectory;
     }
 
     public function getEntityMappingFiles()
@@ -89,7 +117,7 @@ class OrmMetadata
         try {
             $f = new Finder;
             $f->name('*Repository.php');
-            $f->in($this->getEntityDirectory());
+            $f->in($this->getRepositoryDirectory());
 
             return $f->getIterator();
         } catch(\Exception $e) {
