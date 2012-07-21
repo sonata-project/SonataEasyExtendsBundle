@@ -76,7 +76,7 @@ How to achieve this
 
   - Declare only SuperClass inside a VB, don’t use final entity
   - Call your entity ``BaseXXXX`` and make it abstract, change the properties from private to protected.
-  - The same goes for a repository
+  - The same goes for a repository but in the 'Repository folder'
   - Always use ``Application\YourBundle\Entity\XXXX`` inside your code
 
 Of course, you need to create for each VB bundle
