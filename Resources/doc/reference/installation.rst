@@ -6,7 +6,7 @@ the following lines to the file ``deps``::
 
   [SonataEasyExtendsBundle]
       git=git://github.com/sonata-project/SonataEasyExtendsBundle.git
-      target=endor/bundles/Sonata/EasyExtendsBundle
+      target=/bundles/Sonata/EasyExtendsBundle
 
 and run::
 
