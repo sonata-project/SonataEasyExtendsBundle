@@ -15,13 +15,13 @@ use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
 class PHPCRGenerator implements GeneratorInterface
 {
-    protected $entityTemplate;
-    protected $entityRepositoryTemplate;
+    protected $DocumentTemplate;
+    protected $DocumentRepositoryTemplate;
 
     public function __construct()
     {
-        $this->entityTemplate           = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/entity.mustache');
-        $this->entityRepositoryTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/repository.mustache');
+        $this->DocumentTemplate           = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/document.mustache');
+        $this->DocumentRepositoryTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/repository.mustache');
     }
 
     /**
@@ -30,26 +30,26 @@ class PHPCRGenerator implements GeneratorInterface
      */
     public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-        $this->generateMappingEntityFiles($output, $bundleMetadata);
-        $this->generateEntityFiles($output, $bundleMetadata);
-        $this->generateEntityRepositoryFiles($output, $bundleMetadata);
+        $this->generateMappingDocumentFiles($output, $bundleMetadata);
+        $this->generateDocumentFiles($output, $bundleMetadata);
+        $this->generateDocumentRepositoryFiles($output, $bundleMetadata);
     }
 
     /**
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateMappingEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-        $output->writeln(' - Copy entity files');
+        $output->writeln(' - Copy Document files');
 
-        $files = $bundleMetadata->getOrmMetadata()->getEntityMappingFiles();
+        $files = $bundleMetadata->getPhpcrMetadata()->getDocumentMappingFiles();
         foreach ($files as $file) {
             // copy mapping definition
             $fileName = substr($file->getFileName(), 0, strrpos($file->getFileName(), '.'));
 
-            $dest_file  = sprintf('%s/%s', $bundleMetadata->getOrmMetadata()->getExtendedMappingEntityDirectory(), $fileName);
-            $src_file   = sprintf('%s/%s', $bundleMetadata->getOrmMetadata()->getMappingEntityDirectory(), $file->getFileName());
+            $dest_file  = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
+            $src_file   = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getMappingDocumentDirectory(), $file->getFileName());
 
             if(is_file($dest_file)) {
                 $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
@@ -64,22 +64,22 @@ class PHPCRGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-        $output->writeln(' - Generating entity files');
+        $output->writeln(' - Generating Document files');
 
-        $names = $bundleMetadata->getOrmMetadata()->getEntityNames();
+        $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
 
         foreach ($names as $name) {
 
             $extendedName = $name;
 
-            $dest_file  = sprintf('%s/%s.php', $bundleMetadata->getOrmMetadata()->getExtendedEntityDirectory(), $name);
-            $src_file = sprintf('%s/%s.php', $bundleMetadata->getOrmMetadata()->getEntityDirectory(), $extendedName);
+            $dest_file  = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
+            $src_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $extendedName);
 
             if(!is_file($src_file)) {
                 $extendedName = 'Base'.$name;
-                $src_file = sprintf('%s/%s.php', $bundleMetadata->getOrmMetadata()->getEntityDirectory(), $extendedName);
+                $src_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $extendedName);
 
                 if(!is_file($src_file)) {
                     $output->writeln(sprintf('   ! <info>%s</info>', $extendedName));
@@ -93,7 +93,7 @@ class PHPCRGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $name));
 
-                $string = Mustache::replace($this->getEntityTemplate(), array(
+                $string = Mustache::replace($this->getDocumentTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name != $extendedName ? $extendedName : $name,
                     'class'                 => $name,
@@ -111,16 +111,16 @@ class PHPCRGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateEntityRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-        $output->writeln(' - Generating entity repository files');
+        $output->writeln(' - Generating Document repository files');
 
-        $names = $bundleMetadata->getOrmMetadata()->getEntityNames();
+        $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
 
         foreach ($names as $name) {
 
-            $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getOrmMetadata()->getExtendedEntityDirectory(), $name);
-            $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getOrmMetadata()->getEntityDirectory(), $name);
+            $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
+            $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $name);
 
             if(!is_file($src_file)) {
                 $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));
@@ -132,7 +132,7 @@ class PHPCRGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
-                $string = Mustache::replace($this->getEntityRepositoryTemplate(), array(
+                $string = Mustache::replace($this->getDocumentRepositoryTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name,
                     'namespace'             => $bundleMetadata->getNamespace()
@@ -146,16 +146,16 @@ class PHPCRGenerator implements GeneratorInterface
     /**
      * @return string
      */
-    public function getEntityTemplate()
+    public function getDocumentTemplate()
     {
-        return $this->entityTemplate;
+        return $this->DocumentTemplate;
     }
 
     /**
      * @return string
      */
-    public function getEntityRepositoryTemplate()
+    public function getDocumentRepositoryTemplate()
     {
-        return $this->entityRepositoryTemplate;
+        return $this->DocumentRepositoryTemplate;
     }
 }

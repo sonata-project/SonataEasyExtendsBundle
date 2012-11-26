@@ -47,6 +47,7 @@ class BundleGenerator implements GeneratorInterface
             'DependencyInjection',
             'Entity',
             'Document',
+            'PHPCR',
             'Controller'
         );
 

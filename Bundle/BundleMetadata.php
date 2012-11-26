@@ -11,6 +11,7 @@
 namespace Sonata\EasyExtendsBundle\Bundle;
 
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class BundleMetadata
 {
@@ -30,11 +31,26 @@ class BundleMetadata
 
     protected $configuration = array();
 
+    /**
+     * @var OrmMetadata
+     */
     protected $ormMetadata = null;
 
+    /**
+     * @var OdmMetadata
+     */
     protected $odmMetadata = null;
 
-    public function __construct($bundle, array $configuration = array())
+    /**
+     * @var PhpcrMetadata
+     */
+    protected $phpcrMetadata = null;
+
+    /**
+     * @param BundleInterface $bundle
+     * @param array           $configuration
+     */
+    public function __construct(BundleInterface $bundle, array $configuration = array())
     {
         $this->bundle = $bundle;
         $this->configuration = $configuration;
@@ -79,6 +95,7 @@ class BundleMetadata
 
         $this->ormMetadata = new OrmMetadata($this);
         $this->odmMetadata = new OdmMetadata($this);
+        $this->phpcrMetadata = new PhpcrMetadata($this);
     }
 
     public function isExtendable()
@@ -90,31 +107,50 @@ class BundleMetadata
         );
 
     }
+
+    /**
+     * @return string
+     */
     public function getClass()
     {
         return get_class($this->bundle);
     }
 
+    /**
+     * @return boolean
+     */
     public function isValid()
     {
         return $this->valid;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedDirectory()
     {
         return $this->extendedDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getVendor()
     {
         return $this->vendor;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedNamespace()
     {
         return $this->extendedNamespace;
     }
 
+    /**
+     * @return string
+     */
     public function getNamespace()
     {
         return $this->namespace;
@@ -130,18 +166,35 @@ class BundleMetadata
         return $this->name;
     }
 
+    /**
+     * @return BundleInterface
+     */
     public function getBundle()
     {
         return $this->bundle;
     }
 
+    /**
+     * @return OdmMetadata
+     */
     public function getOdmMetadata()
     {
-      return $this->odmMetadata;
+        return $this->odmMetadata;
     }
 
+    /**
+     * @return OrmMetadata
+     */
     public function getOrmMetadata()
     {
-      return $this->ormMetadata;
+        return $this->ormMetadata;
+    }
+
+    /**
+     * @return PhpcrMetadata
+     */
+    public function getPhpcrMetadata()
+    {
+        return $this->phpcrMetadata;
     }
 }
