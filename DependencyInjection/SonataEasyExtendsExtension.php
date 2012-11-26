@@ -27,16 +27,11 @@ use Symfony\Component\Finder\Finder;
  */
 class SonataEasyExtendsExtension extends Extension
 {
-
     /**
-     * Loads the url shortener configuration.
-     *
-     * @param array            $config    An array of configuration settings
-     * @param ContainerBuilder $container A ContainerBuilder instance
+     * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container) {
-        $config = call_user_func_array('array_merge_recursive', $configs);
-
+    public function load(array $configs, ContainerBuilder $container)
+    {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('generator.xml');
         $loader->load('mapper.xml');

@@ -44,10 +44,9 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
-     * @param $class
-     * @param $field
-     * @param $mapping
-     * @return void
+     * @param string $class
+     * @param string $field
+     * @param array  $options
      */
     public function addAssociation($class, $field, array $options)
     {
@@ -59,10 +58,9 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
-     * @param $class
-     * @param $name
-     * @param array $columns
-     * @return void
+     * @param string $class
+     * @param string $name
+     * @param array  $columns
      */
     public function addIndex($class, $name, array $columns)
     {
@@ -89,6 +87,11 @@ class DoctrineORMMapper implements EventSubscriber
         $this->loadIndexes($metadata);
     }
 
+    /**
+     * @param ClassMetadataInfo $metadata
+     *
+     * @throws \RuntimeException
+     */
     private function loadAssociations(ClassMetadataInfo $metadata)
     {
         if (!array_key_exists($metadata->name, $this->associations)) {
@@ -112,6 +115,9 @@ class DoctrineORMMapper implements EventSubscriber
         }
     }
 
+    /**
+     * @param ClassMetadataInfo $metadata
+     */
     private function loadIndexes(ClassMetadataInfo $metadata)
     {
         if (!array_key_exists($metadata->name, $this->indexes)) {

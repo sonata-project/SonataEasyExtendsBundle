@@ -27,9 +27,11 @@ use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
  */
 class GenerateCommand extends ContainerAwareCommand
 {
+    /**
+     * {@inheritDoc}
+     */
     protected function configure()
     {
-        parent::configure();
 
         $this
             ->setName('sonata:easy-extends:generate')
@@ -48,9 +50,11 @@ EOT
         $this->addOption('dest', 'd', InputOption::VALUE_OPTIONAL, 'The base folder where the Application will be created', false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $dest = $input->getOption('dest');
         if ($dest) {
             $dest = realpath($dest);
@@ -81,7 +85,7 @@ EOT
 
             $output->writeln('');
 
-            return;
+            return 0;
         }
 
         $processed = false;
@@ -111,12 +115,16 @@ EOT
             $this->getContainer()->get('sonata.easy_extends.generator.bundle')
                 ->generate($output, $bundleMetadata);
 
-            $output->writeln(sprintf('Processing orm : "<info>%s</info>"', $bundleMetadata->getName()));
+            $output->writeln(sprintf('Processing Doctrine ORM : "<info>%s</info>"', $bundleMetadata->getName()));
             $this->getContainer()->get('sonata.easy_extends.generator.orm')
                 ->generate($output, $bundleMetadata);
 
-            $output->writeln(sprintf('Processing odm : "<info>%s</info>"', $bundleMetadata->getName()));
+            $output->writeln(sprintf('Processing Doctrine ODM : "<info>%s</info>"', $bundleMetadata->getName()));
             $this->getContainer()->get('sonata.easy_extends.generator.odm')
+                ->generate($output, $bundleMetadata);
+
+            $output->writeln(sprintf('Processing Doctrine PHPCR : "<info>%s</info>"', $bundleMetadata->getName()));
+            $this->getContainer()->get('sonata.easy_extends.generator.phpcr')
                 ->generate($output, $bundleMetadata);
 
             $output->writeln('');
@@ -124,11 +132,11 @@ EOT
 
         if ($processed) {
             $output->writeln('done!');
-            return true;
+            return 0;
         }
 
         $output->writeln(sprintf('<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>', $bundleName));
 
-        return false;
+        return -1;
     }
 }

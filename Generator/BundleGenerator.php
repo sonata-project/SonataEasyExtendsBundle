@@ -23,20 +23,18 @@ class BundleGenerator implements GeneratorInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Sonata\EasyExtendsBundle\Bundle\BundleMetadata $bundleMetadata
-     * @return void
+     * @param OutputInterface $output
+     * @param BundleMetadata  $bundleMetadata
      */
-    function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $this->generateBundleDirectory($output, $bundleMetadata);
         $this->generateBundleFile($output, $bundleMetadata);
     }
 
     /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Sonata\EasyExtendsBundle\Bundle\BundleMetadata $bundleMetadata
-     * @return void
+     * @param OutputInterface $output
+     * @param BundleMetadata $bundleMetadata
      */
     protected function generateBundleDirectory(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
@@ -62,9 +60,8 @@ class BundleGenerator implements GeneratorInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Sonata\EasyExtendsBundle\Bundle\BundleMetadata $bundleMetadata
-     * @return
+     * @param OutputInterface $output
+     * @param BundleMetadata  $bundleMetadata
      */
     protected function generateBundleFile(OutputInterface $output, BundleMetadata $bundleMetadata)
     {

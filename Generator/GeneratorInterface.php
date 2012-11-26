@@ -15,12 +15,9 @@ use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
 interface GeneratorInterface
 {
-
     /**
-     * @abstract
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Sonata\EasyExtendsBundle\Bundle\BundleMetadata $bundleMetadata
-     * @return void
+     * @param OutputInterface $output
+     * @param BundleMetadata  $bundleMetadata
      */
     function generate(OutputInterface $output, BundleMetadata $bundleMetadata);
 }

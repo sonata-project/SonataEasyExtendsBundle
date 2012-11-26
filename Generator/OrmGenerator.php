@@ -25,11 +25,10 @@ class OrmGenerator implements GeneratorInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Sonata\EasyExtendsBundle\Bundle\BundleMetadata $bundleMetadata
-     * @return void
+     * @param OutputInterface $output
+     * @param BundleMetadata $bundleMetadata
      */
-    function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $this->generateMappingEntityFiles($output, $bundleMetadata);
         $this->generateEntityFiles($output, $bundleMetadata);
@@ -37,9 +36,8 @@ class OrmGenerator implements GeneratorInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Sonata\EasyExtendsBundle\Bundle\BundleMetadata $bundleMetadata
-     * @return void
+     * @param OutputInterface $output
+     * @param BundleMetadata $bundleMetadata
      */
     public function generateMappingEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
@@ -63,9 +61,8 @@ class OrmGenerator implements GeneratorInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Sonata\EasyExtendsBundle\Bundle\BundleMetadata $bundleMetadata
-     * @return void
+     * @param OutputInterface $output
+     * @param BundleMetadata  $bundleMetadata
      */
     public function generateEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
@@ -111,9 +108,8 @@ class OrmGenerator implements GeneratorInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Sonata\EasyExtendsBundle\Bundle\BundleMetadata $bundleMetadata
-     * @return void
+     * @param OutputInterface $output
+     * @param BundleMetadata  $bundleMetadata
      */
     public function generateEntityRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
@@ -122,7 +118,6 @@ class OrmGenerator implements GeneratorInterface
         $names = $bundleMetadata->getOrmMetadata()->getEntityNames();
 
         foreach ($names as $name) {
-
             $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getOrmMetadata()->getExtendedEntityDirectory(), $name);
             $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getOrmMetadata()->getEntityDirectory(), $name);
 

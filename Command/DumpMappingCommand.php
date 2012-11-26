@@ -27,10 +27,11 @@ use Doctrine\ORM\Tools\Export\ClassMetadataExporter;
  */
 class DumpMappingCommand extends ContainerAwareCommand
 {
+    /**
+     * {@inheritDoc}
+     */
     protected function configure()
     {
-        parent::configure();
-
         $this->setName('sonata:easy-extends:dump-mapping');
         $this->setDescription('Dump some mapping information (debug only)');
 
@@ -38,6 +39,9 @@ class DumpMappingCommand extends ContainerAwareCommand
         $this->addArgument('model', InputArgument::OPTIONAL, 'The class to dump', false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $factory = $this->getContainer()->get('doctrine')->getEntityManager($input->getArgument('manager'))->getMetadataFactory();

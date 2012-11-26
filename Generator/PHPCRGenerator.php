@@ -13,43 +13,43 @@ namespace Sonata\EasyExtendsBundle\Generator;
 use Symfony\Component\Console\Output\OutputInterface;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
-class OdmGenerator implements GeneratorInterface
+class PHPCRGenerator implements GeneratorInterface
 {
-    protected $documentTemplate;
-    protected $documentRepositoryTemplate;
+    protected $entityTemplate;
+    protected $entityRepositoryTemplate;
 
     public function __construct()
     {
-        $this->documentTemplate           = file_get_contents(__DIR__.'/../Resources/skeleton/odm/document.mustache');
-        $this->documentRepositoryTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/odm/repository.mustache');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
-    {
-        $this->generateMappingDocumentFiles($output, $bundleMetadata);
-        $this->generateDocumentFiles($output, $bundleMetadata);
-        $this->generateDocumentRepositoryFiles($output, $bundleMetadata);
+        $this->entityTemplate           = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/entity.mustache');
+        $this->entityRepositoryTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/repository.mustache');
     }
 
     /**
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-        $output->writeln(' - Copy document files');
+        $this->generateMappingEntityFiles($output, $bundleMetadata);
+        $this->generateEntityFiles($output, $bundleMetadata);
+        $this->generateEntityRepositoryFiles($output, $bundleMetadata);
+    }
 
-        $files = $bundleMetadata->getOdmMetadata()->getDocumentMappingFiles();
+    /**
+     * @param OutputInterface $output
+     * @param BundleMetadata  $bundleMetadata
+     */
+    public function generateMappingEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    {
+        $output->writeln(' - Copy entity files');
 
+        $files = $bundleMetadata->getOrmMetadata()->getEntityMappingFiles();
         foreach ($files as $file) {
             // copy mapping definition
             $fileName = substr($file->getFileName(), 0, strrpos($file->getFileName(), '.'));
 
-            $dest_file  = sprintf('%s/%s', $bundleMetadata->getOdmMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
-            $src_file   = sprintf('%s/%s.skeleton', $bundleMetadata->getOdmMetadata()->getMappingDocumentDirectory(), $fileName);
+            $dest_file  = sprintf('%s/%s', $bundleMetadata->getOrmMetadata()->getExtendedMappingEntityDirectory(), $fileName);
+            $src_file   = sprintf('%s/%s', $bundleMetadata->getOrmMetadata()->getMappingEntityDirectory(), $file->getFileName());
 
             if(is_file($dest_file)) {
                 $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
@@ -64,24 +64,26 @@ class OdmGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-        $output->writeln(' - Generating document files');
+        $output->writeln(' - Generating entity files');
 
-        $names = $bundleMetadata->getOdmMetadata()->getDocumentNames();
+        $names = $bundleMetadata->getOrmMetadata()->getEntityNames();
 
         foreach ($names as $name) {
+
             $extendedName = $name;
 
-            $dest_file  = sprintf('%s/%s.php', $bundleMetadata->getOdmMetadata()->getExtendedDocumentDirectory(), $name);
-            $src_file = sprintf('%s/%s.php', $bundleMetadata->getOdmMetadata()->getDocumentDirectory(), $extendedName);
+            $dest_file  = sprintf('%s/%s.php', $bundleMetadata->getOrmMetadata()->getExtendedEntityDirectory(), $name);
+            $src_file = sprintf('%s/%s.php', $bundleMetadata->getOrmMetadata()->getEntityDirectory(), $extendedName);
 
             if(!is_file($src_file)) {
                 $extendedName = 'Base'.$name;
-                $src_file = sprintf('%s/%s.php', $bundleMetadata->getOdmMetadata()->getDocumentDirectory(), $extendedName);
+                $src_file = sprintf('%s/%s.php', $bundleMetadata->getOrmMetadata()->getEntityDirectory(), $extendedName);
 
                 if(!is_file($src_file)) {
                     $output->writeln(sprintf('   ! <info>%s</info>', $extendedName));
+
                     continue;
                 }
             }
@@ -91,7 +93,7 @@ class OdmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $name));
 
-                $string = Mustache::replace($this->getDocumentTemplate(), array(
+                $string = Mustache::replace($this->getEntityTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name != $extendedName ? $extendedName : $name,
                     'class'                 => $name,
@@ -101,6 +103,7 @@ class OdmGenerator implements GeneratorInterface
 
                 file_put_contents($dest_file, $string);
             }
+
         }
     }
 
@@ -108,15 +111,16 @@ class OdmGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateEntityRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-        $output->writeln(' - Generating document repository files');
+        $output->writeln(' - Generating entity repository files');
 
-        $names = $bundleMetadata->getOdmMetadata()->getDocumentNames();
+        $names = $bundleMetadata->getOrmMetadata()->getEntityNames();
 
         foreach ($names as $name) {
-            $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getOdmMetadata()->getExtendedDocumentDirectory(), $name);
-            $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getOdmMetadata()->getDocumentDirectory(), $name);
+
+            $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getOrmMetadata()->getExtendedEntityDirectory(), $name);
+            $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getOrmMetadata()->getEntityDirectory(), $name);
 
             if(!is_file($src_file)) {
                 $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));
@@ -128,7 +132,7 @@ class OdmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
-                $string = Mustache::replace($this->getDocumentRepositoryTemplate(), array(
+                $string = Mustache::replace($this->getEntityRepositoryTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name,
                     'namespace'             => $bundleMetadata->getNamespace()
@@ -142,16 +146,16 @@ class OdmGenerator implements GeneratorInterface
     /**
      * @return string
      */
-    public function getDocumentTemplate()
+    public function getEntityTemplate()
     {
-        return $this->documentTemplate;
+        return $this->entityTemplate;
     }
 
     /**
      * @return string
      */
-    public function getDocumentRepositoryTemplate()
+    public function getEntityRepositoryTemplate()
     {
-        return $this->documentRepositoryTemplate;
+        return $this->entityRepositoryTemplate;
     }
 }
