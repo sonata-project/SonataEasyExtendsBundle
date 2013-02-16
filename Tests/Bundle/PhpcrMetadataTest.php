@@ -164,4 +164,3 @@ class PhpcrMetadataTest extends \PHPUnit_Framework_TestCase
         return $bundleMetadata;
     }
 }
-

@@ -8,16 +8,13 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\EasyExtendsBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 use Doctrine\ORM\Tools\Export\ClassMetadataExporter;
 
 /**

@@ -10,7 +10,6 @@
 
 namespace Sonata\EasyExtendsBundle\Bundle;
 
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class BundleMetadata
@@ -71,18 +70,21 @@ class BundleMetadata
     {
         $information = explode('\\', $this->getClass());
 
-        if(!$this->isExtendable()) {
+        if (!$this->isExtendable()) {
             $this->valid = false;
+
             return;
         }
 
-        if(count($information) != 3) {
+        if (count($information) != 3) {
             $this->valid = false;
+
             return;
         }
 
-        if($information[0].$information[1] != $information[2]) {
+        if ($information[0].$information[1] != $information[2]) {
             $this->valid = false;
+
             return;
         }
 

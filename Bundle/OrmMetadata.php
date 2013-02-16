@@ -56,8 +56,7 @@ class OrmMetadata
             $f->in($this->getMappingEntityDirectory());
 
             return $f->getIterator();
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
             return array();
         }
     }
@@ -72,12 +71,12 @@ class OrmMetadata
             $f->name('*.orm.yml.skeleton');
             $f->in($this->getMappingEntityDirectory());
 
-            foreach($f->getIterator() as $file) {
+            foreach ($f->getIterator() as $file) {
                 $name = explode('.', basename($file));
                 $names[] = $name[0];
             }
 
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
 
         }
 
@@ -92,8 +91,7 @@ class OrmMetadata
             $f->in($this->getEntityDirectory());
 
             return $f->getIterator();
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
             return array();
         }
     }

@@ -8,7 +8,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Sonata\EasyExtendsBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
@@ -99,13 +98,13 @@ EOT
             $bundleMetadata = new BundleMetadata($bundle, $configuration);
 
             // generate the bundle file
-            if(!$bundleMetadata->isExtendable()) {
+            if (!$bundleMetadata->isExtendable()) {
                 $output->writeln(sprintf('Ignoring bundle : "<comment>%s</comment>"', $bundleMetadata->getClass()));
                 continue;
             }
 
             // generate the bundle file
-            if(!$bundleMetadata->isValid()) {
+            if (!$bundleMetadata->isValid()) {
                 $output->writeln(sprintf('%s : <comment>wrong folder structure</comment>', $bundleMetadata->getClass()));
                 continue;
             }
@@ -132,6 +131,7 @@ EOT
 
         if ($processed) {
             $output->writeln('done!');
+
             return 0;
         }
 

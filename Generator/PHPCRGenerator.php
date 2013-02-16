@@ -51,7 +51,7 @@ class PHPCRGenerator implements GeneratorInterface
             $dest_file  = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
             $src_file   = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getMappingDocumentDirectory(), $file->getFileName());
 
-            if(is_file($dest_file)) {
+            if (is_file($dest_file)) {
                 $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $fileName));
@@ -77,18 +77,18 @@ class PHPCRGenerator implements GeneratorInterface
             $dest_file  = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
             $src_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $extendedName);
 
-            if(!is_file($src_file)) {
+            if (!is_file($src_file)) {
                 $extendedName = 'Base'.$name;
                 $src_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $extendedName);
 
-                if(!is_file($src_file)) {
+                if (!is_file($src_file)) {
                     $output->writeln(sprintf('   ! <info>%s</info>', $extendedName));
 
                     continue;
                 }
             }
 
-            if(is_file($dest_file)) {
+            if (is_file($dest_file)) {
                 $output->writeln(sprintf('   ~ <info>%s</info>', $name));
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $name));
@@ -122,12 +122,12 @@ class PHPCRGenerator implements GeneratorInterface
             $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
             $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $name);
 
-            if(!is_file($src_file)) {
+            if (!is_file($src_file)) {
                 $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));
                 continue;
             }
 
-            if(is_file($dest_file)) {
+            if (is_file($dest_file)) {
                 $output->writeln(sprintf('   ~ <info>%sRepository</info>', $name));
             } else {
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));

@@ -27,7 +27,7 @@ class DoctrineCollector
     /**
      * @return \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector
      */
-    static public function getInstance()
+    public static function getInstance()
     {
         if (!self::$instance) {
             self::$instance = new self;
@@ -39,7 +39,7 @@ class DoctrineCollector
     /**
      * @param $class
      * @param $type
-     * @param array $options
+     * @param  array $options
      * @return void
      */
     public function addAssociation($class, $type, array $options)
@@ -58,7 +58,7 @@ class DoctrineCollector
     /**
      * @param $class
      * @param $name
-     * @param array $columns
+     * @param  array $columns
      * @return void
      */
     public function addIndex($class, $name, array $columns)

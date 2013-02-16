@@ -18,7 +18,7 @@ class Mustache
      *
      * @return mixed
      */
-    static public function replace($string, array $parameters)
+    public static function replace($string, array $parameters)
     {
         $replacer = function ($match) use ($parameters) {
             return isset($parameters[$match[1]]) ? $parameters[$match[1]] : $match[0];
@@ -33,7 +33,7 @@ class Mustache
      *
      * @return mixed
      */
-    static public function replaceFromFile($file, array $parameters)
+    public static function replaceFromFile($file, array $parameters)
     {
         return self::replace(file_get_contents($file), $parameters);
     }

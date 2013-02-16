@@ -11,11 +11,8 @@
 
 namespace Sonata\EasyExtendsBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 
 /*
@@ -31,6 +28,7 @@ class AddMapperInformationCompilerPass implements CompilerPassInterface
     {
         if (!$container->hasDefinition('doctrine')) {
             $container->removeDefinition('sonata.easy_extends.doctrine.mapper');
+
             return;
         }
 

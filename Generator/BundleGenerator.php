@@ -34,7 +34,7 @@ class BundleGenerator implements GeneratorInterface
 
     /**
      * @param OutputInterface $output
-     * @param BundleMetadata $bundleMetadata
+     * @param BundleMetadata  $bundleMetadata
      */
     protected function generateBundleDirectory(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
@@ -51,9 +51,9 @@ class BundleGenerator implements GeneratorInterface
             'Controller'
         );
 
-        foreach($directories as $directory) {
+        foreach ($directories as $directory) {
             $dir = sprintf('%s/%s', $bundleMetadata->getExtendedDirectory(), $directory);
-            if(!is_dir($dir)) {
+            if (!is_dir($dir)) {
                 $output->writeln(sprintf('  > generating bundle directory <comment>%s</comment>', $dir));
                 mkdir($dir, 0755, true);
             }
@@ -68,7 +68,7 @@ class BundleGenerator implements GeneratorInterface
     {
         $file = sprintf('%s/Application%s.php', $bundleMetadata->getExtendedDirectory(), $bundleMetadata->getName());
 
-        if(is_file($file)) {
+        if (is_file($file)) {
             return;
         }
 

@@ -55,8 +55,7 @@ class PhpcrMetadata
             $f->in($this->getMappingDocumentDirectory());
 
             return $f->getIterator();
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
             return array();
         }
     }
@@ -70,12 +69,12 @@ class PhpcrMetadata
             $f->name('*.phpcr.xml.skeleton');
             $f->in($this->getMappingDocumentDirectory());
 
-            foreach($f->getIterator() as $file) {
+            foreach ($f->getIterator() as $file) {
                 $name = explode('.', basename($file));
                 $names[] = $name[0];
             }
 
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
 
         }
 
@@ -90,8 +89,7 @@ class PhpcrMetadata
             $f->in($this->getDocumentDirectory());
 
             return $f->getIterator();
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
             return array();
         }
     }

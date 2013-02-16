@@ -166,4 +166,3 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
         return $bundleMetadata;
     }
 }
-

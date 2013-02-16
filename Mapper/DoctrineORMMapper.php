@@ -23,8 +23,8 @@ class DoctrineORMMapper implements EventSubscriber
 
     /**
      * @param \Symfony\Bundle\DoctrineBundle\Registry $doctrine
-     * @param array $associations
-     * @param array $indexes
+     * @param array                                   $associations
+     * @param array                                   $indexes
      */
     public function __construct($doctrine, $associations = array(), $indexes = array())
     {
