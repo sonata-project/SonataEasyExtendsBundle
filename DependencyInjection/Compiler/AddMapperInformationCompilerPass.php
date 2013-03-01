@@ -40,6 +40,20 @@ class AddMapperInformationCompilerPass implements CompilerPassInterface
             }
         }
 
+        foreach (DoctrineCollector::getInstance()->getDiscriminatorColumns() as $class => $columnDefinition) {
+                $mapper->addMethodCall('addDiscriminatorColumn', array($class, $columnDefinition));
+        }
+
+        foreach (DoctrineCollector::getInstance()->getDiscriminators() as $class => $discriminators) {
+            foreach ($discriminators as $key => $discriminatorClass) {
+                $mapper->addMethodCall('addDiscriminator', array($class, $key, $discriminatorClass));
+            }
+        }
+
+        foreach (DoctrineCollector::getInstance()->getInheritanceTypes() as $class => $type) {
+            $mapper->addMethodCall('addInheritanceType', array($class, $type));
+        }
+
         foreach (DoctrineCollector::getInstance()->getIndexes() as $class => $indexes) {
             foreach ($indexes as $field => $options) {
                 $mapper->addMethodCall('addIndex', array($class, $field, $options));
