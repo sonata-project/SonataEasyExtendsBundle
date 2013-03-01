@@ -16,6 +16,12 @@ class DoctrineCollector
 
     protected $indexes;
 
+    protected $discriminators;
+
+    protected $discriminatorColumns;
+
+    protected $inheritanceTypes;
+
     private static $instance;
 
     public function __construct()
@@ -34,6 +40,54 @@ class DoctrineCollector
         }
 
         return self::$instance;
+    }
+
+    /**
+     * Add a discriminator to a class.
+     *
+     * @param  string  $class               The Class
+     * @param  string  $key                 Key is the database value and values are the classes
+     * @param  string  $discriminatorClass  The mapped class
+     *
+     * @return void
+     */
+    public function addDiscriminator($class, $key, $discriminatorClass)
+    {
+        if (!isset($this->discriminators[$class])) {
+            $this->discriminators[$class] = array();
+        }
+
+        if (!isset($this->discriminators[$class][$key])) {
+            $this->discriminators[$class][$key] = $discriminatorClass;
+        }
+    }
+
+    /**
+     * Add the Discriminator Column.
+     *
+     * @param string $class
+     * @param array $columnDef
+     *
+     * @return void
+     */
+    public function addDiscriminatorColumn($class, array $columnDef)
+    {
+        if (!isset($this->discriminatorColumns[$class])) {
+            $this->discriminatorColumns[$class] = $columnDef;
+        }
+    }
+
+    /**
+     * @param string $class
+     * @param string $type
+     *
+     * @return void
+     */
+    public function addInheritanceType($class, $type)
+    {
+        if (!isset($this->inheritanceTypes[$class])) {
+            $this->inheritanceTypes[$class] = $type;
+        }
     }
 
     /**
@@ -81,7 +135,28 @@ class DoctrineCollector
     {
         return $this->associations;
     }
+    /**
+     * @return array
+     */
+    public function getDiscriminators()
+    {
+        return $this->discriminators;
+    }
 
+    /**
+     * @return array
+     */
+    public function getDiscriminatorColumns()
+    {
+        return $this->discriminatorColumns;
+    }
+    /**
+     * @return array
+     */
+    public function getInheritanceTypes()
+    {
+        return $this->inheritanceTypes;
+    }
     /**
      * @return array
      */
