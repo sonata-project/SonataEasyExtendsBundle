@@ -28,6 +28,9 @@ class DoctrineCollector
     {
         $this->associations = array();
         $this->indexes = array();
+        $this->discriminatorColumns = array();
+        $this->inheritanceTypes = array();
+        $this->discriminators = array();
     }
 
     /**
