@@ -35,11 +35,9 @@ class GenerateCommand extends ContainerAwareCommand
         $this
             ->setName('sonata:easy-extends:generate')
             ->setHelp(<<<EOT
-The <info>easy-extends:generate:entities</info> command generates a set of Entities
-in your Application Entity folder from the Entities set in bundles. This command
-will allow to generate create custom code from the model.
+The <info>easy-extends:generate:entities</info> command generating a valid bundle structure from a Vendor Bundle.
 
-  <info>./symfony sonata:easy-extends:generate SonataUserBundle</info>
+  <info>ie: ./app/console sonata:easy-extends:generate SonataUserBundle</info>
 EOT
         );
 
