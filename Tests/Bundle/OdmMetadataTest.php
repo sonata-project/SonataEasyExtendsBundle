@@ -85,7 +85,7 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
             $files[] = $file->getFilename();
         }
 
-        $this->assertInstanceOf('Symfony\Component\Finder\Iterator\FilenameFilterIterator', $filterIterator);
+        $this->assertInstanceOf('Iterator', $filterIterator);
         $this->assertContainsOnly('Symfony\Component\Finder\SplFileInfo', $filterIterator);
         $this->assertContains('Block.mongodb.xml.skeleton', $files);
         $this->assertContains('Page.mongodb.xml.skeleton', $files);
@@ -114,7 +114,7 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
             $files[] = $file->getFilename();
         }
 
-        $this->assertInstanceOf('Symfony\Component\Finder\Iterator\FilenameFilterIterator', $filterIterator);
+        $this->assertInstanceOf('Iterator', $filterIterator);
         $this->assertContainsOnly('Symfony\Component\Finder\SplFileInfo', $filterIterator);
         $this->assertContains('BlockRepository.php', $files);
         $this->assertContains('PageRepository.php', $files);
