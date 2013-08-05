@@ -18,9 +18,9 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "symfony/framework-bundle": "2.*",
-        "symfony/console": "2.*",
-        "symfony/finder": "2.*"
+        "symfony/framework-bundle": "~2",
+        "symfony/console": "~2",
+        "symfony/finder": "~2"
     },
     "autoload": {
         "psr-0": { "Sonata\\EasyExtendsBundle": "" }
@@ -28,7 +28,6 @@
     "target-dir": "Sonata/EasyExtendsBundle",
     "extra": {
         "branch-alias": {
-            "dev-2.0": "2.0.x-dev",
             "dev-master": "2.1.x-dev"
         }
     }
