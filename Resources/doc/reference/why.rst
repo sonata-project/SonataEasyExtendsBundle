@@ -13,7 +13,7 @@ Let’s have a quick Symfony2 and Doctrine tour
 A quick Doctrine tour:
 
   - Doctrine2 entities are plain PHP objects; there is no database layer information. An ``Comment::post_id`` property
-    is part of the database layer and not part of the domain layer. So a ``comment`` entity will have a `post`` property
+    is part of the database layer and not part of the domain layer. So a ``comment`` entity will have a ``post`` property
     and not a ``post_id`` property.
   - Doctrine2 entities are mapped through mapping information: yaml, xml, annotation or php code. There is one mapping
     per class. So if Blog extends SuperBlog, which extends SuperEntity, you will have 3 classes and so 3 information
