@@ -53,7 +53,7 @@ Can this problem be solved with the Alternate syntax?
 -----------------------------------------------------
 
 There is actually a start of a solution, the DoctrineBundle allows us to use an alternate syntax,
-ie (‘BlogBundle:Blog’ instead of ‘Bundle\BlogBundle\Entity\Blog’). As you can guess this syntax only works
+ie (``BlogBundle:Blog`` instead of ``Bundle\BlogBundle\Entity\Blog``). As you can guess this syntax only works
 for string, inside a query for instance.
 
 So if you want to instantiate a new model, you need first to get the ClassMetadata instance, retrieve the class
@@ -69,7 +69,7 @@ A pragmatic way to solve this issue
 -----------------------------------
 
 The easiest way to solve this problem is to use global namespace inside your VB, the global namespace is the only
-namespace allowed  `Application\YourBundle\Entity`.
+namespace allowed  ``Application\YourBundle\Entity``.
 
 So inside your mapping definition or inside your VB code, you will use one final namespace: problem solved.
 How to achieve this
