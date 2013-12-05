@@ -1,17 +1,17 @@
 <?php
+
 namespace Sonata\EasyExtendsBundle\Tests\Mapper;
 
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class DoctrineCollectorTest extends \PHPUnit_Framework_TestCase
 {
      /**
-     * @covers DoctrineCollector::getIndexes
-     * @covers DoctrineCollector::getInheritanceTypes
-     * @covers DoctrineCollector::getDiscriminatorColumns
-     * @covers DoctrineCollector::getAssociations
-     * @covers DoctrineCollector::getDiscriminators
+     * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getIndexes
+     * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getInheritanceTypes
+     * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getDiscriminatorColumns
+     * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getAssociations
+     * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getDiscriminators
      */
     public function testDefaultValues()
     {
