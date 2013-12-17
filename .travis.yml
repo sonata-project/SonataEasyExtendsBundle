@@ -1,12 +1,11 @@
 language: php
 
-language: php
-
 php:
   - 5.3
   - 5.4
   - 5.5
-
+  - hhvm
+  
 env:
   - SYMFONY_VERSION=2.1.*
   - SYMFONY_VERSION=2.2.*
@@ -21,4 +20,8 @@ before_script:
 script: phpunit
 
 notifications:
-    webhooks: http://sonata-project.org/bundles/easy-extends/master/travis
+    webhooks: http://sonata-project.org/bundles/easyextends/master/travis
+
+matrix:
+  allow_failures:
+    - php: hhvm
