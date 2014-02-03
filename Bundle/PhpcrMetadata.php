@@ -18,6 +18,7 @@ class PhpcrMetadata
     protected $extendedMappingDocumentDirectory;
     protected $documentDirectory;
     protected $extendedDocumentDirectory;
+    protected $extendedSerializerDirectory;
 
     public function __construct(BundleMetadata $bundleMetadata)
     {
@@ -25,6 +26,7 @@ class PhpcrMetadata
         $this->extendedMappingDocumentDirectory   = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
         $this->documentDirectory                  = sprintf('%s/PHPCR', $bundleMetadata->getBundle()->getPath());
         $this->extendedDocumentDirectory          = sprintf('%s/PHPCR', $bundleMetadata->getExtendedDirectory());
+        $this->extendedSerializerDirectory        = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
     }
 
     public function getMappingDocumentDirectory()
@@ -45,6 +47,11 @@ class PhpcrMetadata
     public function getExtendedDocumentDirectory()
     {
         return $this->extendedDocumentDirectory;
+    }
+
+    public function getExtendedSerializerDirectory()
+    {
+        return $this->extendedSerializerDirectory;
     }
 
     public function getDocumentMappingFiles()

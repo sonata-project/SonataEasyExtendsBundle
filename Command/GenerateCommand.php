@@ -124,6 +124,10 @@ EOT
             $this->getContainer()->get('sonata.easy_extends.generator.phpcr')
                 ->generate($output, $bundleMetadata);
 
+            $output->writeln(sprintf('Processing Serializer config : "<info>%s</info>"', $bundleMetadata->getName()));
+            $this->getContainer()->get('sonata.easy_extends.generator.serializer')
+                ->generate($output, $bundleMetadata);
+
             $output->writeln('');
         }
 

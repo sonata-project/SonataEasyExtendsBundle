@@ -74,6 +74,18 @@ class PhpcrMetadataTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
+    public function testGetExtendedSerializerDirectory()
+    {
+        $bundlePath = __DIR__.'/Fixtures/bundle1';
+        $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/serializer';
+
+        $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock($bundlePath));
+
+        $directory = $odmMetadata->getExtendedSerializerDirectory();
+
+        $this->assertEquals($expectedDirectory, $directory);
+    }
+
     public function testGetDocumentMappingFiles()
     {
         $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));

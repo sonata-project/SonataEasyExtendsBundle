@@ -18,6 +18,7 @@ class OrmMetadata
     protected $extendedMappingEntityDirectory;
     protected $entityDirectory;
     protected $extendedEntityDirectory;
+    protected $extendedSerializerDirectory;
 
     public function __construct(BundleMetadata $bundleMetadata)
     {
@@ -25,6 +26,7 @@ class OrmMetadata
         $this->extendedMappingEntityDirectory   = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
         $this->entityDirectory                  = sprintf('%s/Entity', $bundleMetadata->getBundle()->getPath());
         $this->extendedEntityDirectory          = sprintf('%s/Entity', $bundleMetadata->getExtendedDirectory());
+        $this->extendedSerializerDirectory      = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
     }
 
     public function getMappingEntityDirectory()
@@ -45,6 +47,11 @@ class OrmMetadata
     public function getExtendedEntityDirectory()
     {
         return $this->extendedEntityDirectory;
+    }
+
+    public function getExtendedSerializerDirectory()
+    {
+        return $this->extendedSerializerDirectory;
     }
 
     public function getEntityMappingFiles()
