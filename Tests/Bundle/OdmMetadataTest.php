@@ -74,6 +74,18 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
+    public function testGetExtendedSerializerDirectory()
+    {
+        $bundlePath = __DIR__.'/Fixtures/bundle1';
+        $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/serializer';
+
+        $ormMetadata = new OdmMetadata($this->getBundleMetadataMock($bundlePath));
+
+        $directory = $ormMetadata->getExtendedSerializerDirectory();
+
+        $this->assertEquals($expectedDirectory, $directory);
+    }
+
     public function testGetDocumentMappingFiles()
     {
         $odmMetadata = new OdmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
