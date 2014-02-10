@@ -52,9 +52,14 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $dest = $input->getOption('dest');
-        if ($dest) {
-            $dest = realpath($dest);
+        $destOption = $input->getOption('dest');
+        if ($destOption) {
+            $dest = realpath($destOption);
+            if (false === $dest) {
+                $output->writeln('');
+                $output->writeln(sprintf('<error>The provided destination folder \'%s\' does not exist!</error>', $destOption));
+                return 0;
+            }
         } else {
             $dest = $this->getContainer()->get('kernel')->getRootDir();
         }
