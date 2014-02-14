@@ -26,9 +26,8 @@
         "doctrine/orm": "~2"
     },
     "autoload": {
-        "psr-0": { "Sonata\\EasyExtendsBundle": "" }
+        "psr-4": { "Sonata\\EasyExtendsBundle\\": "" }
     },
-    "target-dir": "Sonata/EasyExtendsBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "2.1.x-dev"
