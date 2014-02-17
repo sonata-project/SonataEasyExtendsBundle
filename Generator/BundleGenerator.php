@@ -40,6 +40,7 @@ class BundleGenerator implements GeneratorInterface
     {
         $directories = array(
             '',
+            'Resources/config/serializer',
             'Resources/config/doctrine',
             'Resources/config/routing',
             'Resources/views',
