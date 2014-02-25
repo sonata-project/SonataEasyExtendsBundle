@@ -1,7 +1,7 @@
 Make your Symfony2 bundle extendable
 ====================================
 
-.. note:
+.. note::
 
     this post is not part of the Symfony2 documentation; it is just a state about how things work now (end of 2010)
     between Doctrine2 and Symfony2. It is not a complaint about the architecture, it just exposes how I solve a
@@ -91,7 +91,7 @@ to the rescue.
 How to make your bundle easy extendable
 ---------------------------------------
 
-Mainly all you need is to follow instructions in previous paragraph. 
+Mainly all you need is to follow instructions in previous paragraph.
 
    - Declare you entity/repository as described above
    - Use your entity/repostiory as described above.
