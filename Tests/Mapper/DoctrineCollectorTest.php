@@ -15,11 +15,11 @@ class DoctrineCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDefaultValues()
     {
-       $collector = DoctrineCollector::getInstance();
-       $this->assertEquals(array(), $collector->getIndexes());
-       $this->assertEquals(array(), $collector->getInheritanceTypes());
-       $this->assertEquals(array(), $collector->getDiscriminatorColumns());
-       $this->assertEquals(array(), $collector->getAssociations());
-       $this->assertEquals(array(), $collector->getDiscriminators());
+        $collector = DoctrineCollector::getInstance();
+        $this->assertEquals(array(), $collector->getIndexes());
+        $this->assertEquals(array(), $collector->getInheritanceTypes());
+        $this->assertEquals(array(), $collector->getDiscriminatorColumns());
+        $this->assertEquals(array(), $collector->getAssociations());
+        $this->assertEquals(array(), $collector->getDiscriminators());
     }
 }

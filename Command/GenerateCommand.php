@@ -39,7 +39,7 @@ The <info>easy-extends:generate:entities</info> command generating a valid bundl
 
   <info>ie: ./app/console sonata:easy-extends:generate SonataUserBundle</info>
 EOT
-        );
+            );
 
         $this->setDescription('Create entities used by Sonata\'s bundles');
 
@@ -74,7 +74,7 @@ EOT
             $output->writeln('');
             $output->writeln('<error>You must provide a bundle name!</error>');
             $output->writeln('');
-            $output->writeln('  Bundles availables :');
+            $output->writeln('  Bundles available :');
             foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
                 $bundleMetadata = new BundleMetadata($bundle, $configuration);
 
