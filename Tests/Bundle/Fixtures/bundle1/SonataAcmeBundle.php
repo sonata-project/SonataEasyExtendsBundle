@@ -6,6 +6,6 @@ class SonataAcmeBundle extends \Symfony\Component\HttpKernel\Bundle\Bundle
 {
     public function getPath()
     {
-      return __DIR__;
+        return __DIR__;
     }
 }
