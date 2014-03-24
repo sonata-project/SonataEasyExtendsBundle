@@ -97,4 +97,4 @@ Mainly all you need is to follow instructions in previous paragraph.
    - Use your entity/repository as described above.
    - Before generation you also need "skeleton" file that will describe AB entity. Skeleton file can either xml or yml. For fully working example see SonataMediaBundle.
 
-At last you can run ``php app/console sonata:easy-extends:generate YourVBBundleName`` and that's it!
+At last you can run ``php app/console sonata:easy-extends:generate YourVBBundleName``. Note that the `--dest` option allows you to choose the target directory, such as `src`. Default destination is `app/`
