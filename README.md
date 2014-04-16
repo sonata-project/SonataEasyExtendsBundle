@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/sonata-project/EasyExtendsBundle.png)](https://secure.travis-ci.org/#!/sonata-project/EasyExtendsBundle)
+[![Build Status](https://travis-ci.org/sonata-project/SonataEasyExtendsBundle.svg)](https://travis-ci.org/sonata-project/SonataEasyExtendsBundle)
 
 SonataEasyExtendsBundle is a prototype for generating a valid bundle structure from a Vendor Bundle.
 
