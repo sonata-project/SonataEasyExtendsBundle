@@ -14,7 +14,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
@@ -43,7 +42,7 @@ EOT
 
         $this->setDescription('Create entities used by Sonata\'s bundles');
 
-        $this->addArgument('bundle', InputArgument::OPTIONAL, 'The bundle name to "easy-extends"', false);
+        $this->addArgument('bundle', InputArgument::IS_ARRAY, 'The bundle name to "easy-extends"');
         $this->addOption('dest', 'd', InputOption::VALUE_OPTIONAL, 'The base folder where the Application will be created', false);
     }
 
@@ -68,13 +67,13 @@ EOT
             'application_dir' =>  sprintf("%s/Application", $dest)
         );
 
-        $bundleName = $input->getArgument('bundle');
+        $bundleNames = $input->getArgument('bundle');
 
-        if ($bundleName == false) {
+        if (empty($bundleNames)) {
             $output->writeln('');
             $output->writeln('<error>You must provide a bundle name!</error>');
             $output->writeln('');
-            $output->writeln('  Bundles available :');
+            $output->writeln('  Bundles availables :');
             foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
                 $bundleMetadata = new BundleMetadata($bundle, $configuration);
 
@@ -90,7 +89,34 @@ EOT
             return 0;
         }
 
+        foreach ($bundleNames as $bundleName) {
+            $processed = $this->generate($bundleName, $configuration, $output);
+
+            if (!$processed) {
+                $output->writeln(sprintf('<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>', $bundleName));
+
+                return -1;
+            }
+        }
+
+        $output->writeln('done!');
+
+        return 0;
+    }
+
+    /**
+     * Generates a bundle entities from a bundle name
+     *
+     * @param string          $bundleName
+     * @param array           $configuration
+     * @param OutputInterface $output
+     *
+     * @return bool
+     */
+    protected function generate($bundleName, array $configuration, $output)
+    {
         $processed = false;
+
         foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
 
             if ($bundle->getName() != $bundleName) {
@@ -136,14 +162,6 @@ EOT
             $output->writeln('');
         }
 
-        if ($processed) {
-            $output->writeln('done!');
-
-            return 0;
-        }
-
-        $output->writeln(sprintf('<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>', $bundleName));
-
-        return -1;
+        return $processed;
     }
 }
