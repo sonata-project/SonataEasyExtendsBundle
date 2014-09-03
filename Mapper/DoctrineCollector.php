@@ -22,6 +22,8 @@ class DoctrineCollector
 
     protected $inheritanceTypes;
 
+    protected $overrides;
+
     private static $instance;
 
     public function __construct()
@@ -31,6 +33,7 @@ class DoctrineCollector
         $this->discriminatorColumns = array();
         $this->inheritanceTypes = array();
         $this->discriminators = array();
+        $this->overrides = array();
     }
 
     /**
@@ -132,12 +135,32 @@ class DoctrineCollector
     }
 
     /**
+     * @param $class
+     * @param $type
+     * @param  array $options
+     * @return void
+     */
+    public function addOverride($class, $type, array $options)
+    {
+        if (!isset($this->overrides[$class])) {
+            $this->overrides[$class] = array();
+        }
+
+        if (!isset($this->overrides[$class][$type])) {
+            $this->overrides[$class][$type] = array();
+        }
+
+        $this->overrides[$class][$type][] = $options;
+    }
+
+    /**
      * @return array
      */
     public function getAssociations()
     {
         return $this->associations;
     }
+
     /**
      * @return array
      */
@@ -153,6 +176,7 @@ class DoctrineCollector
     {
         return $this->discriminatorColumns;
     }
+
     /**
      * @return array
      */
@@ -160,11 +184,20 @@ class DoctrineCollector
     {
         return $this->inheritanceTypes;
     }
+
     /**
      * @return array
      */
     public function getIndexes()
     {
         return $this->indexes;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOverrides()
+    {
+        return $this->overrides;
     }
 }

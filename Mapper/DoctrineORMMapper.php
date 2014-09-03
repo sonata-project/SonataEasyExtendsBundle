@@ -27,12 +27,14 @@ class DoctrineORMMapper implements EventSubscriber
 
     protected $indexes;
 
+    protected $overrides;
+
     /**
      * @param \Symfony\Bundle\DoctrineBundle\Registry $doctrine
      * @param array                                   $associations
      * @param array                                   $indexes
      */
-    public function __construct($doctrine, $associations = array(), $indexes = array(), $discriminators = array(), $discriminatorColumns = array(), $inheritanceTypes = array())
+    public function __construct($doctrine, $associations = array(), $indexes = array(), $discriminators = array(), $discriminatorColumns = array(), $inheritanceTypes = array(), $overrides = array())
     {
         $this->doctrine = $doctrine;
         $this->associations = $associations;
@@ -40,7 +42,7 @@ class DoctrineORMMapper implements EventSubscriber
         $this->discriminatorColumns = $discriminatorColumns;
         $this->discriminators = $discriminators;
         $this->inheritanceTypes = $inheritanceTypes;
-
+        $this->overrides = $overrides;
     }
 
     /**
@@ -55,16 +57,16 @@ class DoctrineORMMapper implements EventSubscriber
 
     /**
      * @param string $class
-     * @param string $field
+     * @param string $type
      * @param array  $options
      */
-    public function addAssociation($class, $field, array $options)
+    public function addAssociation($class, $type, array $options)
     {
         if (!isset($this->associations[$class])) {
             $this->associations[$class] = array();
         }
 
-        $this->associations[$class][$field] = $options;
+        $this->associations[$class][$type] = $options;
     }
 
     /**
@@ -131,6 +133,20 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
+     * @param string $class
+     * @param string $type
+     * @param array  $options
+     */
+    public function addOverride($class, $type, array $options)
+    {
+        if (!isset($this->overrides[$class])) {
+            $this->overrides[$class] = array();
+        }
+
+        $this->overrides[$class][$type] = $options;
+    }
+
+    /**
      * @param $eventArgs
      * @return void
      */
@@ -144,6 +160,8 @@ class DoctrineORMMapper implements EventSubscriber
         $this->loadDiscriminatorColumns($metadata);
         $this->loadDiscriminators($metadata);
         $this->loadInheritanceTypes($metadata);
+
+        $this->loadOverrides($metadata);
     }
 
     /**
@@ -254,6 +272,28 @@ class DoctrineORMMapper implements EventSubscriber
 
         foreach ($this->indexes[$metadata->name] as $name => $columns) {
             $metadata->table['indexes'][$name] = array('columns' => $columns);
+        }
+    }
+
+    /**
+     * @param ClassMetadataInfo $metadata
+     *
+     * @throws \RuntimeException
+     */
+    private function loadOverrides(ClassMetadataInfo $metadata)
+    {
+        if (!array_key_exists($metadata->name, $this->overrides)) {
+            return;
+        }
+
+        try {
+            foreach ($this->overrides[$metadata->name] as $type => $overrides) {
+                foreach ($overrides as $override) {
+                    call_user_func(array($metadata, $type), $override['fieldName'], $override);
+                }
+            }
+        } catch (\ReflectionException $e) {
+            throw new \RuntimeException(sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e);
         }
     }
 }
