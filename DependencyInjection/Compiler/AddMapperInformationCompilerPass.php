@@ -59,5 +59,11 @@ class AddMapperInformationCompilerPass implements CompilerPassInterface
                 $mapper->addMethodCall('addIndex', array($class, $field, $options));
             }
         }
+
+        foreach (DoctrineCollector::getInstance()->getUniques() as $class => $uniques) {
+            foreach ($uniques as $field => $options) {
+                $mapper->addMethodCall('addUnique', array($class, $field, $options));
+            }
+        }
     }
 }

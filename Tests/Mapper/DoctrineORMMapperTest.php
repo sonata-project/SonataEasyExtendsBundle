@@ -11,8 +11,8 @@ class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->doctrine = $this->getMock('\Symfony\Bundle\DoctrineBundle\Registry', array(), array(), '', false);
-        $this->metadata = $this->getMock('\Doctrine\ORM\Mapping\ClassMetadataInfo', array(), array(), '', false);
+        $this->doctrine = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry', array(), array(), '', false);
+        $this->metadata = $this->getMock('Doctrine\ORM\Mapping\ClassMetadataInfo', array(), array(), '', false);
     }
 
     public function testLoadDiscriminators()
@@ -65,5 +65,4 @@ class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
         $m->setAccessible(true);
         $m->invoke($mapper, $this->metadata);
     }
-
 }

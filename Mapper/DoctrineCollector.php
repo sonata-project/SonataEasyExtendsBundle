@@ -16,6 +16,8 @@ class DoctrineCollector
 
     protected $indexes;
 
+    protected $uniques;
+
     protected $discriminators;
 
     protected $discriminatorColumns;
@@ -28,6 +30,7 @@ class DoctrineCollector
     {
         $this->associations = array();
         $this->indexes = array();
+        $this->uniques = array();
         $this->discriminatorColumns = array();
         $this->inheritanceTypes = array();
         $this->discriminators = array();
@@ -51,8 +54,6 @@ class DoctrineCollector
      * @param  string  $class               The Class
      * @param  string  $key                 Key is the database value and values are the classes
      * @param  string  $discriminatorClass  The mapped class
-     *
-     * @return void
      */
     public function addDiscriminator($class, $key, $discriminatorClass)
     {
@@ -69,9 +70,7 @@ class DoctrineCollector
      * Add the Discriminator Column.
      *
      * @param string $class
-     * @param array $columnDef
-     *
-     * @return void
+     * @param array  $columnDef
      */
     public function addDiscriminatorColumn($class, array $columnDef)
     {
@@ -83,8 +82,6 @@ class DoctrineCollector
     /**
      * @param string $class
      * @param string $type
-     *
-     * @return void
      */
     public function addInheritanceType($class, $type)
     {
@@ -94,10 +91,9 @@ class DoctrineCollector
     }
 
     /**
-     * @param $class
-     * @param $type
-     * @param  array $options
-     * @return void
+     * @param string $class
+     * @param string $type
+     * @param array $options
      */
     public function addAssociation($class, $type, array $options)
     {
@@ -113,10 +109,9 @@ class DoctrineCollector
     }
 
     /**
-     * @param $class
-     * @param $name
-     * @param  array $columns
-     * @return void
+     * @param string $class
+     * @param string $name
+     * @param array  $columns
      */
     public function addIndex($class, $name, array $columns)
     {
@@ -129,6 +124,24 @@ class DoctrineCollector
         }
 
         $this->indexes[$class][$name] = $columns;
+    }
+
+    /**
+     * @param string $class
+     * @param string $name
+     * @param array  $columns
+     */
+    public function addUnique($class, $name, array $columns)
+    {
+        if (!isset($this->indexes[$class])) {
+            $this->uniques[$class] = array();
+        }
+
+        if (isset($this->uniques[$class][$name])) {
+            return;
+        }
+
+        $this->uniques[$class][$name] = $columns;
     }
 
     /**
@@ -153,6 +166,7 @@ class DoctrineCollector
     {
         return $this->discriminatorColumns;
     }
+
     /**
      * @return array
      */
@@ -160,11 +174,20 @@ class DoctrineCollector
     {
         return $this->inheritanceTypes;
     }
+
     /**
      * @return array
      */
     public function getIndexes()
     {
         return $this->indexes;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUniques()
+    {
+        return $this->uniques;
     }
 }

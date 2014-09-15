@@ -10,7 +10,9 @@
 
 namespace Sonata\EasyExtendsBundle\Mapper;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\Common\Persistence\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class DoctrineORMMapper implements EventSubscriber
@@ -27,20 +29,26 @@ class DoctrineORMMapper implements EventSubscriber
 
     protected $indexes;
 
+    protected $uniques;
+
     /**
-     * @param \Symfony\Bundle\DoctrineBundle\Registry $doctrine
-     * @param array                                   $associations
-     * @param array                                   $indexes
+     * @param ManagerRegistry $doctrine
+     * @param array           $associations
+     * @param array           $indexes
+     * @param array           $discriminators
+     * @param array           $discriminatorColumns
+     * @param array           $inheritanceTypes
+     * @param array           $uniques
      */
-    public function __construct($doctrine, $associations = array(), $indexes = array(), $discriminators = array(), $discriminatorColumns = array(), $inheritanceTypes = array())
+    public function __construct(ManagerRegistry $doctrine, array $associations = array(), array $indexes = array(), array $discriminators = array(), array $discriminatorColumns = array(), array $inheritanceTypes = array(), array $uniques = array())
     {
         $this->doctrine = $doctrine;
         $this->associations = $associations;
         $this->indexes = $indexes;
+        $this->uniques = $uniques;
         $this->discriminatorColumns = $discriminatorColumns;
         $this->discriminators = $discriminators;
         $this->inheritanceTypes = $inheritanceTypes;
-
     }
 
     /**
@@ -70,9 +78,9 @@ class DoctrineORMMapper implements EventSubscriber
     /**
      * Add a discriminator to a class.
      *
-     * @param  string  $class               The Class
-     * @param  string  $key                 Key is the database value and values are the classes
-     * @param  string  $discriminatorclass  The mapped class
+     * @param string $class               The Class
+     * @param string $key                 Key is the database value and values are the classes
+     * @param string $discriminatorClass  The mapped class
      *
      * @return void
      */
@@ -89,8 +97,7 @@ class DoctrineORMMapper implements EventSubscriber
 
     /**
      * @param string $class
-     * @param array $columnDef
-     * @return void
+     * @param array  $columnDef
      */
     public function addDiscriminatorColumn($class, array $columnDef)
     {
@@ -101,8 +108,6 @@ class DoctrineORMMapper implements EventSubscriber
     /**
      * @param string $class
      * @param string $type
-     *
-     * @return void
      */
     public function addInheritanceType($class, $type)
     {
@@ -110,7 +115,6 @@ class DoctrineORMMapper implements EventSubscriber
             $this->inheritanceTypes[$class] = $type;
         }
     }
-
 
     /**
      * @param string $class
@@ -131,15 +135,33 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
-     * @param $eventArgs
-     * @return void
+     * @param string $class
+     * @param string $name
+     * @param array  $columns
      */
-    public function loadClassMetadata($eventArgs)
+    public function addUnique($class, $name, array $columns)
+    {
+        if (!isset($this->uniques[$class])) {
+            $this->uniques[$class] = array();
+        }
+
+        if (isset($this->uniques[$class][$name])) {
+            return;
+        }
+
+        $this->uniques[$class][$name] = $columns;
+    }
+
+    /**
+     * @param $eventArgs
+     */
+    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
         $metadata = $eventArgs->getClassMetadata();
 
         $this->loadAssociations($metadata);
         $this->loadIndexes($metadata);
+        $this->loadUniques($metadata);
 
         $this->loadDiscriminatorColumns($metadata);
         $this->loadDiscriminators($metadata);
@@ -181,7 +203,6 @@ class DoctrineORMMapper implements EventSubscriber
      */
     private function loadDiscriminatorColumns(ClassMetadataInfo $metadata)
     {
-
         if (!array_key_exists($metadata->name, $this->discriminatorColumns)) {
             return;
         }
@@ -254,6 +275,20 @@ class DoctrineORMMapper implements EventSubscriber
 
         foreach ($this->indexes[$metadata->name] as $name => $columns) {
             $metadata->table['indexes'][$name] = array('columns' => $columns);
+        }
+    }
+
+    /**
+     * @param ClassMetadataInfo $metadata
+     */
+    private function loadUniques(ClassMetadataInfo $metadata)
+    {
+        if (!array_key_exists($metadata->name, $this->uniques)) {
+            return;
+        }
+
+        foreach ($this->uniques[$metadata->name] as $name => $columns) {
+            $metadata->table['uniqueConstraints'][$name] = array('columns' => $columns);
         }
     }
 }
