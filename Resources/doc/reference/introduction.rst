@@ -15,4 +15,4 @@ The command line will generate:
 * the table name from the bundle name + entity name. For instance, ``blog__post``, where blog is the BlogBundle and Post the entity name.
 
 You can optionally define a ``--dest`` option to the command with the target directory for the extended bundle creation.
-By default, this is set to ``app`` but you should probably be set to ``src``.
+By default, this is set to ``app`` but you should probably set it to ``src``.
