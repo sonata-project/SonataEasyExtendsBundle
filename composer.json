@@ -3,13 +3,13 @@
     "type": "symfony-bundle",
     "description": "Symfony SonataEasyExtendsBundle",
     "keywords": ["sonata", "easy extends"],
-    "homepage": "http://sonata-project.org/bundles/easy-extends",
+    "homepage": "https://sonata-project.org/bundles/easy-extends",
     "license": "MIT",
     "authors": [
         {
             "name": "Thomas Rabaix",
             "email": "thomas.rabaix@sonata-project.org",
-            "homepage": "http://sonata-project.org"
+            "homepage": "https://sonata-project.org"
         },
         {
             "name": "Sonata Community",
