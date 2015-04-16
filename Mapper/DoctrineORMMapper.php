@@ -12,7 +12,7 @@ namespace Sonata\EasyExtendsBundle\Mapper;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LoadClassMetadataEventArgs;
+use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class DoctrineORMMapper implements EventSubscriber
