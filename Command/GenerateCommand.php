@@ -44,7 +44,7 @@ EOT
 
         $this->addArgument('bundle', InputArgument::IS_ARRAY, 'The bundle name to "easy-extends"');
         $this->addOption('dest', 'd', InputOption::VALUE_OPTIONAL, 'The base folder where the Application will be created', false);
-        $this->addOption('namespace', 'n', InputOption::VALUE_OPTIONAL, 'The namespace for the classes', false);
+        $this->addOption('namespace', 'm', InputOption::VALUE_OPTIONAL, 'The namespace for the classes', false);
     }
 
     /**
