@@ -70,7 +70,8 @@ class BundleGenerator implements GeneratorInterface
      */
     protected function generateBundleFile(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-        $file = sprintf('%s/Application%s.php', $bundleMetadata->getExtendedDirectory(), $bundleMetadata->getName());
+        $application = explode('\\', $bundleMetadata->getExtendedNamespace())[0];
+        $file = sprintf('%s/%s%s.php', $bundleMetadata->getExtendedDirectory(), $application, $bundleMetadata->getName());
 
         if (is_file($file)) {
             return;
@@ -79,6 +80,7 @@ class BundleGenerator implements GeneratorInterface
         $output->writeln(sprintf('  > generating bundle file <comment>%s</comment>', $file));
 
         $string = Mustache::replace($this->getBundleTemplate(), array(
+            'application' => $application,
             'bundle' => $bundleMetadata->getName(),
             'namespace' => $bundleMetadata->getExtendedNamespace(),
         ));

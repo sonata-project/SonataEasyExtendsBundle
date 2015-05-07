@@ -44,6 +44,7 @@ EOT
 
         $this->addArgument('bundle', InputArgument::IS_ARRAY, 'The bundle name to "easy-extends"');
         $this->addOption('dest', 'd', InputOption::VALUE_OPTIONAL, 'The base folder where the Application will be created', false);
+        $this->addOption('namespace', 'ns', InputOption::VALUE_OPTIONAL, 'The namespace for the classes', false);
     }
 
     /**
@@ -55,17 +56,24 @@ EOT
         if ($destOption) {
             $dest = realpath($destOption);
             if (false === $dest) {
-                $output->writeln('');
-                $output->writeln(sprintf('<error>The provided destination folder \'%s\' does not exist!</error>', $destOption));
-
-                return 0;
+                throw new \RuntimeException(sprintf('The provided destination folder \'%s\' does not exist!', $destOption));
             }
         } else {
             $dest = $this->getContainer()->get('kernel')->getRootDir();
         }
 
+        $namespace = $input->getOption('namespace');
+        if ($namespace) {
+            if (!preg_match('/^(?:(?:[[:alnum:]]+|:vendor)\\\\?)+$/', $namespace)) {
+                throw new \InvalidArgumentException('The provided namespace \'%s\' is not a valid namespace!', $namespace);
+            }
+        } else {
+            $namespace = 'Application\:vendor';
+        }
+
         $configuration = array(
-            'application_dir' => sprintf('%s/Application', $dest),
+            'application_dir' => sprintf('%s%s%s', $dest, DIRECTORY_SEPARATOR, str_replace('\\', DIRECTORY_SEPARATOR, $namespace)),
+            'namespace' => $namespace,
         );
 
         $bundleNames = $input->getArgument('bundle');
@@ -87,23 +95,17 @@ EOT
             }
 
             $output->writeln('');
+        } else {
+            foreach ($bundleNames as $bundleName) {
+                $processed = $this->generate($bundleName, $configuration, $output);
 
-            return 0;
-        }
-
-        foreach ($bundleNames as $bundleName) {
-            $processed = $this->generate($bundleName, $configuration, $output);
-
-            if (!$processed) {
-                $output->writeln(sprintf('<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>', $bundleName));
-
-                return -1;
+                if (!$processed) {
+                    throw new \RuntimeException(sprintf('<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>', $bundleName));
+                }
             }
         }
 
         $output->writeln('done!');
-
-        return 0;
     }
 
     /**
