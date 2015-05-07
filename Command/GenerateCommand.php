@@ -67,7 +67,7 @@ EOT
         $namespaceOption = $input->getOption('namespace');
         if ($namespaceOption) {
             $namespace = $namespaceOption;
-            if (!preg_match('/^(?:(?:[[:alnum:]]+|:vendor)\\?)+$/', $namespace)) {
+            if (!preg_match('/^(?:(?:[[:alnum:]]+|:vendor)\\\\?)+$/', $namespace)) {
                 $output->writeln('');
                 $output->writeln(sprintf('<error>The provided namespace \'%s\' is not a valid namespace!</error>', $namespaceOption));
                 return 0;
