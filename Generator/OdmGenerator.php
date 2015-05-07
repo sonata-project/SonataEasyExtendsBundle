@@ -55,7 +55,14 @@ class OdmGenerator implements GeneratorInterface
                 $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $fileName));
-                copy($src_file, $dest_file);
+
+                $mappingEntityTemplate = file_get_contents($src_file);
+
+                $string = Mustache::replace($mappingEntityTemplate, array(
+                    'namespace'    => $bundleMetadata->getExtendedNamespace()
+                ));
+
+                file_put_contents($dest_file, $string);
             }
         }
     }
