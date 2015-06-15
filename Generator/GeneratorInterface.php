@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata project.
  *
@@ -10,8 +11,8 @@
 
 namespace Sonata\EasyExtendsBundle\Generator;
 
-use Symfony\Component\Console\Output\OutputInterface;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
+use Symfony\Component\Console\Output\OutputInterface;
 
 interface GeneratorInterface
 {

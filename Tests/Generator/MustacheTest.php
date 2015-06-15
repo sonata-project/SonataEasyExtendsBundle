@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -16,21 +17,21 @@ class MustacheTest extends \PHPUnit_Framework_TestCase
 {
     public function testMustache()
     {
-        $this->assertEquals(Mustache::replace(" Hello {{ world }}", array(
-          'world' => 'world'
+        $this->assertEquals(Mustache::replace(' Hello {{ world }}', array(
+          'world' => 'world',
         )), ' Hello world');
 
-        $this->assertEquals(Mustache::replace(" Hello {{world}}", array(
-          'world' => 'world'
+        $this->assertEquals(Mustache::replace(' Hello {{world}}', array(
+          'world' => 'world',
         )), ' Hello world');
 
-        $this->assertEquals(Mustache::replace(" Hello {{ world }}", array(
-          'no-world' => 'world'
+        $this->assertEquals(Mustache::replace(' Hello {{ world }}', array(
+          'no-world' => 'world',
         )), ' Hello {{ world }}');
 
-        $file = sprintf("%s/../fixtures/test.mustache", __DIR__);
+        $file = sprintf('%s/../fixtures/test.mustache', __DIR__);
         $this->assertEquals(Mustache::replaceFromFile($file, array(
-          'world' => 'world'
+          'world' => 'world',
         )), 'Hello world');
     }
 }
