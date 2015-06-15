@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata project.
  *
@@ -10,8 +11,8 @@
 
 namespace Sonata\EasyExtendsBundle\Generator;
 
-use Symfony\Component\Console\Output\OutputInterface;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class OdmGenerator implements GeneratorInterface
 {
@@ -96,7 +97,7 @@ class OdmGenerator implements GeneratorInterface
                     'name'                  => $name != $extendedName ? $extendedName : $name,
                     'class'                 => $name,
                     'extended_name'         => $name == $extendedName ? 'Base'.$name : $extendedName,
-                    'namespace'             => $bundleMetadata->getNamespace()
+                    'namespace'             => $bundleMetadata->getNamespace(),
                 ));
 
                 file_put_contents($dest_file, $string);
@@ -131,7 +132,7 @@ class OdmGenerator implements GeneratorInterface
                 $string = Mustache::replace($this->getDocumentRepositoryTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name,
-                    'namespace'             => $bundleMetadata->getNamespace()
+                    'namespace'             => $bundleMetadata->getNamespace(),
                 ));
 
                 file_put_contents($dest_file, $string);

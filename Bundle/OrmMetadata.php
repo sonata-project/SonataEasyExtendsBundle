@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata project.
  *
@@ -57,7 +58,7 @@ class OrmMetadata
     public function getEntityMappingFiles()
     {
         try {
-            $f = new Finder;
+            $f = new Finder();
             $f->name('*.orm.xml.skeleton');
             $f->name('*.orm.yml.skeleton');
             $f->in($this->getMappingEntityDirectory());
@@ -73,7 +74,7 @@ class OrmMetadata
         $names = array();
 
         try {
-            $f = new Finder;
+            $f = new Finder();
             $f->name('*.orm.xml.skeleton');
             $f->name('*.orm.yml.skeleton');
             $f->in($this->getMappingEntityDirectory());
@@ -82,9 +83,7 @@ class OrmMetadata
                 $name = explode('.', basename($file));
                 $names[] = $name[0];
             }
-
         } catch (\Exception $e) {
-
         }
 
         return $names;
@@ -93,7 +92,7 @@ class OrmMetadata
     public function getRepositoryFiles()
     {
         try {
-            $f = new Finder;
+            $f = new Finder();
             $f->name('*Repository.php');
             $f->in($this->getEntityDirectory());
 

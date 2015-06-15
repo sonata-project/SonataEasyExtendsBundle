@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -10,9 +11,9 @@
 
 namespace Sonata\EasyExtendsBundle\Mapper;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LoadClassMetadataEventArgs;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class DoctrineORMMapper implements EventSubscriber
@@ -57,7 +58,7 @@ class DoctrineORMMapper implements EventSubscriber
     public function getSubscribedEvents()
     {
         return array(
-            'loadClassMetadata'
+            'loadClassMetadata',
         );
     }
 
@@ -78,11 +79,9 @@ class DoctrineORMMapper implements EventSubscriber
     /**
      * Add a discriminator to a class.
      *
-     * @param string $class               The Class
-     * @param string $key                 Key is the database value and values are the classes
-     * @param string $discriminatorClass  The mapped class
-     *
-     * @return void
+     * @param string $class              The Class
+     * @param string $key                Key is the database value and values are the classes
+     * @param string $discriminatorClass The mapped class
      */
     public function addDiscriminator($class, $key, $discriminatorClass)
     {
@@ -227,13 +226,11 @@ class DoctrineORMMapper implements EventSubscriber
      */
     private function loadInheritanceTypes(ClassMetadataInfo $metadata)
     {
-
         if (!array_key_exists($metadata->name, $this->inheritanceTypes)) {
             return;
         }
         try {
             if (isset($this->inheritanceTypes[$metadata->name])) {
-
                 $metadata->setInheritanceType($this->inheritanceTypes[$metadata->name]);
             }
         } catch (\ReflectionException $e) {
@@ -257,7 +254,7 @@ class DoctrineORMMapper implements EventSubscriber
                 if (in_array($key, $metadata->discriminatorMap)) {
                     continue;
                 }
-                $metadata->setDiscriminatorMap(array($key=>$class));
+                $metadata->setDiscriminatorMap(array($key => $class));
             }
         } catch (\ReflectionException $e) {
             throw new \RuntimeException(sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e);

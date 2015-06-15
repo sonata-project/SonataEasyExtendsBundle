@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata project.
  *
@@ -57,7 +58,7 @@ class OdmMetadata
     public function getDocumentMappingFiles()
     {
         try {
-            $f = new Finder;
+            $f = new Finder();
             $f->name('*.mongodb.xml.skeleton');
             $f->in($this->getMappingDocumentDirectory());
 
@@ -72,7 +73,7 @@ class OdmMetadata
         $names = array();
 
         try {
-            $f = new Finder;
+            $f = new Finder();
             $f->name('*.mongodb.xml.skeleton');
             $f->in($this->getMappingDocumentDirectory());
 
@@ -80,9 +81,7 @@ class OdmMetadata
                 $name = explode('.', basename($file));
                 $names[] = $name[0];
             }
-
         } catch (\Exception $e) {
-
         }
 
         return $names;
@@ -91,7 +90,7 @@ class OdmMetadata
     public function getRepositoryFiles()
     {
         try {
-            $f = new Finder;
+            $f = new Finder();
             $f->name('*Repository.php');
             $f->in($this->getDocumentDirectory());
 

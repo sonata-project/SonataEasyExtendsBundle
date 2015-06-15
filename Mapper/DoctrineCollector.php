@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata package.
  *
@@ -42,7 +43,7 @@ class DoctrineCollector
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new self;
+            self::$instance = new self();
         }
 
         return self::$instance;
@@ -51,9 +52,9 @@ class DoctrineCollector
     /**
      * Add a discriminator to a class.
      *
-     * @param  string  $class               The Class
-     * @param  string  $key                 Key is the database value and values are the classes
-     * @param  string  $discriminatorClass  The mapped class
+     * @param string $class              The Class
+     * @param string $key                Key is the database value and values are the classes
+     * @param string $discriminatorClass The mapped class
      */
     public function addDiscriminator($class, $key, $discriminatorClass)
     {
@@ -93,7 +94,7 @@ class DoctrineCollector
     /**
      * @param string $class
      * @param string $type
-     * @param array $options
+     * @param array  $options
      */
     public function addAssociation($class, $type, array $options)
     {
