@@ -25,7 +25,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DumpMappingCommand extends ContainerAwareCommand
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -37,7 +37,7 @@ class DumpMappingCommand extends ContainerAwareCommand
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

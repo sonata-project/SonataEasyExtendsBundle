@@ -26,7 +26,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class GenerateCommand extends ContainerAwareCommand
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -46,7 +46,7 @@ EOT
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
