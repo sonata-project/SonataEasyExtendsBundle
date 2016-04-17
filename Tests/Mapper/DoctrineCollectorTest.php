@@ -6,7 +6,7 @@ use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 
 class DoctrineCollectorTest extends \PHPUnit_Framework_TestCase
 {
-     /**
+    /**
      * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getIndexes
      * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getUniques
      * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getInheritanceTypes

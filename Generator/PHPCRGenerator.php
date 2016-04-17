@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata project.
  *
@@ -10,8 +11,8 @@
 
 namespace Sonata\EasyExtendsBundle\Generator;
 
-use Symfony\Component\Console\Output\OutputInterface;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class PHPCRGenerator implements GeneratorInterface
 {
@@ -78,7 +79,6 @@ class PHPCRGenerator implements GeneratorInterface
         $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
 
         foreach ($names as $name) {
-
             $extendedName = $name;
 
             $dest_file  = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
@@ -105,12 +105,11 @@ class PHPCRGenerator implements GeneratorInterface
                     'name'                  => $name != $extendedName ? $extendedName : $name,
                     'class'                 => $name,
                     'extended_name'         => $name == $extendedName ? 'Base'.$name : $extendedName,
-                    'namespace'             => $bundleMetadata->getNamespace()
+                    'namespace'             => $bundleMetadata->getNamespace(),
                 ));
 
                 file_put_contents($dest_file, $string);
             }
-
         }
     }
 
@@ -125,7 +124,6 @@ class PHPCRGenerator implements GeneratorInterface
         $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
 
         foreach ($names as $name) {
-
             $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
             $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $name);
 
@@ -142,7 +140,7 @@ class PHPCRGenerator implements GeneratorInterface
                 $string = Mustache::replace($this->getDocumentRepositoryTemplate(), array(
                     'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
                     'name'                  => $name,
-                    'namespace'             => $bundleMetadata->getNamespace()
+                    'namespace'             => $bundleMetadata->getNamespace(),
                 ));
 
                 file_put_contents($dest_file, $string);

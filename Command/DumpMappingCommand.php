@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata project.
  *
@@ -10,22 +11,21 @@
 
 namespace Sonata\EasyExtendsBundle\Command;
 
+use Doctrine\ORM\Tools\Export\ClassMetadataExporter;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Doctrine\ORM\Tools\Export\ClassMetadataExporter;
 
 /**
- * Generate Application entities from bundle entities
+ * Generate Application entities from bundle entities.
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
 class DumpMappingCommand extends ContainerAwareCommand
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -37,7 +37,7 @@ class DumpMappingCommand extends ContainerAwareCommand
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

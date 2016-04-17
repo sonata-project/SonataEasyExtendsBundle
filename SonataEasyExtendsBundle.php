@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata project.
  *
@@ -10,9 +11,9 @@
 
 namespace Sonata\EasyExtendsBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Sonata\EasyExtendsBundle\DependencyInjection\Compiler\AddMapperInformationCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class SonataEasyExtendsBundle extends Bundle
 {
@@ -28,6 +29,6 @@ class SonataEasyExtendsBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new AddMapperInformationCompilerPass);
+        $container->addCompilerPass(new AddMapperInformationCompilerPass());
     }
 }

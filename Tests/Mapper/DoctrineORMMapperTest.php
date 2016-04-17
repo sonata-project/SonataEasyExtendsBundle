@@ -1,8 +1,8 @@
 <?php
+
 namespace Sonata\EasyExtendsBundle\Tests\Mapper;
 
 use Sonata\EasyExtendsBundle\Mapper\DoctrineORMMapper;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +22,7 @@ class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
             ->method('setDiscriminatorMap')
             ->with(array('key' => 'discriminator'));
 
-        $this->metadata->name = "class";
+        $this->metadata->name = 'class';
         $mapper = new DoctrineORMMapper($this->doctrine);
         $mapper->addDiscriminator('class', 'key', 'discriminator');
 
@@ -39,7 +39,7 @@ class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
             ->method('setDiscriminatorColumn')
             ->with(array('name' => 'disc'));
 
-        $this->metadata->name = "class";
+        $this->metadata->name = 'class';
         $mapper = new DoctrineORMMapper($this->doctrine);
         $mapper->addDiscriminatorColumn('class', array('name' => 'disc'));
 
@@ -56,7 +56,7 @@ class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
             ->method('setInheritanceType')
             ->with(1);
 
-        $this->metadata->name = "class";
+        $this->metadata->name = 'class';
         $mapper = new DoctrineORMMapper($this->doctrine);
         $mapper->addInheritanceType('class', 1);
 

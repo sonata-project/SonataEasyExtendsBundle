@@ -11,9 +11,9 @@
 
 namespace Sonata\EasyExtendsBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /*
  *
@@ -22,7 +22,7 @@ use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 class AddMapperInformationCompilerPass implements CompilerPassInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
@@ -41,7 +41,7 @@ class AddMapperInformationCompilerPass implements CompilerPassInterface
         }
 
         foreach (DoctrineCollector::getInstance()->getDiscriminatorColumns() as $class => $columnDefinition) {
-                $mapper->addMethodCall('addDiscriminatorColumn', array($class, $columnDefinition));
+            $mapper->addMethodCall('addDiscriminatorColumn', array($class, $columnDefinition));
         }
 
         foreach (DoctrineCollector::getInstance()->getDiscriminators() as $class => $discriminators) {

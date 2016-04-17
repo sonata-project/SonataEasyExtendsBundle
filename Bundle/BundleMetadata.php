@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Sonata project.
  *
@@ -59,12 +60,10 @@ class BundleMetadata
 
     /**
      * build basic information and check if the bundle respect the following convention
-     *   Vendor/BundleNameBundle/VendorBundleNameBundle
+     *   Vendor/BundleNameBundle/VendorBundleNameBundle.
      *
      * if the bundle does not respect this convention then the easy extends command will ignore
      * this bundle
-     *
-     * @return void
      */
     protected function buildInformation()
     {
@@ -114,7 +113,6 @@ class BundleMetadata
             strpos($this->getClass(), $this->configuration['namespace']) === 0
             || strpos($this->getClass(), 'Symfony') === 0
         );
-
     }
 
     /**
@@ -126,7 +124,7 @@ class BundleMetadata
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isValid()
     {
@@ -166,7 +164,7 @@ class BundleMetadata
     }
 
     /**
-     * return the bundle name
+     * return the bundle name.
      *
      * @return string return the bundle name
      */
