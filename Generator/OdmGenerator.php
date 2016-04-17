@@ -60,7 +60,7 @@ class OdmGenerator implements GeneratorInterface
                 $mappingEntityTemplate = file_get_contents($src_file);
 
                 $string = Mustache::replace($mappingEntityTemplate, array(
-                    'namespace'    => $bundleMetadata->getExtendedNamespace()
+                    'namespace' => $bundleMetadata->getExtendedNamespace()
                 ));
 
                 file_put_contents($dest_file, $string);
