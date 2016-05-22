@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -21,7 +21,7 @@ class SerializerGenerator implements GeneratorInterface
 
     public function __construct()
     {
-        $this->entitySerializerTemplate   = file_get_contents(__DIR__.'/../Resources/skeleton/serializer/entity.mustache');
+        $this->entitySerializerTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/serializer/entity.mustache');
         $this->documentSerializerTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/serializer/document.mustache');
     }
 
@@ -44,7 +44,7 @@ class SerializerGenerator implements GeneratorInterface
             $output->writeln(' - Generating ORM serializer files');
 
             foreach ($names as $name) {
-                $destFile  = sprintf('%s/Entity.%s.xml', $bundleMetadata->getOrmMetadata()->getExtendedSerializerDirectory(), $name);
+                $destFile = sprintf('%s/Entity.%s.xml', $bundleMetadata->getOrmMetadata()->getExtendedSerializerDirectory(), $name);
 
                 $this->writeSerializerFile($output, $bundleMetadata, $this->entitySerializerTemplate, $destFile, $name);
             }
@@ -59,7 +59,7 @@ class SerializerGenerator implements GeneratorInterface
             $output->writeln(' - Generating ODM serializer files');
 
             foreach ($names as $name) {
-                $destFile  = sprintf('%s/Document.%s.xml', $bundleMetadata->getOdmMetadata()->getExtendedSerializerDirectory(), $name);
+                $destFile = sprintf('%s/Document.%s.xml', $bundleMetadata->getOdmMetadata()->getExtendedSerializerDirectory(), $name);
 
                 $this->writeSerializerFile($output, $bundleMetadata, $this->documentSerializerTemplate, $destFile, $name);
             }
@@ -74,7 +74,7 @@ class SerializerGenerator implements GeneratorInterface
             $output->writeln(' - Generating PHPCR serializer files');
 
             foreach ($names as $name) {
-                $destFile  = sprintf('%s/Document.%s.xml', $bundleMetadata->getPhpcrMetadata()->getExtendedSerializerDirectory(), $name);
+                $destFile = sprintf('%s/Document.%s.xml', $bundleMetadata->getPhpcrMetadata()->getExtendedSerializerDirectory(), $name);
 
                 $this->writeSerializerFile($output, $bundleMetadata, $this->documentSerializerTemplate, $destFile, $name);
             }
@@ -89,7 +89,7 @@ class SerializerGenerator implements GeneratorInterface
             $output->writeln(sprintf('   + <info>%s</info>', $name));
 
             $string = Mustache::replace($template, array(
-                'name'      => $name,
+                'name' => $name,
                 'namespace' => $bundleMetadata->getExtendedNamespace(),
                 'root_name' => strtolower(preg_replace('/[A-Z]/', '_\\0', $name)),
             ));
