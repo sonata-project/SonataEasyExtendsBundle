@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -32,7 +32,7 @@ class GenerateCommand extends ContainerAwareCommand
     {
         $this
             ->setName('sonata:easy-extends:generate')
-            ->setHelp(<<<EOT
+            ->setHelp(<<<'EOT'
 The <info>easy-extends:generate:entities</info> command generating a valid bundle structure from a Vendor Bundle.
 
   <info>ie: ./app/console sonata:easy-extends:generate SonataUserBundle</info>
