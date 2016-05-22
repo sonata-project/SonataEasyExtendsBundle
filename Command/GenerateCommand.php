@@ -43,6 +43,7 @@ EOT
 
         $this->addArgument('bundle', InputArgument::IS_ARRAY, 'The bundle name to "easy-extends"');
         $this->addOption('dest', 'd', InputOption::VALUE_OPTIONAL, 'The base folder where the Application will be created', false);
+        $this->addOption('namespace', 'm', InputOption::VALUE_OPTIONAL, 'The namespace for the classes', false);
     }
 
     /**
@@ -63,8 +64,21 @@ EOT
             $dest = $this->getContainer()->get('kernel')->getRootDir();
         }
 
+        $namespaceOption = $input->getOption('namespace');
+        if ($namespaceOption) {
+            $namespace = $namespaceOption;
+            if (!preg_match('/^(?:(?:[[:alnum:]]+|:vendor)\\\\?)+$/', $namespace)) {
+                $output->writeln('');
+                $output->writeln(sprintf('<error>The provided namespace \'%s\' is not a valid namespace!</error>', $namespaceOption));
+                return 0;
+            }
+        } else {
+            $namespace = 'Application\:vendor';
+        }
+
         $configuration = array(
-            'application_dir' => sprintf('%s/Application', $dest),
+            'application_dir' =>  sprintf("%s%s%s", $dest, DIRECTORY_SEPARATOR, str_replace('\\', DIRECTORY_SEPARATOR, $namespace)),
+            'namespace' =>  $namespace,
         );
 
         $bundleNames = $input->getArgument('bundle');

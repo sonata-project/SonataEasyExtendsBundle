@@ -104,3 +104,5 @@ At last you can run:
 .. note::
 
     Note that the `--dest` option allows you to choose the target directory, such as `src`. Default destination is `app/`.
+
+    Also note that the `--namespace` option allows you to choose the base namespace, such as `Application\\Sonata`. Default destination is `Application\\:vendor`.
