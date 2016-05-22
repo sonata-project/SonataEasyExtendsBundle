@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -77,7 +77,7 @@ class BundleGenerator implements GeneratorInterface
         $output->writeln(sprintf('  > generating bundle file <comment>%s</comment>', $file));
 
         $string = Mustache::replace($this->getBundleTemplate(), array(
-            'bundle'    => $bundleMetadata->getName(),
+            'bundle' => $bundleMetadata->getName(),
             'namespace' => $bundleMetadata->getExtendedNamespace(),
         ));
 

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -23,11 +23,11 @@ class OrmMetadata
 
     public function __construct(BundleMetadata $bundleMetadata)
     {
-        $this->mappingEntityDirectory           = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
-        $this->extendedMappingEntityDirectory   = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
-        $this->entityDirectory                  = sprintf('%s/Entity', $bundleMetadata->getBundle()->getPath());
-        $this->extendedEntityDirectory          = sprintf('%s/Entity', $bundleMetadata->getExtendedDirectory());
-        $this->extendedSerializerDirectory      = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
+        $this->mappingEntityDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
+        $this->extendedMappingEntityDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
+        $this->entityDirectory = sprintf('%s/Entity', $bundleMetadata->getBundle()->getPath());
+        $this->extendedEntityDirectory = sprintf('%s/Entity', $bundleMetadata->getExtendedDirectory());
+        $this->extendedSerializerDirectory = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
     }
 
     public function getMappingEntityDirectory()

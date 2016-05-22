@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -23,11 +23,11 @@ class PhpcrMetadata
 
     public function __construct(BundleMetadata $bundleMetadata)
     {
-        $this->mappingDocumentDirectory           = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
-        $this->extendedMappingDocumentDirectory   = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
-        $this->documentDirectory                  = sprintf('%s/PHPCR', $bundleMetadata->getBundle()->getPath());
-        $this->extendedDocumentDirectory          = sprintf('%s/PHPCR', $bundleMetadata->getExtendedDirectory());
-        $this->extendedSerializerDirectory        = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
+        $this->mappingDocumentDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
+        $this->extendedMappingDocumentDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
+        $this->documentDirectory = sprintf('%s/PHPCR', $bundleMetadata->getBundle()->getPath());
+        $this->extendedDocumentDirectory = sprintf('%s/PHPCR', $bundleMetadata->getExtendedDirectory());
+        $this->extendedSerializerDirectory = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
     }
 
     public function getMappingDocumentDirectory()
