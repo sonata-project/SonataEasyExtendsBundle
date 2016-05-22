@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -21,7 +21,7 @@ class PHPCRGenerator implements GeneratorInterface
 
     public function __construct()
     {
-        $this->DocumentTemplate           = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/document.mustache');
+        $this->DocumentTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/document.mustache');
         $this->DocumentRepositoryTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/repository.mustache');
     }
 
@@ -49,8 +49,8 @@ class PHPCRGenerator implements GeneratorInterface
             // copy mapping definition
             $fileName = substr($file->getFileName(), 0, strrpos($file->getFileName(), '.'));
 
-            $dest_file  = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
-            $src_file   = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getMappingDocumentDirectory(), $file->getFileName());
+            $dest_file = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
+            $src_file = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getMappingDocumentDirectory(), $file->getFileName());
 
             if (is_file($dest_file)) {
                 $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
@@ -74,7 +74,7 @@ class PHPCRGenerator implements GeneratorInterface
         foreach ($names as $name) {
             $extendedName = $name;
 
-            $dest_file  = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
+            $dest_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
             $src_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $extendedName);
 
             if (!is_file($src_file)) {
@@ -94,11 +94,11 @@ class PHPCRGenerator implements GeneratorInterface
                 $output->writeln(sprintf('   + <info>%s</info>', $name));
 
                 $string = Mustache::replace($this->getDocumentTemplate(), array(
-                    'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
-                    'name'                  => $name != $extendedName ? $extendedName : $name,
-                    'class'                 => $name,
-                    'extended_name'         => $name == $extendedName ? 'Base'.$name : $extendedName,
-                    'namespace'             => $bundleMetadata->getNamespace(),
+                    'extended_namespace' => $bundleMetadata->getExtendedNamespace(),
+                    'name' => $name != $extendedName ? $extendedName : $name,
+                    'class' => $name,
+                    'extended_name' => $name == $extendedName ? 'Base'.$name : $extendedName,
+                    'namespace' => $bundleMetadata->getNamespace(),
                 ));
 
                 file_put_contents($dest_file, $string);
@@ -117,8 +117,8 @@ class PHPCRGenerator implements GeneratorInterface
         $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
 
         foreach ($names as $name) {
-            $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
-            $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $name);
+            $dest_file = sprintf('%s/%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
+            $src_file = sprintf('%s/Base%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $name);
 
             if (!is_file($src_file)) {
                 $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));
@@ -131,9 +131,9 @@ class PHPCRGenerator implements GeneratorInterface
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
                 $string = Mustache::replace($this->getDocumentRepositoryTemplate(), array(
-                    'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
-                    'name'                  => $name,
-                    'namespace'             => $bundleMetadata->getNamespace(),
+                    'extended_namespace' => $bundleMetadata->getExtendedNamespace(),
+                    'name' => $name,
+                    'namespace' => $bundleMetadata->getNamespace(),
                 ));
 
                 file_put_contents($dest_file, $string);
