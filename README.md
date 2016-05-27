@@ -10,7 +10,9 @@ Symfony SonataEasyExtendsBundle
 [![Monthly Downloads](https://poser.pugx.org/sonata-project/easy-extends-bundle/d/monthly)](https://packagist.org/packages/sonata-project/easy-extends-bundle)
 [![Daily Downloads](https://poser.pugx.org/sonata-project/easy-extends-bundle/d/daily)](https://packagist.org/packages/sonata-project/easy-extends-bundle)
 
-[![Build Status](https://travis-ci.org/sonata-project/SonataEasyExtendsBundle.svg?branch=master)](https://travis-ci.org/sonata-project/SonataEasyExtendsBundle)
+2.x status: [![Build Status](https://travis-ci.org/sonata-project/SonataEasyExtendsBundle.svg?branch=2.x)](https://travis-ci.org/sonata-project/SonataEasyExtendsBundle)
+
+master status: [![Build Status](https://travis-ci.org/sonata-project/SonataEasyExtendsBundle.svg?branch=master)](https://travis-ci.org/sonata-project/SonataEasyExtendsBundle)
 
 ## Documentation
 
