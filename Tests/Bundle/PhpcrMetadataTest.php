@@ -11,6 +11,7 @@
 
 namespace Sonata\EasyExtendsBundle\Tests\Bundle;
 
+use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 use Sonata\EasyExtendsBundle\Bundle\PhpcrMetadata;
 
 class PhpcrMetadataTest extends \PHPUnit_Framework_TestCase
@@ -156,7 +157,7 @@ class PhpcrMetadataTest extends \PHPUnit_Framework_TestCase
     /**
      * @param string $bundlePath
      *
-     * @return Sonata\EasyExtendsBundle\Bundle\BundleMetadata
+     * @return BundleMetadata
      */
     private function getBundleMetadataMock($bundlePath)
     {

@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
  * Generate Application entities from bundle entities.
@@ -74,6 +75,7 @@ EOT
             $output->writeln('<error>You must provide a bundle name!</error>');
             $output->writeln('');
             $output->writeln('  Bundles availables :');
+            /** @var BundleInterface $bundle */
             foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
                 $bundleMetadata = new BundleMetadata($bundle, $configuration);
 
@@ -117,6 +119,7 @@ EOT
     {
         $processed = false;
 
+        /** @var BundleInterface $bundle */
         foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
             if ($bundle->getName() != $bundleName) {
                 continue;

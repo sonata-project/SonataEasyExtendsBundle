@@ -15,20 +15,44 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class BundleMetadata
 {
+    /**
+     * @var BundleInterface
+     */
     protected $bundle;
 
+    /**
+     * @var string|bool
+     */
     protected $vendor = false;
 
+    /**
+     * @var bool
+     */
     protected $valid = false;
 
+    /**
+     * @var string
+     */
     protected $namespace;
 
+    /**
+     * @var string
+     */
     protected $name;
 
+    /**
+     * @var bool
+     */
     protected $extendedDirectory = false;
 
+    /**
+     * @var bool
+     */
     protected $extendedNamespace = false;
 
+    /**
+     * @var array
+     */
     protected $configuration = array();
 
     /**
@@ -58,6 +82,9 @@ class BundleMetadata
         $this->buildInformation();
     }
 
+    /**
+     * @return bool
+     */
     public function isExtendable()
     {
         // does not extends Application bundle ...

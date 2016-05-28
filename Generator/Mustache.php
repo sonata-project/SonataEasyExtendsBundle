@@ -14,8 +14,8 @@ namespace Sonata\EasyExtendsBundle\Generator;
 class Mustache
 {
     /**
-     * @param       $string
-     * @param array $parameters
+     * @param string $string
+     * @param array  $parameters
      *
      * @return mixed
      */

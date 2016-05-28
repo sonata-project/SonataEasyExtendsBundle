@@ -16,7 +16,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SerializerGenerator implements GeneratorInterface
 {
+    /**
+     * @var string
+     */
     protected $entitySerializerTemplate;
+
+    /**
+     * @var string
+     */
     protected $documentSerializerTemplate;
 
     public function __construct()
@@ -26,8 +33,7 @@ class SerializerGenerator implements GeneratorInterface
     }
 
     /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
+     * {@inheritdoc}
      */
     public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
@@ -36,6 +42,10 @@ class SerializerGenerator implements GeneratorInterface
         $this->generatePhpcrSerializer($output, $bundleMetadata);
     }
 
+    /**
+     * @param OutputInterface $output
+     * @param BundleMetadata  $bundleMetadata
+     */
     protected function generateOrmSerializer(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $names = $bundleMetadata->getOrmMetadata()->getEntityNames();
@@ -51,6 +61,10 @@ class SerializerGenerator implements GeneratorInterface
         }
     }
 
+    /**
+     * @param OutputInterface $output
+     * @param BundleMetadata  $bundleMetadata
+     */
     protected function generateOdmSerializer(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $names = $bundleMetadata->getOdmMetadata()->getDocumentNames();
@@ -66,6 +80,10 @@ class SerializerGenerator implements GeneratorInterface
         }
     }
 
+    /**
+     * @param OutputInterface $output
+     * @param BundleMetadata  $bundleMetadata
+     */
     protected function generatePhpcrSerializer(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
@@ -81,6 +99,13 @@ class SerializerGenerator implements GeneratorInterface
         }
     }
 
+    /**
+     * @param OutputInterface $output
+     * @param BundleMetadata  $bundleMetadata
+     * @param string          $template
+     * @param string          $destFile
+     * @param string          $name
+     */
     protected function writeSerializerFile(OutputInterface $output, BundleMetadata $bundleMetadata, $template, $destFile, $name)
     {
         if (is_file($destFile)) {

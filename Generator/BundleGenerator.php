@@ -16,6 +16,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class BundleGenerator implements GeneratorInterface
 {
+    /**
+     * @var string
+     */
     protected $bundleTemplate;
 
     public function __construct()
@@ -24,8 +27,7 @@ class BundleGenerator implements GeneratorInterface
     }
 
     /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
+     * {@inheritdoc}
      */
     public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
