@@ -11,11 +11,20 @@
 
 namespace Sonata\EasyExtendsBundle\Tests\Mapper;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Sonata\EasyExtendsBundle\Mapper\DoctrineORMMapper;
 
 class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ManagerRegistry
+     */
     private $doctrine;
+
+    /**
+     * @var ClassMetadataInfo
+     */
     private $metadata;
 
     public function setUp()

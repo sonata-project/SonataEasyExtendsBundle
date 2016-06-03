@@ -16,7 +16,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PHPCRGenerator implements GeneratorInterface
 {
+    /**
+     * @var string
+     */
     protected $DocumentTemplate;
+
+    /**
+     * @var string
+     */
     protected $DocumentRepositoryTemplate;
 
     public function __construct()
@@ -26,8 +33,7 @@ class PHPCRGenerator implements GeneratorInterface
     }
 
     /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
+     * {@inheritdoc}
      */
     public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
     {

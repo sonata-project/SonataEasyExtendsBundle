@@ -15,12 +15,34 @@ use Symfony\Component\Finder\Finder;
 
 class OdmMetadata
 {
+    /**
+     * @var string
+     */
     protected $mappingDocumentDirectory;
+
+    /**
+     * @var string
+     */
     protected $extendedMappingDocumentDirectory;
+
+    /**
+     * @var string
+     */
     protected $documentDirectory;
+
+    /**
+     * @var string
+     */
     protected $extendedDocumentDirectory;
+
+    /**
+     * @var string
+     */
     protected $extendedSerializerDirectory;
 
+    /**
+     * @param BundleMetadata $bundleMetadata
+     */
     public function __construct(BundleMetadata $bundleMetadata)
     {
         $this->mappingDocumentDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
@@ -30,31 +52,49 @@ class OdmMetadata
         $this->extendedSerializerDirectory = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
     }
 
+    /**
+     * @return string
+     */
     public function getMappingDocumentDirectory()
     {
         return $this->mappingDocumentDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedMappingDocumentDirectory()
     {
         return $this->extendedMappingDocumentDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getDocumentDirectory()
     {
         return $this->documentDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedDocumentDirectory()
     {
         return $this->extendedDocumentDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedSerializerDirectory()
     {
         return $this->extendedSerializerDirectory;
     }
 
+    /**
+     * @return array|\Iterator
+     */
     public function getDocumentMappingFiles()
     {
         try {
@@ -68,6 +108,9 @@ class OdmMetadata
         }
     }
 
+    /**
+     * @return array
+     */
     public function getDocumentNames()
     {
         $names = array();
@@ -87,6 +130,9 @@ class OdmMetadata
         return $names;
     }
 
+    /**
+     * @return array|\Iterator
+     */
     public function getRepositoryFiles()
     {
         try {

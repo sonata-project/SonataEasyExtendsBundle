@@ -16,7 +16,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class OdmGenerator implements GeneratorInterface
 {
+    /**
+     * @var string
+     */
     protected $documentTemplate;
+
+    /**
+     * @var string
+     */
     protected $documentRepositoryTemplate;
 
     public function __construct()

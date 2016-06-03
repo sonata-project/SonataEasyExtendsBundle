@@ -19,7 +19,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * EasyExtendsExtension.
  *
- *
  * @author     Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
 class SonataEasyExtendsExtension extends Extension
