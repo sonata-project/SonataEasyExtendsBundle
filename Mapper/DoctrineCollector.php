@@ -13,18 +13,39 @@ namespace Sonata\EasyExtendsBundle\Mapper;
 
 class DoctrineCollector
 {
+    /**
+     * @var array
+     */
     protected $associations;
 
+    /**
+     * @var array
+     */
     protected $indexes;
 
+    /**
+     * @var array
+     */
     protected $uniques;
 
+    /**
+     * @var array
+     */
     protected $discriminators;
 
+    /**
+     * @var array
+     */
     protected $discriminatorColumns;
 
+    /**
+     * @var array
+     */
     protected $inheritanceTypes;
 
+    /**
+     * @var DoctrineCollector
+     */
     private static $instance;
 
     public function __construct()
@@ -38,7 +59,7 @@ class DoctrineCollector
     }
 
     /**
-     * @return \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector
+     * @return DoctrineCollector
      */
     public static function getInstance()
     {

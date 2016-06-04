@@ -16,7 +16,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class OrmGenerator implements GeneratorInterface
 {
+    /**
+     * @var string
+     */
     protected $entityTemplate;
+
+    /**
+     * @var string
+     */
     protected $entityRepositoryTemplate;
 
     public function __construct()
@@ -26,8 +33,7 @@ class OrmGenerator implements GeneratorInterface
     }
 
     /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
+     * {@inheritdoc}
      */
     public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
     {

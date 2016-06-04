@@ -18,18 +18,39 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class DoctrineORMMapper implements EventSubscriber
 {
+    /**
+     * @var array
+     */
     protected $associations;
 
+    /**
+     * @var array
+     */
     protected $discriminators;
 
+    /**
+     * @var array
+     */
     protected $discriminatorColumns;
 
+    /**
+     * @var array
+     */
     protected $inheritanceTypes;
 
+    /**
+     * @var ManagerRegistry
+     */
     protected $doctrine;
 
+    /**
+     * @var array
+     */
     protected $indexes;
 
+    /**
+     * @var array
+     */
     protected $uniques;
 
     /**
