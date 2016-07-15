@@ -28,7 +28,13 @@
         "sllh/php-cs-fixer-styleci-bridge": "^2.0"
     },
     "autoload": {
-        "psr-4": { "Sonata\\EasyExtendsBundle\\": "" }
+        "psr-4": { "Sonata\\EasyExtendsBundle\\": "" },
+        "exclude-from-classmap": [
+            "Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": { "Sonata\\EasyExtendsBundle\\Tests\\": "Tests/" }
     },
     "extra": {
         "branch-alias": {
