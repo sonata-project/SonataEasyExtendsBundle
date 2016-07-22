@@ -54,6 +54,11 @@ class DoctrineORMMapper implements EventSubscriber
     protected $uniques;
 
     /**
+     * @var array
+     */
+    protected $overrides;
+
+    /**
      * @param ManagerRegistry $doctrine
      * @param array           $associations
      * @param array           $indexes
@@ -61,8 +66,9 @@ class DoctrineORMMapper implements EventSubscriber
      * @param array           $discriminatorColumns
      * @param array           $inheritanceTypes
      * @param array           $uniques
+     * @param array           $overrides
      */
-    public function __construct(ManagerRegistry $doctrine, array $associations = array(), array $indexes = array(), array $discriminators = array(), array $discriminatorColumns = array(), array $inheritanceTypes = array(), array $uniques = array())
+    public function __construct(ManagerRegistry $doctrine, array $associations = array(), array $indexes = array(), array $discriminators = array(), array $discriminatorColumns = array(), array $inheritanceTypes = array(), array $uniques = array(), array $overrides = array())
     {
         $this->doctrine = $doctrine;
         $this->associations = $associations;
@@ -174,6 +180,22 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
+     * Adds new ORM override.
+     *
+     * @param string $class
+     * @param string $type
+     * @param array  $options
+     */
+    final public function addOverride($class, $type, array $options)
+    {
+        if (!isset($this->overrides[$class])) {
+            $this->overrides[$class] = array();
+        }
+
+        $this->overrides[$class][$type] = $options;
+    }
+
+    /**
      * @param $eventArgs
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
@@ -187,6 +209,7 @@ class DoctrineORMMapper implements EventSubscriber
         $this->loadDiscriminatorColumns($metadata);
         $this->loadDiscriminators($metadata);
         $this->loadInheritanceTypes($metadata);
+        $this->loadOverrides($metadata);
     }
 
     /**
@@ -308,6 +331,30 @@ class DoctrineORMMapper implements EventSubscriber
 
         foreach ($this->uniques[$metadata->name] as $name => $columns) {
             $metadata->table['uniqueConstraints'][$name] = array('columns' => $columns);
+        }
+    }
+
+    /**
+     * @param ClassMetadataInfo $metadata
+     *
+     * @throws \RuntimeException
+     */
+    private function loadOverrides(ClassMetadataInfo $metadata)
+    {
+        if (!array_key_exists($metadata->name, $this->overrides)) {
+            return;
+        }
+
+        try {
+            foreach ($this->overrides[$metadata->name] as $type => $overrides) {
+                foreach ($overrides as $override) {
+                    call_user_func(array($metadata, $type), $override['fieldName'], $override);
+                }
+            }
+        } catch (\ReflectionException $e) {
+            throw new \RuntimeException(
+                sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e
+            );
         }
     }
 }

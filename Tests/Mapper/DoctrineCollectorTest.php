@@ -32,5 +32,6 @@ class DoctrineCollectorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $collector->getDiscriminatorColumns());
         $this->assertEquals(array(), $collector->getAssociations());
         $this->assertEquals(array(), $collector->getDiscriminators());
+        $this->assertEquals(array(), $collector->getOverrides());
     }
 }
