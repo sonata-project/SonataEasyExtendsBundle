@@ -44,6 +44,11 @@ class DoctrineCollector
     protected $inheritanceTypes;
 
     /**
+     * @var array
+     */
+    protected $overrides;
+
+    /**
      * @var DoctrineCollector
      */
     private static $instance;
@@ -56,6 +61,7 @@ class DoctrineCollector
         $this->discriminatorColumns = array();
         $this->inheritanceTypes = array();
         $this->discriminators = array();
+        $this->overrides = array();
     }
 
     /**
@@ -167,6 +173,26 @@ class DoctrineCollector
     }
 
     /**
+     * Adds new override.
+     *
+     * @param string $class
+     * @param string $type
+     * @param array  $options
+     */
+    final public function addOverride($class, $type, array $options)
+    {
+        if (!isset($this->overrides[$class])) {
+            $this->overrides[$class] = array();
+        }
+
+        if (!isset($this->overrides[$class][$type])) {
+            $this->overrides[$class][$type] = array();
+        }
+
+        $this->overrides[$class][$type][] = $options;
+    }
+
+    /**
      * @return array
      */
     public function getAssociations()
@@ -212,5 +238,15 @@ class DoctrineCollector
     public function getUniques()
     {
         return $this->uniques;
+    }
+
+    /**
+     * Get all overrides.
+     *
+     * @return array
+     */
+    final public function getOverrides()
+    {
+        return $this->overrides;
     }
 }

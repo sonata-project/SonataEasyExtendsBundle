@@ -64,5 +64,11 @@ class AddMapperInformationCompilerPass implements CompilerPassInterface
                 $mapper->addMethodCall('addUnique', array($class, $field, $options));
             }
         }
+
+        foreach (DoctrineCollector::getInstance()->getOverrides() as $class => $overrides) {
+            foreach ($overrides as $type => $options) {
+                $mapper->addMethodCall('addOverride', array($class, $type, $options));
+            }
+        }
     }
 }
