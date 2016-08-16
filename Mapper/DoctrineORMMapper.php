@@ -77,6 +77,7 @@ class DoctrineORMMapper implements EventSubscriber
         $this->discriminatorColumns = $discriminatorColumns;
         $this->discriminators = $discriminators;
         $this->inheritanceTypes = $inheritanceTypes;
+        $this->overrides = $overrides;
     }
 
     /**
