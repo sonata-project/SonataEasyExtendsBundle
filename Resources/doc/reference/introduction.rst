@@ -16,3 +16,7 @@ The command line will generate:
 
 You can optionally define a ``--dest`` option to the command with the target directory for the extended bundle creation.
 By default, this is set to ``app`` but you should probably set it to ``src``.
+
+You can optionally define a ``--namespace`` option to the command with the namespace for the extended bundle classes and directory structure.
+A special placeholder ``:vendor`` could be used and will be substitued with the bundle's `Vendor`.
+By default, this is set to ``Application\:vendor``.
