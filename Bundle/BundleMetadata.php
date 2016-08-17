@@ -89,7 +89,7 @@ class BundleMetadata
     {
         // does not extends Application bundle ...
         return !(
-            strpos($this->getClass(), 'Application') === 0
+            strpos($this->getClass(), $this->configuration['namespace']) === 0
             || strpos($this->getClass(), 'Symfony') === 0
         );
     }
@@ -215,9 +215,15 @@ class BundleMetadata
 
         $this->name = $information[count($information) - 1];
         $this->vendor = $information[0];
-        $this->namespace = sprintf('%s\%s', $this->vendor, $information[1]);
-        $this->extendedDirectory = sprintf('%s/%s/%s', $this->configuration['application_dir'], $this->vendor, $information[1]);
-        $this->extendedNamespace = sprintf('Application\\%s\\%s', $this->vendor, $information[1]);
+        $this->namespace = sprintf('%s\\%s', $this->vendor, $information[1]);
+        $this->extendedDirectory =
+            str_replace(':vendor', $this->vendor, $this->configuration['application_dir']).
+            DIRECTORY_SEPARATOR.
+            $information[1];
+        $this->extendedNamespace = sprintf('%s\\%s',
+            str_replace(':vendor', $this->vendor, $this->configuration['namespace']),
+            $information[1]
+        );
         $this->valid = true;
 
         $this->ormMetadata = new OrmMetadata($this);
