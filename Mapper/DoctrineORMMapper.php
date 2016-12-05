@@ -227,7 +227,6 @@ class DoctrineORMMapper implements EventSubscriber
         try {
             foreach ($this->associations[$metadata->name] as $type => $mappings) {
                 foreach ($mappings as $mapping) {
-
                     // the association is already set, skip the native one
                     if ($metadata->hasAssociation($mapping['fieldName'])) {
                         continue;
