@@ -274,6 +274,7 @@ class DoctrineORMMapper implements EventSubscriber
         if (!array_key_exists($metadata->name, $this->inheritanceTypes)) {
             return;
         }
+
         try {
             if (isset($this->inheritanceTypes[$metadata->name])) {
                 $metadata->setInheritanceType($this->inheritanceTypes[$metadata->name]);
