@@ -72,8 +72,16 @@ class OdmGenerator implements GeneratorInterface
             // copy mapping definition
             $fileName = substr($file->getFileName(), 0, strrpos($file->getFileName(), '.'));
 
-            $dest_file = sprintf('%s/%s', $bundleMetadata->getOdmMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
-            $src_file = sprintf('%s/%s.skeleton', $bundleMetadata->getOdmMetadata()->getMappingDocumentDirectory(), $fileName);
+            $dest_file = sprintf(
+                '%s/%s',
+                $bundleMetadata->getOdmMetadata()->getExtendedMappingDocumentDirectory(),
+                $fileName
+            );
+            $src_file = sprintf(
+                '%s/%s.skeleton',
+                $bundleMetadata->getOdmMetadata()->getMappingDocumentDirectory(),
+                $fileName
+            );
 
             if (is_file($dest_file)) {
                 $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
@@ -147,8 +155,16 @@ class OdmGenerator implements GeneratorInterface
         $names = $bundleMetadata->getOdmMetadata()->getDocumentNames();
 
         foreach ($names as $name) {
-            $dest_file = sprintf('%s/%sRepository.php', $bundleMetadata->getOdmMetadata()->getExtendedDocumentDirectory(), $name);
-            $src_file = sprintf('%s/Base%sRepository.php', $bundleMetadata->getOdmMetadata()->getDocumentDirectory(), $name);
+            $dest_file = sprintf(
+                '%s/%sRepository.php',
+                $bundleMetadata->getOdmMetadata()->getExtendedDocumentDirectory(),
+                $name
+            );
+            $src_file = sprintf(
+                '%s/Base%sRepository.php',
+                $bundleMetadata->getOdmMetadata()->getDocumentDirectory(),
+                $name
+            );
 
             if (!is_file($src_file)) {
                 $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));

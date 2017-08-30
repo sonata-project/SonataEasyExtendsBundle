@@ -41,7 +41,10 @@ class DumpMappingCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $factory = $this->getContainer()->get('doctrine')->getManager($input->getArgument('manager'))->getMetadataFactory();
+        $factory = $this->getContainer()
+            ->get('doctrine')
+            ->getManager($input->getArgument('manager'))
+            ->getMetadataFactory();
 
         $metadata = $factory->getMetadataFor($input->getArgument('model'));
 

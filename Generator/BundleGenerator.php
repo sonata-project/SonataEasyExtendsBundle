@@ -71,7 +71,12 @@ class BundleGenerator implements GeneratorInterface
     protected function generateBundleFile(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $application = explode('\\', $bundleMetadata->getExtendedNamespace())[0];
-        $file = sprintf('%s/%s%s.php', $bundleMetadata->getExtendedDirectory(), $application, $bundleMetadata->getName());
+        $file = sprintf(
+            '%s/%s%s.php',
+            $bundleMetadata->getExtendedDirectory(),
+            $application,
+            $bundleMetadata->getName()
+        );
 
         if (is_file($file)) {
             return;

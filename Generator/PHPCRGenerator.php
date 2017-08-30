@@ -29,7 +29,9 @@ class PHPCRGenerator implements GeneratorInterface
     public function __construct()
     {
         $this->DocumentTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/document.mustache');
-        $this->DocumentRepositoryTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/repository.mustache');
+        $this->DocumentRepositoryTemplate = file_get_contents(
+            __DIR__.'/../Resources/skeleton/phpcr/repository.mustache'
+        );
     }
 
     /**
@@ -55,8 +57,16 @@ class PHPCRGenerator implements GeneratorInterface
             // copy mapping definition
             $fileName = substr($file->getFileName(), 0, strrpos($file->getFileName(), '.'));
 
-            $dest_file = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
-            $src_file = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getMappingDocumentDirectory(), $file->getFileName());
+            $dest_file = sprintf(
+                '%s/%s',
+                $bundleMetadata->getPhpcrMetadata()->getExtendedMappingDocumentDirectory(),
+                $fileName
+            );
+            $src_file = sprintf(
+                '%s/%s',
+                $bundleMetadata->getPhpcrMetadata()->getMappingDocumentDirectory(),
+                $file->getFileName()
+            );
 
             if (is_file($dest_file)) {
                 $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
@@ -87,12 +97,24 @@ class PHPCRGenerator implements GeneratorInterface
         foreach ($names as $name) {
             $extendedName = $name;
 
-            $dest_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
-            $src_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $extendedName);
+            $dest_file = sprintf(
+                '%s/%s.php',
+                $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(),
+                $name
+            );
+            $src_file = sprintf(
+                '%s/%s.php',
+                $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(),
+                $extendedName
+            );
 
             if (!is_file($src_file)) {
                 $extendedName = 'Base'.$name;
-                $src_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $extendedName);
+                $src_file = sprintf(
+                    '%s/%s.php',
+                    $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(),
+                    $extendedName
+                );
 
                 if (!is_file($src_file)) {
                     $output->writeln(sprintf('   ! <info>%s</info>', $extendedName));
@@ -130,8 +152,16 @@ class PHPCRGenerator implements GeneratorInterface
         $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
 
         foreach ($names as $name) {
-            $dest_file = sprintf('%s/%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
-            $src_file = sprintf('%s/Base%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $name);
+            $dest_file = sprintf(
+                '%s/%sRepository.php',
+                $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(),
+                $name
+            );
+            $src_file = sprintf(
+                '%s/Base%sRepository.php',
+                $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(),
+                $name
+            );
 
             if (!is_file($src_file)) {
                 $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));

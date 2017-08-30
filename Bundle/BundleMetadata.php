@@ -220,7 +220,8 @@ class BundleMetadata
             str_replace(':vendor', $this->vendor, $this->configuration['application_dir']).
             DIRECTORY_SEPARATOR.
             $information[1];
-        $this->extendedNamespace = sprintf('%s\\%s',
+        $this->extendedNamespace = sprintf(
+            '%s\\%s',
             str_replace(':vendor', $this->vendor, $this->configuration['namespace']),
             $information[1]
         );

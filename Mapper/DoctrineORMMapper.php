@@ -236,7 +236,11 @@ class DoctrineORMMapper implements EventSubscriber
                 }
             }
         } catch (\ReflectionException $e) {
-            throw new \RuntimeException(sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e);
+            throw new \RuntimeException(sprintf(
+                'Error with class %s : %s',
+                $metadata->name,
+                $e->getMessage()
+            ), 404, $e);
         }
     }
 
@@ -255,12 +259,19 @@ class DoctrineORMMapper implements EventSubscriber
             if (isset($this->discriminatorColumns[$metadata->name])) {
                 $arrayDiscriminatorColumns = $this->discriminatorColumns[$metadata->name];
                 if (isset($metadata->discriminatorColumn)) {
-                    $arrayDiscriminatorColumns = array_merge($metadata->discriminatorColumn, $this->discriminatorColumns[$metadata->name]);
+                    $arrayDiscriminatorColumns = array_merge(
+                        $metadata->discriminatorColumn,
+                        $this->discriminatorColumns[$metadata->name]
+                    );
                 }
                 $metadata->setDiscriminatorColumn($arrayDiscriminatorColumns);
             }
         } catch (\ReflectionException $e) {
-            throw new \RuntimeException(sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e);
+            throw new \RuntimeException(sprintf(
+                'Error with class %s : %s',
+                $metadata->name,
+                $e->getMessage()
+            ), 404, $e);
         }
     }
 
@@ -280,7 +291,11 @@ class DoctrineORMMapper implements EventSubscriber
                 $metadata->setInheritanceType($this->inheritanceTypes[$metadata->name]);
             }
         } catch (\ReflectionException $e) {
-            throw new \RuntimeException(sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e);
+            throw new \RuntimeException(sprintf(
+                'Error with class %s : %s',
+                $metadata->name,
+                $e->getMessage()
+            ), 404, $e);
         }
     }
 
@@ -303,7 +318,11 @@ class DoctrineORMMapper implements EventSubscriber
                 $metadata->setDiscriminatorMap(array($key => $class));
             }
         } catch (\ReflectionException $e) {
-            throw new \RuntimeException(sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e);
+            throw new \RuntimeException(sprintf(
+                'Error with class %s : %s',
+                $metadata->name,
+                $e->getMessage()
+            ), 404, $e);
         }
     }
 
@@ -353,9 +372,11 @@ class DoctrineORMMapper implements EventSubscriber
                 }
             }
         } catch (\ReflectionException $e) {
-            throw new \RuntimeException(
-                sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e
-            );
+            throw new \RuntimeException(sprintf(
+                'Error with class %s : %s',
+                $metadata->name,
+                $e->getMessage()
+            ), 404, $e);
         }
     }
 }
