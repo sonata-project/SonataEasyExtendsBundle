@@ -37,7 +37,7 @@ class PHPCRGenerator implements GeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $this->generateMappingDocumentFiles($output, $bundleMetadata);
         $this->generateDocumentFiles($output, $bundleMetadata);
@@ -48,7 +48,7 @@ class PHPCRGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Copy Document files');
 
@@ -88,7 +88,7 @@ class PHPCRGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Generating Document files');
 
@@ -145,7 +145,7 @@ class PHPCRGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Generating Document repository files');
 
@@ -188,7 +188,7 @@ class PHPCRGenerator implements GeneratorInterface
     /**
      * @return string
      */
-    public function getDocumentTemplate()
+    public function getDocumentTemplate(): string
     {
         return $this->DocumentTemplate;
     }
@@ -196,7 +196,7 @@ class PHPCRGenerator implements GeneratorInterface
     /**
      * @return string
      */
-    public function getDocumentRepositoryTemplate()
+    public function getDocumentRepositoryTemplate(): string
     {
         return $this->DocumentRepositoryTemplate;
     }

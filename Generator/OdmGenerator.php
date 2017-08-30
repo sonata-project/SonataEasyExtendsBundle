@@ -35,7 +35,7 @@ class OdmGenerator implements GeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $this->generateMappingDocumentFiles($output, $bundleMetadata);
         $this->generateDocumentFiles($output, $bundleMetadata);
@@ -45,7 +45,7 @@ class OdmGenerator implements GeneratorInterface
     /**
      * @return string
      */
-    public function getDocumentTemplate()
+    public function getDocumentTemplate(): string
     {
         return $this->documentTemplate;
     }
@@ -53,7 +53,7 @@ class OdmGenerator implements GeneratorInterface
     /**
      * @return string
      */
-    public function getDocumentRepositoryTemplate()
+    public function getDocumentRepositoryTemplate(): string
     {
         return $this->documentRepositoryTemplate;
     }
@@ -61,8 +61,10 @@ class OdmGenerator implements GeneratorInterface
     /**
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
+     *
+     * @return string
      */
-    protected function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata): string
     {
         $output->writeln(' - Copy document files');
 
@@ -102,8 +104,10 @@ class OdmGenerator implements GeneratorInterface
     /**
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
+     *
+     * @return string
      */
-    protected function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata): string
     {
         $output->writeln(' - Generating document files');
 
@@ -147,8 +151,10 @@ class OdmGenerator implements GeneratorInterface
     /**
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
+     *
+     * @return string
      */
-    protected function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata): string
     {
         $output->writeln(' - Generating document repository files');
 

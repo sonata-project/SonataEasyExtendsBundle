@@ -27,7 +27,7 @@ class DumpMappingCommand extends ContainerAwareCommand
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('sonata:easy-extends:dump-mapping');
         $this->setDescription('Dump some mapping information (debug only)');
@@ -39,7 +39,7 @@ class DumpMappingCommand extends ContainerAwareCommand
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $factory = $this->getContainer()
             ->get('doctrine')

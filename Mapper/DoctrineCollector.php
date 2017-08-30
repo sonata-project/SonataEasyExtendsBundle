@@ -67,7 +67,7 @@ class DoctrineCollector
     /**
      * @return DoctrineCollector
      */
-    public static function getInstance()
+    public static function getInstance(): DoctrineCollector
     {
         if (!self::$instance) {
             self::$instance = new self();
@@ -83,7 +83,7 @@ class DoctrineCollector
      * @param string $key                Key is the database value and values are the classes
      * @param string $discriminatorClass The mapped class
      */
-    public function addDiscriminator($class, $key, $discriminatorClass)
+    public function addDiscriminator(string $class, string $key, string $discriminatorClass): void
     {
         if (!isset($this->discriminators[$class])) {
             $this->discriminators[$class] = array();
@@ -100,7 +100,7 @@ class DoctrineCollector
      * @param string $class
      * @param array  $columnDef
      */
-    public function addDiscriminatorColumn($class, array $columnDef)
+    public function addDiscriminatorColumn(string $class, array $columnDef): void
     {
         if (!isset($this->discriminatorColumns[$class])) {
             $this->discriminatorColumns[$class] = $columnDef;
@@ -111,7 +111,7 @@ class DoctrineCollector
      * @param string $class
      * @param string $type
      */
-    public function addInheritanceType($class, $type)
+    public function addInheritanceType(string $class, string $type): void
     {
         if (!isset($this->inheritanceTypes[$class])) {
             $this->inheritanceTypes[$class] = $type;
@@ -123,7 +123,7 @@ class DoctrineCollector
      * @param string $type
      * @param array  $options
      */
-    public function addAssociation($class, $type, array $options)
+    public function addAssociation(string $class, string $type, array $options): void
     {
         if (!isset($this->associations[$class])) {
             $this->associations[$class] = array();
@@ -141,7 +141,7 @@ class DoctrineCollector
      * @param string $name
      * @param array  $columns
      */
-    public function addIndex($class, $name, array $columns)
+    public function addIndex(string $class, string $name, array $columns): void
     {
         if (!isset($this->indexes[$class])) {
             $this->indexes[$class] = array();
@@ -159,7 +159,7 @@ class DoctrineCollector
      * @param string $name
      * @param array  $columns
      */
-    public function addUnique($class, $name, array $columns)
+    public function addUnique(string $class, string $name, array $columns): void
     {
         if (!isset($this->indexes[$class])) {
             $this->uniques[$class] = array();
@@ -179,7 +179,7 @@ class DoctrineCollector
      * @param string $type
      * @param array  $options
      */
-    final public function addOverride($class, $type, array $options)
+    final public function addOverride(string $class, string $type, array $options): void
     {
         if (!isset($this->overrides[$class])) {
             $this->overrides[$class] = array();
@@ -195,7 +195,7 @@ class DoctrineCollector
     /**
      * @return array
      */
-    public function getAssociations()
+    public function getAssociations(): array
     {
         return $this->associations;
     }
@@ -203,7 +203,7 @@ class DoctrineCollector
     /**
      * @return array
      */
-    public function getDiscriminators()
+    public function getDiscriminators(): array
     {
         return $this->discriminators;
     }
@@ -211,7 +211,7 @@ class DoctrineCollector
     /**
      * @return array
      */
-    public function getDiscriminatorColumns()
+    public function getDiscriminatorColumns(): array
     {
         return $this->discriminatorColumns;
     }
@@ -219,7 +219,7 @@ class DoctrineCollector
     /**
      * @return array
      */
-    public function getInheritanceTypes()
+    public function getInheritanceTypes(): array
     {
         return $this->inheritanceTypes;
     }
@@ -227,7 +227,7 @@ class DoctrineCollector
     /**
      * @return array
      */
-    public function getIndexes()
+    public function getIndexes(): array
     {
         return $this->indexes;
     }
@@ -235,7 +235,7 @@ class DoctrineCollector
     /**
      * @return array
      */
-    public function getUniques()
+    public function getUniques(): array
     {
         return $this->uniques;
     }
@@ -245,7 +245,7 @@ class DoctrineCollector
      *
      * @return array
      */
-    final public function getOverrides()
+    final public function getOverrides(): array
     {
         return $this->overrides;
     }

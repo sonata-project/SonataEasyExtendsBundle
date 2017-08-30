@@ -55,7 +55,7 @@ class OdmMetadata
     /**
      * @return string
      */
-    public function getMappingDocumentDirectory()
+    public function getMappingDocumentDirectory(): string
     {
         return $this->mappingDocumentDirectory;
     }
@@ -63,7 +63,7 @@ class OdmMetadata
     /**
      * @return string
      */
-    public function getExtendedMappingDocumentDirectory()
+    public function getExtendedMappingDocumentDirectory(): string
     {
         return $this->extendedMappingDocumentDirectory;
     }
@@ -71,7 +71,7 @@ class OdmMetadata
     /**
      * @return string
      */
-    public function getDocumentDirectory()
+    public function getDocumentDirectory(): string
     {
         return $this->documentDirectory;
     }
@@ -79,7 +79,7 @@ class OdmMetadata
     /**
      * @return string
      */
-    public function getExtendedDocumentDirectory()
+    public function getExtendedDocumentDirectory(): string
     {
         return $this->extendedDocumentDirectory;
     }
@@ -87,7 +87,7 @@ class OdmMetadata
     /**
      * @return string
      */
-    public function getExtendedSerializerDirectory()
+    public function getExtendedSerializerDirectory(): string
     {
         return $this->extendedSerializerDirectory;
     }
@@ -95,7 +95,7 @@ class OdmMetadata
     /**
      * @return array|\Iterator
      */
-    public function getDocumentMappingFiles()
+    public function getDocumentMappingFiles(): iterable
     {
         try {
             $f = new Finder();
@@ -111,7 +111,7 @@ class OdmMetadata
     /**
      * @return array
      */
-    public function getDocumentNames()
+    public function getDocumentNames(): array
     {
         $names = array();
 
@@ -133,7 +133,7 @@ class OdmMetadata
     /**
      * @return array|\Iterator
      */
-    public function getRepositoryFiles()
+    public function getRepositoryFiles(): iterable
     {
         try {
             $f = new Finder();

@@ -21,9 +21,9 @@ class BundleMetadata
     protected $bundle;
 
     /**
-     * @var string|bool
+     * @var string
      */
-    protected $vendor = false;
+    protected $vendor;
 
     /**
      * @var bool
@@ -41,14 +41,14 @@ class BundleMetadata
     protected $name;
 
     /**
-     * @var bool
+     * @var string
      */
-    protected $extendedDirectory = false;
+    protected $extendedDirectory;
 
     /**
-     * @var bool
+     * @var string
      */
-    protected $extendedNamespace = false;
+    protected $extendedNamespace;
 
     /**
      * @var array
@@ -85,7 +85,7 @@ class BundleMetadata
     /**
      * @return bool
      */
-    public function isExtendable()
+    public function isExtendable(): bool
     {
         // does not extends Application bundle ...
         return !(
@@ -97,7 +97,7 @@ class BundleMetadata
     /**
      * @return string
      */
-    public function getClass()
+    public function getClass(): string
     {
         return get_class($this->bundle);
     }
@@ -105,7 +105,7 @@ class BundleMetadata
     /**
      * @return bool
      */
-    public function isValid()
+    public function isValid(): bool
     {
         return $this->valid;
     }
@@ -113,7 +113,7 @@ class BundleMetadata
     /**
      * @return string
      */
-    public function getExtendedDirectory()
+    public function getExtendedDirectory(): string
     {
         return $this->extendedDirectory;
     }
@@ -121,7 +121,7 @@ class BundleMetadata
     /**
      * @return string
      */
-    public function getVendor()
+    public function getVendor(): string
     {
         return $this->vendor;
     }
@@ -129,7 +129,7 @@ class BundleMetadata
     /**
      * @return string
      */
-    public function getExtendedNamespace()
+    public function getExtendedNamespace(): string
     {
         return $this->extendedNamespace;
     }
@@ -137,7 +137,7 @@ class BundleMetadata
     /**
      * @return string
      */
-    public function getNamespace()
+    public function getNamespace(): string
     {
         return $this->namespace;
     }
@@ -147,7 +147,7 @@ class BundleMetadata
      *
      * @return string return the bundle name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -155,7 +155,7 @@ class BundleMetadata
     /**
      * @return BundleInterface
      */
-    public function getBundle()
+    public function getBundle(): BundleInterface
     {
         return $this->bundle;
     }
@@ -163,7 +163,7 @@ class BundleMetadata
     /**
      * @return OdmMetadata
      */
-    public function getOdmMetadata()
+    public function getOdmMetadata(): OdmMetadata
     {
         return $this->odmMetadata;
     }
@@ -171,7 +171,7 @@ class BundleMetadata
     /**
      * @return OrmMetadata
      */
-    public function getOrmMetadata()
+    public function getOrmMetadata(): OrmMetadata
     {
         return $this->ormMetadata;
     }
@@ -179,7 +179,7 @@ class BundleMetadata
     /**
      * @return PhpcrMetadata
      */
-    public function getPhpcrMetadata()
+    public function getPhpcrMetadata(): PhpcrMetadata
     {
         return $this->phpcrMetadata;
     }
@@ -191,7 +191,7 @@ class BundleMetadata
      * if the bundle does not respect this convention then the easy extends command will ignore
      * this bundle
      */
-    protected function buildInformation()
+    protected function buildInformation(): void
     {
         $information = explode('\\', $this->getClass());
 

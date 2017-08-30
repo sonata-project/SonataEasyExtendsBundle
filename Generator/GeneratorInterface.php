@@ -20,5 +20,5 @@ interface GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata);
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata): void;
 }
