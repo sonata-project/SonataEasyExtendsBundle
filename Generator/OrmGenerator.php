@@ -135,6 +135,7 @@ class OrmGenerator implements GeneratorInterface
 
             if (!is_file($src_file)) {
                 $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));
+
                 continue;
             }
 
