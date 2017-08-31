@@ -133,12 +133,14 @@ EOT
             // generate the bundle file
             if (!$bundleMetadata->isExtendable()) {
                 $output->writeln(sprintf('Ignoring bundle : "<comment>%s</comment>"', $bundleMetadata->getClass()));
+
                 continue;
             }
 
             // generate the bundle file
             if (!$bundleMetadata->isValid()) {
                 $output->writeln(sprintf('%s : <comment>wrong folder structure</comment>', $bundleMetadata->getClass()));
+
                 continue;
             }
 
