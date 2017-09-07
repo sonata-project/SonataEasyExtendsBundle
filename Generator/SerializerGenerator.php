@@ -28,14 +28,18 @@ class SerializerGenerator implements GeneratorInterface
 
     public function __construct()
     {
-        $this->entitySerializerTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/serializer/entity.mustache');
-        $this->documentSerializerTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/serializer/document.mustache');
+        $this->entitySerializerTemplate = file_get_contents(
+            __DIR__.'/../Resources/skeleton/serializer/entity.mustache'
+        );
+        $this->documentSerializerTemplate = file_get_contents(
+            __DIR__.'/../Resources/skeleton/serializer/document.mustache'
+        );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $this->generateOrmSerializer($output, $bundleMetadata);
         $this->generateOdmSerializer($output, $bundleMetadata);
@@ -46,7 +50,7 @@ class SerializerGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateOrmSerializer(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateOrmSerializer(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $names = $bundleMetadata->getOrmMetadata()->getEntityNames();
 
@@ -54,7 +58,11 @@ class SerializerGenerator implements GeneratorInterface
             $output->writeln(' - Generating ORM serializer files');
 
             foreach ($names as $name) {
-                $destFile = sprintf('%s/Entity.%s.xml', $bundleMetadata->getOrmMetadata()->getExtendedSerializerDirectory(), $name);
+                $destFile = sprintf(
+                    '%s/Entity.%s.xml',
+                    $bundleMetadata->getOrmMetadata()->getExtendedSerializerDirectory(),
+                    $name
+                );
 
                 $this->writeSerializerFile($output, $bundleMetadata, $this->entitySerializerTemplate, $destFile, $name);
             }
@@ -65,7 +73,7 @@ class SerializerGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateOdmSerializer(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateOdmSerializer(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $names = $bundleMetadata->getOdmMetadata()->getDocumentNames();
 
@@ -73,9 +81,19 @@ class SerializerGenerator implements GeneratorInterface
             $output->writeln(' - Generating ODM serializer files');
 
             foreach ($names as $name) {
-                $destFile = sprintf('%s/Document.%s.xml', $bundleMetadata->getOdmMetadata()->getExtendedSerializerDirectory(), $name);
+                $destFile = sprintf(
+                    '%s/Document.%s.xml',
+                    $bundleMetadata->getOdmMetadata()->getExtendedSerializerDirectory(),
+                    $name
+                );
 
-                $this->writeSerializerFile($output, $bundleMetadata, $this->documentSerializerTemplate, $destFile, $name);
+                $this->writeSerializerFile(
+                    $output,
+                    $bundleMetadata,
+                    $this->documentSerializerTemplate,
+                    $destFile,
+                    $name
+                );
             }
         }
     }
@@ -84,7 +102,7 @@ class SerializerGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generatePhpcrSerializer(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generatePhpcrSerializer(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
 
@@ -92,9 +110,19 @@ class SerializerGenerator implements GeneratorInterface
             $output->writeln(' - Generating PHPCR serializer files');
 
             foreach ($names as $name) {
-                $destFile = sprintf('%s/Document.%s.xml', $bundleMetadata->getPhpcrMetadata()->getExtendedSerializerDirectory(), $name);
+                $destFile = sprintf(
+                    '%s/Document.%s.xml',
+                    $bundleMetadata->getPhpcrMetadata()->getExtendedSerializerDirectory(),
+                    $name
+                );
 
-                $this->writeSerializerFile($output, $bundleMetadata, $this->documentSerializerTemplate, $destFile, $name);
+                $this->writeSerializerFile(
+                    $output,
+                    $bundleMetadata,
+                    $this->documentSerializerTemplate,
+                    $destFile,
+                    $name
+                );
             }
         }
     }
@@ -106,7 +134,7 @@ class SerializerGenerator implements GeneratorInterface
      * @param string          $destFile
      * @param string          $name
      */
-    protected function writeSerializerFile(OutputInterface $output, BundleMetadata $bundleMetadata, $template, $destFile, $name)
+    protected function writeSerializerFile(OutputInterface $output, BundleMetadata $bundleMetadata, string $template, string $destFile, string $name): void
     {
         if (is_file($destFile)) {
             $output->writeln(sprintf('   ~ <info>%s</info>', $name));

@@ -29,7 +29,7 @@ class BundleGenerator implements GeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $this->generateBundleDirectory($output, $bundleMetadata);
         $this->generateBundleFile($output, $bundleMetadata);
@@ -39,7 +39,7 @@ class BundleGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateBundleDirectory(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateBundleDirectory(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $directories = array(
             '',
@@ -68,10 +68,15 @@ class BundleGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateBundleFile(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateBundleFile(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $application = explode('\\', $bundleMetadata->getExtendedNamespace())[0];
-        $file = sprintf('%s/%s%s.php', $bundleMetadata->getExtendedDirectory(), $application, $bundleMetadata->getName());
+        $file = sprintf(
+            '%s/%s%s.php',
+            $bundleMetadata->getExtendedDirectory(),
+            $application,
+            $bundleMetadata->getName()
+        );
 
         if (is_file($file)) {
             return;
@@ -91,7 +96,7 @@ class BundleGenerator implements GeneratorInterface
     /**
      * @return string
      */
-    protected function getBundleTemplate()
+    protected function getBundleTemplate(): string
     {
         return $this->bundleTemplate;
     }

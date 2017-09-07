@@ -29,13 +29,15 @@ class PHPCRGenerator implements GeneratorInterface
     public function __construct()
     {
         $this->DocumentTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/document.mustache');
-        $this->DocumentRepositoryTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/repository.mustache');
+        $this->DocumentRepositoryTemplate = file_get_contents(
+            __DIR__.'/../Resources/skeleton/phpcr/repository.mustache'
+        );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $this->generateMappingDocumentFiles($output, $bundleMetadata);
         $this->generateDocumentFiles($output, $bundleMetadata);
@@ -46,7 +48,7 @@ class PHPCRGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Copy Document files');
 
@@ -55,8 +57,16 @@ class PHPCRGenerator implements GeneratorInterface
             // copy mapping definition
             $fileName = substr($file->getFileName(), 0, strrpos($file->getFileName(), '.'));
 
-            $dest_file = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
-            $src_file = sprintf('%s/%s', $bundleMetadata->getPhpcrMetadata()->getMappingDocumentDirectory(), $file->getFileName());
+            $dest_file = sprintf(
+                '%s/%s',
+                $bundleMetadata->getPhpcrMetadata()->getExtendedMappingDocumentDirectory(),
+                $fileName
+            );
+            $src_file = sprintf(
+                '%s/%s',
+                $bundleMetadata->getPhpcrMetadata()->getMappingDocumentDirectory(),
+                $file->getFileName()
+            );
 
             if (is_file($dest_file)) {
                 $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
@@ -78,7 +88,7 @@ class PHPCRGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Generating Document files');
 
@@ -87,12 +97,24 @@ class PHPCRGenerator implements GeneratorInterface
         foreach ($names as $name) {
             $extendedName = $name;
 
-            $dest_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
-            $src_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $extendedName);
+            $dest_file = sprintf(
+                '%s/%s.php',
+                $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(),
+                $name
+            );
+            $src_file = sprintf(
+                '%s/%s.php',
+                $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(),
+                $extendedName
+            );
 
             if (!is_file($src_file)) {
                 $extendedName = 'Base'.$name;
-                $src_file = sprintf('%s/%s.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $extendedName);
+                $src_file = sprintf(
+                    '%s/%s.php',
+                    $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(),
+                    $extendedName
+                );
 
                 if (!is_file($src_file)) {
                     $output->writeln(sprintf('   ! <info>%s</info>', $extendedName));
@@ -123,15 +145,23 @@ class PHPCRGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Generating Document repository files');
 
         $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
 
         foreach ($names as $name) {
-            $dest_file = sprintf('%s/%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(), $name);
-            $src_file = sprintf('%s/Base%sRepository.php', $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(), $name);
+            $dest_file = sprintf(
+                '%s/%sRepository.php',
+                $bundleMetadata->getPhpcrMetadata()->getExtendedDocumentDirectory(),
+                $name
+            );
+            $src_file = sprintf(
+                '%s/Base%sRepository.php',
+                $bundleMetadata->getPhpcrMetadata()->getDocumentDirectory(),
+                $name
+            );
 
             if (!is_file($src_file)) {
                 $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));
@@ -158,7 +188,7 @@ class PHPCRGenerator implements GeneratorInterface
     /**
      * @return string
      */
-    public function getDocumentTemplate()
+    public function getDocumentTemplate(): string
     {
         return $this->DocumentTemplate;
     }
@@ -166,7 +196,7 @@ class PHPCRGenerator implements GeneratorInterface
     /**
      * @return string
      */
-    public function getDocumentRepositoryTemplate()
+    public function getDocumentRepositoryTemplate(): string
     {
         return $this->DocumentRepositoryTemplate;
     }

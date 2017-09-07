@@ -55,7 +55,7 @@ class OrmMetadata
     /**
      * @return string
      */
-    public function getMappingEntityDirectory()
+    public function getMappingEntityDirectory(): string
     {
         return $this->mappingEntityDirectory;
     }
@@ -63,7 +63,7 @@ class OrmMetadata
     /**
      * @return string
      */
-    public function getExtendedMappingEntityDirectory()
+    public function getExtendedMappingEntityDirectory(): string
     {
         return $this->extendedMappingEntityDirectory;
     }
@@ -71,7 +71,7 @@ class OrmMetadata
     /**
      * @return string
      */
-    public function getEntityDirectory()
+    public function getEntityDirectory(): string
     {
         return $this->entityDirectory;
     }
@@ -79,7 +79,7 @@ class OrmMetadata
     /**
      * @return string
      */
-    public function getExtendedEntityDirectory()
+    public function getExtendedEntityDirectory(): string
     {
         return $this->extendedEntityDirectory;
     }
@@ -87,7 +87,7 @@ class OrmMetadata
     /**
      * @return string
      */
-    public function getExtendedSerializerDirectory()
+    public function getExtendedSerializerDirectory(): string
     {
         return $this->extendedSerializerDirectory;
     }
@@ -95,7 +95,7 @@ class OrmMetadata
     /**
      * @return array|\Iterator
      */
-    public function getEntityMappingFiles()
+    public function getEntityMappingFiles(): iterable
     {
         try {
             $f = new Finder();
@@ -112,7 +112,7 @@ class OrmMetadata
     /**
      * @return array
      */
-    public function getEntityNames()
+    public function getEntityNames(): array
     {
         $names = array();
 
@@ -135,7 +135,7 @@ class OrmMetadata
     /**
      * @return array|\Iterator
      */
-    public function getRepositoryFiles()
+    public function getRepositoryFiles(): iterable
     {
         try {
             $f = new Finder();

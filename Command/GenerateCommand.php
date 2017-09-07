@@ -29,7 +29,7 @@ class GenerateCommand extends ContainerAwareCommand
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('sonata:easy-extends:generate')
@@ -43,20 +43,29 @@ EOT
         $this->setDescription('Create entities used by Sonata\'s bundles');
 
         $this->addArgument('bundle', InputArgument::IS_ARRAY, 'The bundle name to "easy-extends"');
-        $this->addOption('dest', 'd', InputOption::VALUE_OPTIONAL, 'The base folder where the Application will be created', false);
+        $this->addOption(
+            'dest',
+            'd',
+            InputOption::VALUE_OPTIONAL,
+            'The base folder where the Application will be created',
+            false
+        );
         $this->addOption('namespace', 'ns', InputOption::VALUE_OPTIONAL, 'The namespace for the classes', false);
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $destOption = $input->getOption('dest');
         if ($destOption) {
             $dest = realpath($destOption);
             if (false === $dest) {
-                throw new \RuntimeException(sprintf('The provided destination folder \'%s\' does not exist!', $destOption));
+                throw new \RuntimeException(sprintf(
+                    'The provided destination folder \'%s\' does not exist!',
+                    $destOption
+                ));
             }
         } else {
             $dest = $this->getContainer()->get('kernel')->getRootDir();
@@ -65,14 +74,22 @@ EOT
         $namespace = $input->getOption('namespace');
         if ($namespace) {
             if (!preg_match('/^(?:(?:[[:alnum:]]+|:vendor)\\\\?)+$/', $namespace)) {
-                throw new \InvalidArgumentException('The provided namespace \'%s\' is not a valid namespace!', $namespace);
+                throw new \InvalidArgumentException(
+                    'The provided namespace \'%s\' is not a valid namespace!',
+                    $namespace
+                );
             }
         } else {
             $namespace = 'Application\:vendor';
         }
 
         $configuration = array(
-            'application_dir' => sprintf('%s%s%s', $dest, DIRECTORY_SEPARATOR, str_replace('\\', DIRECTORY_SEPARATOR, $namespace)),
+            'application_dir' => sprintf(
+                '%s%s%s',
+                $dest,
+                DIRECTORY_SEPARATOR,
+                str_replace('\\', DIRECTORY_SEPARATOR, $namespace)
+            ),
             'namespace' => $namespace,
         );
 
@@ -100,7 +117,10 @@ EOT
                 $processed = $this->generate($bundleName, $configuration, $output);
 
                 if (!$processed) {
-                    throw new \RuntimeException(sprintf('<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>', $bundleName));
+                    throw new \RuntimeException(sprintf(
+                        '<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>',
+                        $bundleName
+                    ));
                 }
             }
         }
@@ -117,7 +137,7 @@ EOT
      *
      * @return bool
      */
-    protected function generate($bundleName, array $configuration, $output)
+    protected function generate(string $bundleName, array $configuration, OutputInterface $output): bool
     {
         $processed = false;
 
@@ -139,7 +159,10 @@ EOT
 
             // generate the bundle file
             if (!$bundleMetadata->isValid()) {
-                $output->writeln(sprintf('%s : <comment>wrong folder structure</comment>', $bundleMetadata->getClass()));
+                $output->writeln(sprintf(
+                    '%s : <comment>wrong folder structure</comment>',
+                    $bundleMetadata->getClass()
+                ));
 
                 continue;
             }
