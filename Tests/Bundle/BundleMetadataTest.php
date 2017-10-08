@@ -27,10 +27,10 @@ class BundleMetadataTest extends \PHPUnit_Framework_TestCase
     {
         $bundle = new \Sonata\AcmeBundle\SonataAcmeBundle();
 
-        $bundleMetadata = new BundleMetadata($bundle, array(
+        $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'app/Application/:vendor',
             'namespace' => 'Application\\:vendor',
-        ));
+        ]);
 
         $this->assertTrue($bundleMetadata->isExtendable());
         $this->assertTrue($bundleMetadata->isValid());
@@ -48,10 +48,10 @@ class BundleMetadataTest extends \PHPUnit_Framework_TestCase
     {
         $bundle = new \Sonata\AcmeBundle\SonataAcmeBundle();
 
-        $bundleMetadata = new BundleMetadata($bundle, array(
+        $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'app/Custom/:vendor',
             'namespace' => 'Custom\\:vendor',
-        ));
+        ]);
 
         $this->assertEquals('app/Custom/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
         $this->assertEquals('Custom\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
@@ -61,10 +61,10 @@ class BundleMetadataTest extends \PHPUnit_Framework_TestCase
     {
         $bundle = new \Application\Sonata\NotExtendableBundle();
 
-        $bundleMetadata = new BundleMetadata($bundle, array(
+        $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'Application',
             'namespace' => 'Application',
-        ));
+        ]);
 
         $this->assertFalse($bundleMetadata->isValid());
         $this->assertFalse($bundleMetadata->isExtendable());
@@ -74,10 +74,10 @@ class BundleMetadataTest extends \PHPUnit_Framework_TestCase
     {
         $bundle = new \Symfony\Bundle\NotExtendableBundle();
 
-        $bundleMetadata = new BundleMetadata($bundle, array(
+        $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'Application',
             'namespace' => 'Application',
-        ));
+        ]);
 
         $this->assertFalse($bundleMetadata->isValid());
         $this->assertFalse($bundleMetadata->isExtendable());
@@ -87,10 +87,10 @@ class BundleMetadataTest extends \PHPUnit_Framework_TestCase
     {
         $bundle = new \Sonata\Bundle\AcmeBundle\LongNamespaceBundle();
 
-        $bundleMetadata = new BundleMetadata($bundle, array(
+        $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'Application',
             'namespace' => 'Application',
-        ));
+        ]);
 
         $this->assertFalse($bundleMetadata->isValid());
     }
@@ -99,10 +99,10 @@ class BundleMetadataTest extends \PHPUnit_Framework_TestCase
     {
         $bundle = new \Sonata\AcmeBundle\AcmeBundle();
 
-        $bundleMetadata = new BundleMetadata($bundle, array(
+        $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'Application',
             'namespace' => 'Application',
-        ));
+        ]);
 
         $this->assertFalse($bundleMetadata->isValid());
     }

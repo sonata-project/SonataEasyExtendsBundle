@@ -41,7 +41,7 @@ class BundleGenerator implements GeneratorInterface
      */
     protected function generateBundleDirectory(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-        $directories = array(
+        $directories = [
             '',
             'Resources/config/serializer',
             'Resources/config/doctrine',
@@ -53,7 +53,7 @@ class BundleGenerator implements GeneratorInterface
             'Document',
             'PHPCR',
             'Controller',
-        );
+        ];
 
         foreach ($directories as $directory) {
             $dir = sprintf('%s/%s', $bundleMetadata->getExtendedDirectory(), $directory);
@@ -79,11 +79,11 @@ class BundleGenerator implements GeneratorInterface
 
         $output->writeln(sprintf('  > generating bundle file <comment>%s</comment>', $file));
 
-        $string = Mustache::replace($this->getBundleTemplate(), array(
+        $string = Mustache::replace($this->getBundleTemplate(), [
             'application' => $application,
             'bundle' => $bundleMetadata->getName(),
             'namespace' => $bundleMetadata->getExtendedNamespace(),
-        ));
+        ]);
 
         file_put_contents($file, $string);
     }

@@ -29,8 +29,8 @@ class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->doctrine = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry', array(), array(), '', false);
-        $this->metadata = $this->getMock('Doctrine\ORM\Mapping\ClassMetadataInfo', array(), array(), '', false);
+        $this->doctrine = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry', [], [], '', false);
+        $this->metadata = $this->getMock('Doctrine\ORM\Mapping\ClassMetadataInfo', [], [], '', false);
     }
 
     public function testLoadDiscriminators()
@@ -38,7 +38,7 @@ class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
         $this->metadata
             ->expects($this->atLeastOnce())
             ->method('setDiscriminatorMap')
-            ->with(array('key' => 'discriminator'));
+            ->with(['key' => 'discriminator']);
 
         $this->metadata->name = 'class';
         $mapper = new DoctrineORMMapper($this->doctrine);
@@ -55,11 +55,11 @@ class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
         $this->metadata
             ->expects($this->atLeastOnce())
             ->method('setDiscriminatorColumn')
-            ->with(array('name' => 'disc'));
+            ->with(['name' => 'disc']);
 
         $this->metadata->name = 'class';
         $mapper = new DoctrineORMMapper($this->doctrine);
-        $mapper->addDiscriminatorColumn('class', array('name' => 'disc'));
+        $mapper->addDiscriminatorColumn('class', ['name' => 'disc']);
 
         $r = new \ReflectionObject($mapper);
         $m = $r->getMethod('loadDiscriminatorColumns');
