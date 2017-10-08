@@ -17,21 +17,21 @@ class MustacheTest extends \PHPUnit_Framework_TestCase
 {
     public function testMustache()
     {
-        $this->assertEquals(Mustache::replace(' Hello {{ world }}', array(
+        $this->assertEquals(Mustache::replace(' Hello {{ world }}', [
           'world' => 'world',
-        )), ' Hello world');
+        ]), ' Hello world');
 
-        $this->assertEquals(Mustache::replace(' Hello {{world}}', array(
+        $this->assertEquals(Mustache::replace(' Hello {{world}}', [
           'world' => 'world',
-        )), ' Hello world');
+        ]), ' Hello world');
 
-        $this->assertEquals(Mustache::replace(' Hello {{ world }}', array(
+        $this->assertEquals(Mustache::replace(' Hello {{ world }}', [
           'no-world' => 'world',
-        )), ' Hello {{ world }}');
+        ]), ' Hello {{ world }}');
 
         $file = sprintf('%s/../fixtures/test.mustache', __DIR__);
-        $this->assertEquals(Mustache::replaceFromFile($file, array(
+        $this->assertEquals(Mustache::replaceFromFile($file, [
           'world' => 'world',
-        )), 'Hello world');
+        ]), 'Hello world');
     }
 }

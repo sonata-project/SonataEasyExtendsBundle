@@ -53,7 +53,7 @@ class BundleMetadata
     /**
      * @var array
      */
-    protected $configuration = array();
+    protected $configuration = [];
 
     /**
      * @var OrmMetadata
@@ -74,7 +74,7 @@ class BundleMetadata
      * @param BundleInterface $bundle
      * @param array           $configuration
      */
-    public function __construct(BundleInterface $bundle, array $configuration = array())
+    public function __construct(BundleInterface $bundle, array $configuration = [])
     {
         $this->bundle = $bundle;
         $this->configuration = $configuration;

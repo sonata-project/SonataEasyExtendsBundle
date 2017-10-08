@@ -104,7 +104,7 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $filterIterator = $ormMetadata->getEntityMappingFiles();
 
-        $files = array();
+        $files = [];
         foreach ($filterIterator as $file) {
             $files[] = $file->getFilename();
         }
@@ -133,7 +133,7 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $filterIterator = $ormMetadata->getRepositoryFiles();
 
-        $files = array();
+        $files = [];
         foreach ($filterIterator as $file) {
             $files[] = $file->getFilename();
         }
@@ -170,8 +170,8 @@ class OrmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $bundleMetadata = $this->getMock(
             'Sonata\EasyExtendsBundle\Bundle\BundleMetadata',
-            array(),
-            array($bundle),
+            [],
+            [$bundle],
             '',
             true
         );

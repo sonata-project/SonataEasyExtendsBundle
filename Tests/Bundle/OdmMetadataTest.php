@@ -102,7 +102,7 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $filterIterator = $odmMetadata->getDocumentMappingFiles();
 
-        $files = array();
+        $files = [];
         foreach ($filterIterator as $file) {
             $files[] = $file->getFilename();
         }
@@ -131,7 +131,7 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $filterIterator = $odmMetadata->getRepositoryFiles();
 
-        $files = array();
+        $files = [];
         foreach ($filterIterator as $file) {
             $files[] = $file->getFilename();
         }
@@ -168,8 +168,8 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
 
         $bundleMetadata = $this->getMock(
             'Sonata\EasyExtendsBundle\Bundle\BundleMetadata',
-            array(),
-            array($bundle),
+            [],
+            [$bundle],
             '',
             true
         );
