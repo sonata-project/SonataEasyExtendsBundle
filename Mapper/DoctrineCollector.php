@@ -55,13 +55,13 @@ class DoctrineCollector
 
     public function __construct()
     {
-        $this->associations = array();
-        $this->indexes = array();
-        $this->uniques = array();
-        $this->discriminatorColumns = array();
-        $this->inheritanceTypes = array();
-        $this->discriminators = array();
-        $this->overrides = array();
+        $this->associations = [];
+        $this->indexes = [];
+        $this->uniques = [];
+        $this->discriminatorColumns = [];
+        $this->inheritanceTypes = [];
+        $this->discriminators = [];
+        $this->overrides = [];
     }
 
     /**
@@ -86,7 +86,7 @@ class DoctrineCollector
     public function addDiscriminator($class, $key, $discriminatorClass)
     {
         if (!isset($this->discriminators[$class])) {
-            $this->discriminators[$class] = array();
+            $this->discriminators[$class] = [];
         }
 
         if (!isset($this->discriminators[$class][$key])) {
@@ -126,11 +126,11 @@ class DoctrineCollector
     public function addAssociation($class, $type, array $options)
     {
         if (!isset($this->associations[$class])) {
-            $this->associations[$class] = array();
+            $this->associations[$class] = [];
         }
 
         if (!isset($this->associations[$class][$type])) {
-            $this->associations[$class][$type] = array();
+            $this->associations[$class][$type] = [];
         }
 
         $this->associations[$class][$type][] = $options;
@@ -144,7 +144,7 @@ class DoctrineCollector
     public function addIndex($class, $name, array $columns)
     {
         if (!isset($this->indexes[$class])) {
-            $this->indexes[$class] = array();
+            $this->indexes[$class] = [];
         }
 
         if (isset($this->indexes[$class][$name])) {
@@ -162,7 +162,7 @@ class DoctrineCollector
     public function addUnique($class, $name, array $columns)
     {
         if (!isset($this->indexes[$class])) {
-            $this->uniques[$class] = array();
+            $this->uniques[$class] = [];
         }
 
         if (isset($this->uniques[$class][$name])) {
@@ -182,11 +182,11 @@ class DoctrineCollector
     final public function addOverride($class, $type, array $options)
     {
         if (!isset($this->overrides[$class])) {
-            $this->overrides[$class] = array();
+            $this->overrides[$class] = [];
         }
 
         if (!isset($this->overrides[$class][$type])) {
-            $this->overrides[$class][$type] = array();
+            $this->overrides[$class][$type] = [];
         }
 
         $this->overrides[$class][$type][] = $options;

@@ -104,7 +104,7 @@ class PhpcrMetadata
 
             return $f->getIterator();
         } catch (\Exception $e) {
-            return array();
+            return [];
         }
     }
 
@@ -113,7 +113,7 @@ class PhpcrMetadata
      */
     public function getDocumentNames()
     {
-        $names = array();
+        $names = [];
 
         try {
             $f = new Finder();
@@ -142,7 +142,7 @@ class PhpcrMetadata
 
             return $f->getIterator();
         } catch (\Exception $e) {
-            return array();
+            return [];
         }
     }
 }

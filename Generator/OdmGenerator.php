@@ -82,9 +82,9 @@ class OdmGenerator implements GeneratorInterface
 
                 $mappingEntityTemplate = file_get_contents($src_file);
 
-                $string = Mustache::replace($mappingEntityTemplate, array(
+                $string = Mustache::replace($mappingEntityTemplate, [
                     'namespace' => $bundleMetadata->getExtendedNamespace(),
-                ));
+                ]);
 
                 file_put_contents($dest_file, $string);
             }
@@ -123,13 +123,13 @@ class OdmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $name));
 
-                $string = Mustache::replace($this->getDocumentTemplate(), array(
+                $string = Mustache::replace($this->getDocumentTemplate(), [
                     'extended_namespace' => $bundleMetadata->getExtendedNamespace(),
                     'name' => $name != $extendedName ? $extendedName : $name,
                     'class' => $name,
                     'extended_name' => $name == $extendedName ? 'Base'.$name : $extendedName,
                     'namespace' => $bundleMetadata->getNamespace(),
-                ));
+                ]);
 
                 file_put_contents($dest_file, $string);
             }
@@ -161,11 +161,11 @@ class OdmGenerator implements GeneratorInterface
             } else {
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
-                $string = Mustache::replace($this->getDocumentRepositoryTemplate(), array(
+                $string = Mustache::replace($this->getDocumentRepositoryTemplate(), [
                     'extended_namespace' => $bundleMetadata->getExtendedNamespace(),
                     'name' => $name,
                     'namespace' => $bundleMetadata->getNamespace(),
-                ));
+                ]);
 
                 file_put_contents($dest_file, $string);
             }

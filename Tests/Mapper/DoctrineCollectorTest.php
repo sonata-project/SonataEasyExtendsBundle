@@ -26,12 +26,12 @@ class DoctrineCollectorTest extends \PHPUnit_Framework_TestCase
     public function testDefaultValues()
     {
         $collector = DoctrineCollector::getInstance();
-        $this->assertEquals(array(), $collector->getIndexes());
-        $this->assertEquals(array(), $collector->getUniques());
-        $this->assertEquals(array(), $collector->getInheritanceTypes());
-        $this->assertEquals(array(), $collector->getDiscriminatorColumns());
-        $this->assertEquals(array(), $collector->getAssociations());
-        $this->assertEquals(array(), $collector->getDiscriminators());
-        $this->assertEquals(array(), $collector->getOverrides());
+        $this->assertEquals([], $collector->getIndexes());
+        $this->assertEquals([], $collector->getUniques());
+        $this->assertEquals([], $collector->getInheritanceTypes());
+        $this->assertEquals([], $collector->getDiscriminatorColumns());
+        $this->assertEquals([], $collector->getAssociations());
+        $this->assertEquals([], $collector->getDiscriminators());
+        $this->assertEquals([], $collector->getOverrides());
     }
 }

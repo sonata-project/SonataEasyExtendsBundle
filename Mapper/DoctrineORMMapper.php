@@ -68,7 +68,7 @@ class DoctrineORMMapper implements EventSubscriber
      * @param array           $uniques
      * @param array           $overrides
      */
-    public function __construct(ManagerRegistry $doctrine, array $associations = array(), array $indexes = array(), array $discriminators = array(), array $discriminatorColumns = array(), array $inheritanceTypes = array(), array $uniques = array(), array $overrides = array())
+    public function __construct(ManagerRegistry $doctrine, array $associations = [], array $indexes = [], array $discriminators = [], array $discriminatorColumns = [], array $inheritanceTypes = [], array $uniques = [], array $overrides = [])
     {
         $this->doctrine = $doctrine;
         $this->associations = $associations;
@@ -85,9 +85,9 @@ class DoctrineORMMapper implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             'loadClassMetadata',
-        );
+        ];
     }
 
     /**
@@ -98,7 +98,7 @@ class DoctrineORMMapper implements EventSubscriber
     public function addAssociation($class, $field, array $options)
     {
         if (!isset($this->associations[$class])) {
-            $this->associations[$class] = array();
+            $this->associations[$class] = [];
         }
 
         $this->associations[$class][$field] = $options;
@@ -114,7 +114,7 @@ class DoctrineORMMapper implements EventSubscriber
     public function addDiscriminator($class, $key, $discriminatorClass)
     {
         if (!isset($this->discriminators[$class])) {
-            $this->discriminators[$class] = array();
+            $this->discriminators[$class] = [];
         }
 
         if (!isset($this->discriminators[$class][$key])) {
@@ -152,7 +152,7 @@ class DoctrineORMMapper implements EventSubscriber
     public function addIndex($class, $name, array $columns)
     {
         if (!isset($this->indexes[$class])) {
-            $this->indexes[$class] = array();
+            $this->indexes[$class] = [];
         }
 
         if (isset($this->indexes[$class][$name])) {
@@ -170,7 +170,7 @@ class DoctrineORMMapper implements EventSubscriber
     public function addUnique($class, $name, array $columns)
     {
         if (!isset($this->uniques[$class])) {
-            $this->uniques[$class] = array();
+            $this->uniques[$class] = [];
         }
 
         if (isset($this->uniques[$class][$name])) {
@@ -190,7 +190,7 @@ class DoctrineORMMapper implements EventSubscriber
     final public function addOverride($class, $type, array $options)
     {
         if (!isset($this->overrides[$class])) {
-            $this->overrides[$class] = array();
+            $this->overrides[$class] = [];
         }
 
         $this->overrides[$class][$type] = $options;
@@ -232,7 +232,7 @@ class DoctrineORMMapper implements EventSubscriber
                         continue;
                     }
 
-                    call_user_func(array($metadata, $type), $mapping);
+                    call_user_func([$metadata, $type], $mapping);
                 }
             }
         } catch (\ReflectionException $e) {
@@ -300,7 +300,7 @@ class DoctrineORMMapper implements EventSubscriber
                 if (in_array($key, $metadata->discriminatorMap)) {
                     continue;
                 }
-                $metadata->setDiscriminatorMap(array($key => $class));
+                $metadata->setDiscriminatorMap([$key => $class]);
             }
         } catch (\ReflectionException $e) {
             throw new \RuntimeException(sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e);
@@ -317,7 +317,7 @@ class DoctrineORMMapper implements EventSubscriber
         }
 
         foreach ($this->indexes[$metadata->name] as $name => $columns) {
-            $metadata->table['indexes'][$name] = array('columns' => $columns);
+            $metadata->table['indexes'][$name] = ['columns' => $columns];
         }
     }
 
@@ -331,7 +331,7 @@ class DoctrineORMMapper implements EventSubscriber
         }
 
         foreach ($this->uniques[$metadata->name] as $name => $columns) {
-            $metadata->table['uniqueConstraints'][$name] = array('columns' => $columns);
+            $metadata->table['uniqueConstraints'][$name] = ['columns' => $columns];
         }
     }
 
@@ -349,7 +349,7 @@ class DoctrineORMMapper implements EventSubscriber
         try {
             foreach ($this->overrides[$metadata->name] as $type => $overrides) {
                 foreach ($overrides as $override) {
-                    call_user_func(array($metadata, $type), $override['fieldName'], $override);
+                    call_user_func([$metadata, $type], $override['fieldName'], $override);
                 }
             }
         } catch (\ReflectionException $e) {
