@@ -83,7 +83,7 @@ EOT
             $namespace = 'Application\:vendor';
         }
 
-        $configuration = array(
+        $configuration = [
             'application_dir' => sprintf(
                 '%s%s%s',
                 $dest,
@@ -91,7 +91,7 @@ EOT
                 str_replace('\\', DIRECTORY_SEPARATOR, $namespace)
             ),
             'namespace' => $namespace,
-        );
+        ];
 
         $bundleNames = $input->getArgument('bundle');
 

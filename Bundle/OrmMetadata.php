@@ -105,7 +105,7 @@ class OrmMetadata
 
             return $f->getIterator();
         } catch (\Exception $e) {
-            return array();
+            return [];
         }
     }
 
@@ -114,7 +114,7 @@ class OrmMetadata
      */
     public function getEntityNames(): array
     {
-        $names = array();
+        $names = [];
 
         try {
             $f = new Finder();
@@ -144,7 +144,7 @@ class OrmMetadata
 
             return $f->getIterator();
         } catch (\Exception $e) {
-            return array();
+            return [];
         }
     }
 }

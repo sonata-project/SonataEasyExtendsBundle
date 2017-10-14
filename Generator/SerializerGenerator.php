@@ -141,11 +141,11 @@ class SerializerGenerator implements GeneratorInterface
         } else {
             $output->writeln(sprintf('   + <info>%s</info>', $name));
 
-            $string = Mustache::replace($template, array(
+            $string = Mustache::replace($template, [
                 'name' => $name,
                 'namespace' => $bundleMetadata->getExtendedNamespace(),
                 'root_name' => strtolower(preg_replace('/[A-Z]/', '_\\0', $name)),
-            ));
+            ]);
 
             file_put_contents($destFile, $string);
         }
