@@ -19,9 +19,10 @@ require_once __DIR__.'/Fixtures/bundle1/SymfonyNotExtendableBundle.php';
 require_once __DIR__.'/Fixtures/bundle1/LongNamespaceBundle.php';
 require_once __DIR__.'/Fixtures/bundle1/AcmeBundle.php';
 
+use PHPUnit\Framework\TestCase;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
-class BundleMetadataTest extends \PHPUnit_Framework_TestCase
+class BundleMetadataTest extends TestCase
 {
     public function testBundleMetadata()
     {
