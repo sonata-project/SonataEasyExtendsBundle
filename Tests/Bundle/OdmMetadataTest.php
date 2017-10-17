@@ -11,10 +11,11 @@
 
 namespace Sonata\EasyExtendsBundle\Tests\Bundle;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 use Sonata\EasyExtendsBundle\Bundle\OdmMetadata;
 
-class OdmMetadataTest extends \PHPUnit_Framework_TestCase
+class OdmMetadataTest extends TestCase
 {
     public function testDocumentNames()
     {
@@ -161,12 +162,12 @@ class OdmMetadataTest extends \PHPUnit_Framework_TestCase
      */
     private function getBundleMetadataMock($bundlePath)
     {
-        $bundle = $this->getMock('Symfony\Component\HttpKernel\Bundle\Bundle');
+        $bundle = $this->createMock('Symfony\Component\HttpKernel\Bundle\Bundle');
         $bundle->expects($this->any())
             ->method('getPath')
             ->will($this->returnValue($bundlePath));
 
-        $bundleMetadata = $this->getMock(
+        $bundleMetadata = $this->createMock(
             'Sonata\EasyExtendsBundle\Bundle\BundleMetadata',
             [],
             [$bundle],

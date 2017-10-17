@@ -11,9 +11,10 @@
 
 namespace Sonata\EasyExtendsBundle\Tests\Mapper;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 
-class DoctrineCollectorTest extends \PHPUnit_Framework_TestCase
+class DoctrineCollectorTest extends TestCase
 {
     /**
      * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getIndexes
