@@ -13,9 +13,10 @@ namespace Sonata\EasyExtendsBundle\Tests\Mapper;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use PHPUnit\Framework\TestCase;
 use Sonata\EasyExtendsBundle\Mapper\DoctrineORMMapper;
 
-class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
+class DoctrineORMMapperTest extends TestCase
 {
     /**
      * @var ManagerRegistry
@@ -29,8 +30,8 @@ class DoctrineORMMapperTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->doctrine = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry', [], [], '', false);
-        $this->metadata = $this->getMock('Doctrine\ORM\Mapping\ClassMetadataInfo', [], [], '', false);
+        $this->doctrine = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry', [], [], '', false);
+        $this->metadata = $this->createMock('Doctrine\ORM\Mapping\ClassMetadataInfo', [], [], '', false);
     }
 
     public function testLoadDiscriminators()
