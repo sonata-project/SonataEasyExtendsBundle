@@ -89,8 +89,8 @@ class BundleMetadata
     {
         // does not extends Application bundle ...
         return !(
-            strpos($this->getClass(), $this->configuration['namespace']) === 0
-            || strpos($this->getClass(), 'Symfony') === 0
+            0 === strpos($this->getClass(), $this->configuration['namespace'])
+            || 0 === strpos($this->getClass(), 'Symfony')
         );
     }
 
@@ -201,7 +201,7 @@ class BundleMetadata
             return;
         }
 
-        if (count($information) != 3) {
+        if (3 != count($information)) {
             $this->valid = false;
 
             return;
