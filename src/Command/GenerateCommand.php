@@ -150,7 +150,7 @@ EOT
             $processed = true;
             $bundleMetadata = new BundleMetadata($bundle, $configuration);
 
-            // generate the bundle file
+            // generate the bundle file.
             if (!$bundleMetadata->isExtendable()) {
                 $output->writeln(sprintf('Ignoring bundle : "<comment>%s</comment>"', $bundleMetadata->getClass()));
 
