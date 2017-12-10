@@ -123,7 +123,7 @@ class OdmMetadata
             $f->in($this->getMappingDocumentDirectory());
 
             foreach ($f->getIterator() as $file) {
-                $name = explode('.', basename($file));
+                $name = explode('.', $file->getFilename());
                 $names[] = $name[0];
             }
         } catch (\Exception $e) {

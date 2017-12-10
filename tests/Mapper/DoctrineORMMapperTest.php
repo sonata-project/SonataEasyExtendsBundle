@@ -79,7 +79,7 @@ class DoctrineORMMapperTest extends TestCase
 
         $this->metadata->name = 'class';
         $mapper = new DoctrineORMMapper($this->doctrine);
-        $mapper->addInheritanceType('class', 1);
+        $mapper->addInheritanceType('class', '1');
 
         $r = new \ReflectionObject($mapper);
         $m = $r->getMethod('loadInheritanceTypes');
