@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -16,7 +18,7 @@ use Sonata\EasyExtendsBundle\Generator\Mustache;
 
 class MustacheTest extends TestCase
 {
-    public function testMustache()
+    public function testMustache(): void
     {
         $this->assertEquals(Mustache::replace(' Hello {{ world }}', [
           'world' => 'world',
