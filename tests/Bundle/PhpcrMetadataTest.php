@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -17,7 +19,7 @@ use Sonata\EasyExtendsBundle\Bundle\PhpcrMetadata;
 
 class PhpcrMetadataTest extends TestCase
 {
-    public function testDocumentNames()
+    public function testDocumentNames(): void
     {
         $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
 
@@ -27,7 +29,7 @@ class PhpcrMetadataTest extends TestCase
         $this->assertContains('Page', $documentNames);
     }
 
-    public function testDirectoryWithDotInPath()
+    public function testDirectoryWithDotInPath(): void
     {
         $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle2/dot.dot'));
 
@@ -37,7 +39,7 @@ class PhpcrMetadataTest extends TestCase
         $this->assertContains('Page', $documentNames);
     }
 
-    public function testGetMappingDocumentDirectory()
+    public function testGetMappingDocumentDirectory(): void
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
         $expectedDirectory = $bundlePath.'/Resources/config/doctrine/';
@@ -49,7 +51,7 @@ class PhpcrMetadataTest extends TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
-    public function testGetExtendedMappingDocumentDirectory()
+    public function testGetExtendedMappingDocumentDirectory(): void
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
         $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/doctrine/';
@@ -61,7 +63,7 @@ class PhpcrMetadataTest extends TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
-    public function testGetDocumentDirectory()
+    public function testGetDocumentDirectory(): void
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
         $expectedDirectory = $bundlePath.'/PHPCR';
@@ -73,7 +75,7 @@ class PhpcrMetadataTest extends TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
-    public function testGetExtendedDocumentDirectory()
+    public function testGetExtendedDocumentDirectory(): void
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
         $expectedDirectory = 'Application/Sonata/AcmeBundle/PHPCR';
@@ -85,7 +87,7 @@ class PhpcrMetadataTest extends TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
-    public function testGetExtendedSerializerDirectory()
+    public function testGetExtendedSerializerDirectory(): void
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
         $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/serializer';
@@ -97,7 +99,7 @@ class PhpcrMetadataTest extends TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
-    public function testGetDocumentMappingFiles()
+    public function testGetDocumentMappingFiles(): void
     {
         $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
 
@@ -116,7 +118,7 @@ class PhpcrMetadataTest extends TestCase
         $this->assertNotContains('Page.odm.xml.skeleton', $files);
     }
 
-    public function testGetDocumentMappingFilesWithFilesNotFound()
+    public function testGetDocumentMappingFilesWithFilesNotFound(): void
     {
         $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures'));
 
@@ -126,7 +128,7 @@ class PhpcrMetadataTest extends TestCase
         $this->assertEmpty($result);
     }
 
-    public function testGetRepositoryFiles()
+    public function testGetRepositoryFiles(): void
     {
         $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
 
@@ -145,7 +147,7 @@ class PhpcrMetadataTest extends TestCase
         $this->assertNotContains('Page.php', $files);
     }
 
-    public function testGetRepositoryFilesWithFilesNotFound()
+    public function testGetRepositoryFilesWithFilesNotFound(): void
     {
         $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures'));
 

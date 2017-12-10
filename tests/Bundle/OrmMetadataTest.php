@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -17,7 +19,7 @@ use Sonata\EasyExtendsBundle\Bundle\OrmMetadata;
 
 class OrmMetadataTest extends TestCase
 {
-    public function testEntityNames()
+    public function testEntityNames(): void
     {
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
 
@@ -28,7 +30,7 @@ class OrmMetadataTest extends TestCase
         $this->assertContains('Page', $entityNames);
     }
 
-    public function testDirectoryWithDotInPath()
+    public function testDirectoryWithDotInPath(): void
     {
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle2/dot.dot'));
 
@@ -39,7 +41,7 @@ class OrmMetadataTest extends TestCase
         $this->assertContains('Page', $entityNames);
     }
 
-    public function testGetMappingEntityDirectory()
+    public function testGetMappingEntityDirectory(): void
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
         $expectedDirectory = $bundlePath.'/Resources/config/doctrine/';
@@ -51,7 +53,7 @@ class OrmMetadataTest extends TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
-    public function testGetExtendedMappingEntityDirectory()
+    public function testGetExtendedMappingEntityDirectory(): void
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
         $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/doctrine/';
@@ -63,7 +65,7 @@ class OrmMetadataTest extends TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
-    public function testGetEntityDirectory()
+    public function testGetEntityDirectory(): void
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
         $expectedDirectory = $bundlePath.'/Entity';
@@ -75,7 +77,7 @@ class OrmMetadataTest extends TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
-    public function testGetExtendedEntityDirectory()
+    public function testGetExtendedEntityDirectory(): void
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
         $expectedDirectory = 'Application/Sonata/AcmeBundle/Entity';
@@ -87,7 +89,7 @@ class OrmMetadataTest extends TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
-    public function testGetExtendedSerializerDirectory()
+    public function testGetExtendedSerializerDirectory(): void
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
         $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/serializer';
@@ -99,7 +101,7 @@ class OrmMetadataTest extends TestCase
         $this->assertEquals($expectedDirectory, $directory);
     }
 
-    public function testGetEntityMappingFiles()
+    public function testGetEntityMappingFiles(): void
     {
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
 
@@ -118,7 +120,7 @@ class OrmMetadataTest extends TestCase
         $this->assertNotContains('Page.mongodb.xml.skeleton', $files);
     }
 
-    public function testGetEntityMappingFilesWithFilesNotFound()
+    public function testGetEntityMappingFilesWithFilesNotFound(): void
     {
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures'));
 
@@ -128,7 +130,7 @@ class OrmMetadataTest extends TestCase
         $this->assertEmpty($result);
     }
 
-    public function testGetRepositoryFiles()
+    public function testGetRepositoryFiles(): void
     {
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures/bundle1'));
 
@@ -147,7 +149,7 @@ class OrmMetadataTest extends TestCase
         $this->assertNotContains('Page.php', $files);
     }
 
-    public function testGetRepositoryFilesWithFilesNotFound()
+    public function testGetRepositoryFilesWithFilesNotFound(): void
     {
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock(__DIR__.'/Fixtures'));
 
