@@ -45,6 +45,7 @@ EOT
         $this->addArgument('bundle', InputArgument::IS_ARRAY, 'The bundle name to "easy-extends"');
         $this->addOption('dest', 'd', InputOption::VALUE_OPTIONAL, 'The base folder where the Application will be created', false);
         $this->addOption('namespace', 'ns', InputOption::VALUE_OPTIONAL, 'The namespace for the classes', false);
+        $this->addOption('namespace_prefix', 'nsp', InputOption::VALUE_OPTIONAL, 'The namespace prefix for the classes', false);
     }
 
     /**
@@ -74,7 +75,12 @@ EOT
         $configuration = [
             'application_dir' => sprintf('%s%s%s', $dest, DIRECTORY_SEPARATOR, str_replace('\\', DIRECTORY_SEPARATOR, $namespace)),
             'namespace' => $namespace,
+            'namespace_prefix' => '',
         ];
+
+        if ($namespacePrefix = $input->getOption('namespace_prefix')) {
+            $configuration['namespace_prefix'] = rtrim($namespacePrefix, '\\').'\\';
+        }
 
         $bundleNames = $input->getArgument('bundle');
 
@@ -100,7 +106,10 @@ EOT
                 $processed = $this->generate($bundleName, $configuration, $output);
 
                 if (!$processed) {
-                    throw new \RuntimeException(sprintf('<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>', $bundleName));
+                    throw new \RuntimeException(sprintf(
+                        '<error>The bundle \'%s\' does not exist or is not registered in the kernel!</error>',
+                        $bundleName
+                    ));
                 }
             }
         }
@@ -139,7 +148,10 @@ EOT
 
             // generate the bundle file
             if (!$bundleMetadata->isValid()) {
-                $output->writeln(sprintf('%s : <comment>wrong folder structure</comment>', $bundleMetadata->getClass()));
+                $output->writeln(sprintf(
+                    '%s : <comment>wrong directory structure</comment>',
+                    $bundleMetadata->getClass()
+                ));
 
                 continue;
             }

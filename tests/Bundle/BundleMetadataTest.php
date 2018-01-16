@@ -31,6 +31,7 @@ class BundleMetadataTest extends TestCase
         $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'app/Application/:vendor',
             'namespace' => 'Application\\:vendor',
+            'namespace_prefix' => '',
         ]);
 
         $this->assertTrue($bundleMetadata->isExtendable());
@@ -52,6 +53,7 @@ class BundleMetadataTest extends TestCase
         $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'app/Custom/:vendor',
             'namespace' => 'Custom\\:vendor',
+            'namespace_prefix' => '',
         ]);
 
         $this->assertEquals('app/Custom/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
@@ -65,6 +67,7 @@ class BundleMetadataTest extends TestCase
         $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'Application',
             'namespace' => 'Application',
+            'namespace_prefix' => '',
         ]);
 
         $this->assertFalse($bundleMetadata->isValid());
@@ -78,6 +81,7 @@ class BundleMetadataTest extends TestCase
         $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'Application',
             'namespace' => 'Application',
+            'namespace_prefix' => '',
         ]);
 
         $this->assertFalse($bundleMetadata->isValid());
@@ -91,6 +95,7 @@ class BundleMetadataTest extends TestCase
         $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'Application',
             'namespace' => 'Application',
+            'namespace_prefix' => '',
         ]);
 
         $this->assertFalse($bundleMetadata->isValid());
@@ -103,8 +108,28 @@ class BundleMetadataTest extends TestCase
         $bundleMetadata = new BundleMetadata($bundle, [
             'application_dir' => 'Application',
             'namespace' => 'Application',
+            'namespace_prefix' => '',
         ]);
 
         $this->assertFalse($bundleMetadata->isValid());
+    }
+
+    public function testWithNamespacePrefix()
+    {
+        $bundle = new \Sonata\AcmeBundle\SonataAcmeBundle();
+
+        $bundleMetadata = new BundleMetadata($bundle, [
+            'application_dir' => 'src/Application/:vendor',
+            'namespace' => 'Application\\:vendor',
+            'namespace_prefix' => 'App\\',
+        ]);
+
+        $this->assertEquals('SonataAcmeBundle', $bundleMetadata->getName());
+        $this->assertEquals('Sonata', $bundleMetadata->getVendor());
+        $this->assertEquals('Application', $bundleMetadata->getApplication());
+        $this->assertEquals('Sonata\AcmeBundle', $bundleMetadata->getNamespace());
+        $this->assertEquals('src/Application/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
+        $this->assertEquals('App\Application\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
+        $this->assertSame($bundle, $bundleMetadata->getBundle());
     }
 }

@@ -100,9 +100,16 @@ At last you can run:
 
     php app/console sonata:easy-extends:generate YourVBBundleName
 
+Command Options
+---------------
 
-.. note::
+There are few options that you can add when executing command:
 
-    Note that the `--dest` option allows you to choose the target directory, such as `src`. Default destination is `app/`.
-
-    Also note that the `--namespace` option allows you to choose the base namespace, such as `Application\\Sonata`. Default destination is `Application\\:vendor`.
+* the ``--dest`` option allows you to choose the target directory, such
+  as `src`. The default destination is the directory of your Kernel.
+* the ``--namespace`` option allows you to choose the base namespace, such
+  as `Application\\Sonata`. The default destination is `Application\\:vendor`.
+* the ``--namespace_prefix`` option allows to provide a prefix for your namespace,
+  this option is added because of the new directory structure that symfony-flex
+  brings us. There is no Default value so if you are using flex you should
+  use this option with the ``App`` value.
