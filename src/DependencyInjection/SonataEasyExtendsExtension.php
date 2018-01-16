@@ -29,6 +29,7 @@ class SonataEasyExtendsExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('commands.xml');
         $loader->load('generator.xml');
         $loader->load('mapper.xml');
     }
