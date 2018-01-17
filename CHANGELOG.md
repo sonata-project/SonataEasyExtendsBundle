@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.1](https://github.com/sonata-project/SonataEasyExtendsBundle/compare/2.3.0...2.3.1) - 2018-01-16
+### Fixed
+- Register commands explicitly in `commands.xml`
+- Generator services are now public
+
 ## [2.3.0](https://github.com/sonata-project/SonataEasyExtendsBundle/compare/2.2.0...2.3.0) - 2017-11-30
 ### Changed
 - Changed internal folder structure to `src`, `tests` and `docs`
