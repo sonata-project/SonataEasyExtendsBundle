@@ -73,6 +73,11 @@ class BundleMetadata
     protected $phpcrMetadata = null;
 
     /**
+     * @var string
+     */
+    private $application;
+
+    /**
      * @param BundleInterface $bundle
      * @param array           $configuration
      */
@@ -155,6 +160,14 @@ class BundleMetadata
     }
 
     /**
+     * @return string
+     */
+    public function getApplication()
+    {
+        return $this->application;
+    }
+
+    /**
      * @return BundleInterface
      */
     public function getBundle(): BundleInterface
@@ -223,10 +236,12 @@ class BundleMetadata
             DIRECTORY_SEPARATOR.
             $information[1];
         $this->extendedNamespace = sprintf(
-            '%s\\%s',
+            '%s%s\\%s',
+            $this->configuration['namespace_prefix'],
             str_replace(':vendor', $this->vendor, $this->configuration['namespace']),
             $information[1]
         );
+        $this->application = explode('\\', $this->configuration['namespace'])[0];
         $this->valid = true;
 
         $this->ormMetadata = new OrmMetadata($this);
