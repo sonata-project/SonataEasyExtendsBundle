@@ -246,12 +246,12 @@ class DoctrineCollector
         return $this->overrides;
     }
 
-    public function clear()
+    public function clear(): void
     {
         $this->initialize();
     }
 
-    private function initialize()
+    private function initialize(): void
     {
         $this->associations = [];
         $this->indexes = [];
