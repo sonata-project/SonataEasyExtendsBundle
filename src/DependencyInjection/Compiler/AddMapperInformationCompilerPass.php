@@ -72,5 +72,7 @@ class AddMapperInformationCompilerPass implements CompilerPassInterface
                 $mapper->addMethodCall('addOverride', [$class, $type, $options]);
             }
         }
+
+        DoctrineCollector::getInstance()->clear();
     }
 }

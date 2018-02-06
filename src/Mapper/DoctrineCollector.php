@@ -57,13 +57,7 @@ class DoctrineCollector
 
     public function __construct()
     {
-        $this->associations = [];
-        $this->indexes = [];
-        $this->uniques = [];
-        $this->discriminatorColumns = [];
-        $this->inheritanceTypes = [];
-        $this->discriminators = [];
-        $this->overrides = [];
+        $this->initialize();
     }
 
     /**
@@ -250,5 +244,21 @@ class DoctrineCollector
     final public function getOverrides(): array
     {
         return $this->overrides;
+    }
+
+    public function clear()
+    {
+        $this->initialize();
+    }
+
+    private function initialize()
+    {
+        $this->associations = [];
+        $this->indexes = [];
+        $this->uniques = [];
+        $this->discriminatorColumns = [];
+        $this->inheritanceTypes = [];
+        $this->discriminators = [];
+        $this->overrides = [];
     }
 }

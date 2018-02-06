@@ -37,4 +37,26 @@ class DoctrineCollectorTest extends TestCase
         $this->assertEquals([], $collector->getDiscriminators());
         $this->assertEquals([], $collector->getOverrides());
     }
+
+    public function testClear()
+    {
+        $collector = DoctrineCollector::getInstance();
+        $collector->addIndex(\stdClass::class, 'name', ['column']);
+        $collector->addUnique(\stdClass::class, 'name', ['column']);
+        $collector->addInheritanceType(\stdClass::class, 'type');
+        $collector->addDiscriminatorColumn(\stdClass::class, ['columnDef']);
+        $collector->addAssociation(\stdClass::class, 'type', ['options']);
+        $collector->addDiscriminator(\stdClass::class, 'key', 'discriminatorClass');
+        $collector->addOverride(\stdClass::class, 'type', ['options']);
+
+        $collector->clear();
+
+        $this->assertEquals([], $collector->getIndexes());
+        $this->assertEquals([], $collector->getUniques());
+        $this->assertEquals([], $collector->getInheritanceTypes());
+        $this->assertEquals([], $collector->getDiscriminatorColumns());
+        $this->assertEquals([], $collector->getAssociations());
+        $this->assertEquals([], $collector->getDiscriminators());
+        $this->assertEquals([], $collector->getOverrides());
+    }
 }
