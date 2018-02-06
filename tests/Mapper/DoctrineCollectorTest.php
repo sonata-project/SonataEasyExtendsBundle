@@ -38,7 +38,7 @@ class DoctrineCollectorTest extends TestCase
         $this->assertEquals([], $collector->getOverrides());
     }
 
-    public function testClear()
+    public function testClear(): void
     {
         $collector = DoctrineCollector::getInstance();
         $collector->addIndex(\stdClass::class, 'name', ['column']);
