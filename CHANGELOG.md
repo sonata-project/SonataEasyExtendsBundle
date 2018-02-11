@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5.0](https://github.com/sonata-project/SonataEasyExtendsBundle/compare/2.4.0...2.5.0) - 2018-02-11
+### Added
+- Added  `DoctrineCollector::clear` to clear properties of class.
+
 ## [2.4.0](https://github.com/sonata-project/SonataEasyExtendsBundle/compare/2.3.1...2.4.0) - 2018-01-20
 ### Added
 - Added new `namespace_prefix` option to generate command
