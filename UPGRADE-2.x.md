@@ -4,6 +4,11 @@ UPGRADE 2.x
 UPGRADE FROM 2.2 to 2.3
 =======================
 
+### Deprecated
+
+Generated Bundles no longer use Bundle inheritance, because Symfony dropped the support for this in 3.4+ [symfony blog](https://symfony.com/blog/new-in-symfony-3-4-deprecated-bundle-inheritance)
+If You really need it, you can add it yourself.
+
 ### Tests
 
 All files under the ``Tests`` directory are now correctly handled as internal test classes. 
