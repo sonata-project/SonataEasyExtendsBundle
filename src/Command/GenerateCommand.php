@@ -73,7 +73,7 @@ EOT
         }
 
         $configuration = [
-            'application_dir' => sprintf('%s%s%s', $dest, DIRECTORY_SEPARATOR, str_replace('\\', DIRECTORY_SEPARATOR, $namespace)),
+            'application_dir' => sprintf('%s%s%s', $dest, \DIRECTORY_SEPARATOR, str_replace('\\', \DIRECTORY_SEPARATOR, $namespace)),
             'namespace' => $namespace,
             'namespace_prefix' => '',
         ];
