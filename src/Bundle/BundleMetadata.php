@@ -104,7 +104,7 @@ class BundleMetadata
      */
     public function getClass()
     {
-        return get_class($this->bundle);
+        return \get_class($this->bundle);
     }
 
     /**
@@ -214,7 +214,7 @@ class BundleMetadata
             return;
         }
 
-        if (3 != count($information)) {
+        if (3 != \count($information)) {
             $this->valid = false;
 
             return;
@@ -226,12 +226,12 @@ class BundleMetadata
             return;
         }
 
-        $this->name = $information[count($information) - 1];
+        $this->name = $information[\count($information) - 1];
         $this->vendor = $information[0];
         $this->namespace = sprintf('%s\\%s', $this->vendor, $information[1]);
         $this->extendedDirectory =
             str_replace(':vendor', $this->vendor, $this->configuration['application_dir']).
-            DIRECTORY_SEPARATOR.
+            \DIRECTORY_SEPARATOR.
             $information[1];
         $this->extendedNamespace = sprintf(
             '%s%s\\%s',
