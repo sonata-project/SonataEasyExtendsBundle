@@ -56,7 +56,7 @@ class SerializerGenerator implements GeneratorInterface
     {
         $names = $bundleMetadata->getOrmMetadata()->getEntityNames();
 
-        if (is_array($names) && count($names) > 0) {
+        if (\is_array($names) && \count($names) > 0) {
             $output->writeln(' - Generating ORM serializer files');
 
             foreach ($names as $name) {
@@ -79,7 +79,7 @@ class SerializerGenerator implements GeneratorInterface
     {
         $names = $bundleMetadata->getOdmMetadata()->getDocumentNames();
 
-        if (is_array($names) && count($names) > 0) {
+        if (\is_array($names) && \count($names) > 0) {
             $output->writeln(' - Generating ODM serializer files');
 
             foreach ($names as $name) {
@@ -108,7 +108,7 @@ class SerializerGenerator implements GeneratorInterface
     {
         $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
 
-        if (is_array($names) && count($names) > 0) {
+        if (\is_array($names) && \count($names) > 0) {
             $output->writeln(' - Generating PHPCR serializer files');
 
             foreach ($names as $name) {

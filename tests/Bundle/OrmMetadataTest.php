@@ -25,7 +25,7 @@ class OrmMetadataTest extends TestCase
 
         $entityNames = $ormMetadata->getEntityNames();
 
-        $this->assertEquals(4, count($entityNames));
+        $this->assertCount(4, $entityNames);
         $this->assertContains('Block', $entityNames);
         $this->assertContains('Page', $entityNames);
     }
@@ -36,7 +36,7 @@ class OrmMetadataTest extends TestCase
 
         $entityNames = $ormMetadata->getEntityNames();
 
-        $this->assertEquals(4, count($entityNames));
+        $this->assertCount(4, $entityNames);
         $this->assertContains('Block', $entityNames);
         $this->assertContains('Page', $entityNames);
     }

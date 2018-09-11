@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Sonata\AcmeBundle\SonataAcmeBundle;
 use Sonata\EasyExtendsBundle\Command\GenerateCommand;
 use Sonata\EasyExtendsBundle\Generator\GeneratorInterface;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;

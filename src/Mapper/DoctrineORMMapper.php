@@ -234,7 +234,7 @@ class DoctrineORMMapper implements EventSubscriber
                         continue;
                     }
 
-                    call_user_func([$metadata, $type], $mapping);
+                    \call_user_func([$metadata, $type], $mapping);
                 }
             }
         } catch (\ReflectionException $e) {
@@ -314,7 +314,7 @@ class DoctrineORMMapper implements EventSubscriber
 
         try {
             foreach ($this->discriminators[$metadata->name] as $key => $class) {
-                if (in_array($key, $metadata->discriminatorMap)) {
+                if (\in_array($key, $metadata->discriminatorMap)) {
                     continue;
                 }
                 $metadata->setDiscriminatorMap([$key => $class]);
@@ -370,7 +370,7 @@ class DoctrineORMMapper implements EventSubscriber
         try {
             foreach ($this->overrides[$metadata->name] as $type => $overrides) {
                 foreach ($overrides as $override) {
-                    call_user_func([$metadata, $type], $override['fieldName'], $override);
+                    \call_user_func([$metadata, $type], $override['fieldName'], $override);
                 }
             }
         } catch (\ReflectionException $e) {
