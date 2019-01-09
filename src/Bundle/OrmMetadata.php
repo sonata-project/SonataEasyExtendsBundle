@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -123,7 +125,7 @@ class OrmMetadata
             $f->in($this->getMappingEntityDirectory());
 
             foreach ($f->getIterator() as $file) {
-                $name = explode('.', basename($file));
+                $name = explode('.', basename((string) $file));
                 $names[] = $name[0];
             }
         } catch (\Exception $e) {
