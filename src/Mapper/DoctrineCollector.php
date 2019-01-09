@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -77,7 +79,7 @@ class DoctrineCollector
      * @param string $key                Key is the database value and values are the classes
      * @param string $discriminatorClass The mapped class
      */
-    public function addDiscriminator($class, $key, $discriminatorClass)
+    public function addDiscriminator($class, $key, $discriminatorClass): void
     {
         if (!isset($this->discriminators[$class])) {
             $this->discriminators[$class] = [];
@@ -94,7 +96,7 @@ class DoctrineCollector
      * @param string $class
      * @param array  $columnDef
      */
-    public function addDiscriminatorColumn($class, array $columnDef)
+    public function addDiscriminatorColumn($class, array $columnDef): void
     {
         if (!isset($this->discriminatorColumns[$class])) {
             $this->discriminatorColumns[$class] = $columnDef;
@@ -105,7 +107,7 @@ class DoctrineCollector
      * @param string $class
      * @param string $type
      */
-    public function addInheritanceType($class, $type)
+    public function addInheritanceType($class, $type): void
     {
         if (!isset($this->inheritanceTypes[$class])) {
             $this->inheritanceTypes[$class] = $type;
@@ -117,7 +119,7 @@ class DoctrineCollector
      * @param string $type
      * @param array  $options
      */
-    public function addAssociation($class, $type, array $options)
+    public function addAssociation($class, $type, array $options): void
     {
         if (!isset($this->associations[$class])) {
             $this->associations[$class] = [];
@@ -135,7 +137,7 @@ class DoctrineCollector
      * @param string $name
      * @param array  $columns
      */
-    public function addIndex($class, $name, array $columns)
+    public function addIndex($class, $name, array $columns): void
     {
         if (!isset($this->indexes[$class])) {
             $this->indexes[$class] = [];
@@ -153,7 +155,7 @@ class DoctrineCollector
      * @param string $name
      * @param array  $columns
      */
-    public function addUnique($class, $name, array $columns)
+    public function addUnique($class, $name, array $columns): void
     {
         if (!isset($this->indexes[$class])) {
             $this->uniques[$class] = [];
@@ -173,7 +175,7 @@ class DoctrineCollector
      * @param string $type
      * @param array  $options
      */
-    final public function addOverride($class, $type, array $options)
+    final public function addOverride($class, $type, array $options): void
     {
         if (!isset($this->overrides[$class])) {
             $this->overrides[$class] = [];
@@ -244,12 +246,12 @@ class DoctrineCollector
         return $this->overrides;
     }
 
-    public function clear()
+    public function clear(): void
     {
         $this->initialize();
     }
 
-    private function initialize()
+    private function initialize(): void
     {
         $this->associations = [];
         $this->indexes = [];

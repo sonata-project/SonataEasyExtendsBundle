@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -35,7 +37,7 @@ class OdmGenerator implements GeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $this->generateMappingDocumentFiles($output, $bundleMetadata);
         $this->generateDocumentFiles($output, $bundleMetadata);
@@ -62,7 +64,7 @@ class OdmGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Copy document files');
 
@@ -95,7 +97,7 @@ class OdmGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Generating document files');
 
@@ -140,7 +142,7 @@ class OdmGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Generating document repository files');
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -24,7 +26,7 @@ use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 
 class BundleMetadataTest extends TestCase
 {
-    public function testBundleMetadata()
+    public function testBundleMetadata(): void
     {
         $bundle = new \Sonata\AcmeBundle\SonataAcmeBundle();
 
@@ -46,7 +48,7 @@ class BundleMetadataTest extends TestCase
         $this->assertSame($bundle, $bundleMetadata->getBundle());
     }
 
-    public function testCustomNamespace()
+    public function testCustomNamespace(): void
     {
         $bundle = new \Sonata\AcmeBundle\SonataAcmeBundle();
 
@@ -60,7 +62,7 @@ class BundleMetadataTest extends TestCase
         $this->assertEquals('Custom\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
     }
 
-    public function testApplicationNotExtendableBundle()
+    public function testApplicationNotExtendableBundle(): void
     {
         $bundle = new \Application\Sonata\NotExtendableBundle();
 
@@ -74,7 +76,7 @@ class BundleMetadataTest extends TestCase
         $this->assertFalse($bundleMetadata->isExtendable());
     }
 
-    public function testSymfonyNotExtendableBundle()
+    public function testSymfonyNotExtendableBundle(): void
     {
         $bundle = new \Symfony\Bundle\NotExtendableBundle();
 
@@ -88,7 +90,7 @@ class BundleMetadataTest extends TestCase
         $this->assertFalse($bundleMetadata->isExtendable());
     }
 
-    public function testBundleNamespace()
+    public function testBundleNamespace(): void
     {
         $bundle = new \Sonata\Bundle\AcmeBundle\LongNamespaceBundle();
 
@@ -101,7 +103,7 @@ class BundleMetadataTest extends TestCase
         $this->assertFalse($bundleMetadata->isValid());
     }
 
-    public function testBundleName()
+    public function testBundleName(): void
     {
         $bundle = new \Sonata\AcmeBundle\AcmeBundle();
 
@@ -114,7 +116,7 @@ class BundleMetadataTest extends TestCase
         $this->assertFalse($bundleMetadata->isValid());
     }
 
-    public function testWithNamespacePrefix()
+    public function testWithNamespacePrefix(): void
     {
         $bundle = new \Sonata\AcmeBundle\SonataAcmeBundle();
 

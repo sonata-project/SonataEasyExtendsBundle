@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -24,7 +26,7 @@ class DoctrineCollectorTest extends TestCase
      * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getAssociations
      * @covers \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector::getDiscriminators
      */
-    public function testDefaultValues()
+    public function testDefaultValues(): void
     {
         $collector = DoctrineCollector::getInstance();
         $this->assertEquals([], $collector->getIndexes());
@@ -36,7 +38,7 @@ class DoctrineCollectorTest extends TestCase
         $this->assertEquals([], $collector->getOverrides());
     }
 
-    public function testClear()
+    public function testClear(): void
     {
         $collector = DoctrineCollector::getInstance();
         $collector->addIndex(\stdClass::class, 'name', ['column']);

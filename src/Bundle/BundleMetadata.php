@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -204,7 +206,7 @@ class BundleMetadata
      * if the bundle does not respect this convention then the easy extends command will ignore
      * this bundle
      */
-    protected function buildInformation()
+    protected function buildInformation(): void
     {
         $information = explode('\\', $this->getClass());
 

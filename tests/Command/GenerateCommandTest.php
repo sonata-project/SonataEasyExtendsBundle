@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -27,7 +29,7 @@ final class GenerateCommandTest extends TestCase
     /**
      * @dataProvider executeData
      */
-    public function testExecute($args)
+    public function testExecute($args): void
     {
         $commandTester = $this->buildCommand($this->mockContainer());
         $commandTester->execute($args);
@@ -72,7 +74,7 @@ final class GenerateCommandTest extends TestCase
         ];
     }
 
-    public function testExecuteWrongDest()
+    public function testExecuteWrongDest(): void
     {
         $commandTester = $this->buildCommand($this->createMock(ContainerInterface::class));
 
@@ -84,7 +86,7 @@ final class GenerateCommandTest extends TestCase
         ]);
     }
 
-    public function testNoArgument()
+    public function testNoArgument(): void
     {
         $commandTester = $this->buildCommand($this->mockContainerWithKernel());
 
@@ -98,7 +100,7 @@ final class GenerateCommandTest extends TestCase
         );
     }
 
-    public function testFakeBundleName()
+    public function testFakeBundleName(): void
     {
         $commandTester = $this->buildCommand($this->mockContainerWithKernel());
 
@@ -116,7 +118,7 @@ final class GenerateCommandTest extends TestCase
         );
     }
 
-    public function testNotExtendableBundle()
+    public function testNotExtendableBundle(): void
     {
         $commandTester = $this->buildCommand($this->mockContainerWithKernel(new \Symfony\Bundle\NotExtendableBundle()));
 
@@ -131,7 +133,7 @@ final class GenerateCommandTest extends TestCase
         );
     }
 
-    public function testInvalidFolderStructure()
+    public function testInvalidFolderStructure(): void
     {
         $commandTester = $this->buildCommand(
             $this->mockContainerWithKernel(new \Application\Sonata\NotExtendableBundle())

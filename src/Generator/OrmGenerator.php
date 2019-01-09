@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -35,7 +37,7 @@ class OrmGenerator implements GeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $this->generateMappingEntityFiles($output, $bundleMetadata);
         $this->generateEntityFiles($output, $bundleMetadata);
@@ -46,7 +48,7 @@ class OrmGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateMappingEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateMappingEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Copy entity files');
 
@@ -78,7 +80,7 @@ class OrmGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Generating entity files');
 
@@ -123,7 +125,7 @@ class OrmGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    public function generateEntityRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generateEntityRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Generating entity repository files');
 

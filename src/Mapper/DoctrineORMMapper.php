@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -95,7 +97,7 @@ class DoctrineORMMapper implements EventSubscriber
      * @param string $field
      * @param array  $options
      */
-    public function addAssociation($class, $field, array $options)
+    public function addAssociation($class, $field, array $options): void
     {
         if (!isset($this->associations[$class])) {
             $this->associations[$class] = [];
@@ -111,7 +113,7 @@ class DoctrineORMMapper implements EventSubscriber
      * @param string $key                Key is the database value and values are the classes
      * @param string $discriminatorClass The mapped class
      */
-    public function addDiscriminator($class, $key, $discriminatorClass)
+    public function addDiscriminator($class, $key, $discriminatorClass): void
     {
         if (!isset($this->discriminators[$class])) {
             $this->discriminators[$class] = [];
@@ -126,7 +128,7 @@ class DoctrineORMMapper implements EventSubscriber
      * @param string $class
      * @param array  $columnDef
      */
-    public function addDiscriminatorColumn($class, array $columnDef)
+    public function addDiscriminatorColumn($class, array $columnDef): void
     {
         if (!isset($this->discriminatorColumns[$class])) {
             $this->discriminatorColumns[$class] = $columnDef;
@@ -137,7 +139,7 @@ class DoctrineORMMapper implements EventSubscriber
      * @param string $class
      * @param string $type
      */
-    public function addInheritanceType($class, $type)
+    public function addInheritanceType($class, $type): void
     {
         if (!isset($this->inheritanceTypes[$class])) {
             $this->inheritanceTypes[$class] = $type;
@@ -149,7 +151,7 @@ class DoctrineORMMapper implements EventSubscriber
      * @param string $name
      * @param array  $columns
      */
-    public function addIndex($class, $name, array $columns)
+    public function addIndex($class, $name, array $columns): void
     {
         if (!isset($this->indexes[$class])) {
             $this->indexes[$class] = [];
@@ -167,7 +169,7 @@ class DoctrineORMMapper implements EventSubscriber
      * @param string $name
      * @param array  $columns
      */
-    public function addUnique($class, $name, array $columns)
+    public function addUnique($class, $name, array $columns): void
     {
         if (!isset($this->uniques[$class])) {
             $this->uniques[$class] = [];
@@ -187,7 +189,7 @@ class DoctrineORMMapper implements EventSubscriber
      * @param string $type
      * @param array  $options
      */
-    final public function addOverride($class, $type, array $options)
+    final public function addOverride($class, $type, array $options): void
     {
         if (!isset($this->overrides[$class])) {
             $this->overrides[$class] = [];
@@ -199,7 +201,7 @@ class DoctrineORMMapper implements EventSubscriber
     /**
      * @param $eventArgs
      */
-    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
+    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
     {
         $metadata = $eventArgs->getClassMetadata();
 
@@ -218,7 +220,7 @@ class DoctrineORMMapper implements EventSubscriber
      *
      * @throws \RuntimeException
      */
-    private function loadAssociations(ClassMetadataInfo $metadata)
+    private function loadAssociations(ClassMetadataInfo $metadata): void
     {
         if (!array_key_exists($metadata->name, $this->associations)) {
             return;
@@ -245,7 +247,7 @@ class DoctrineORMMapper implements EventSubscriber
      *
      * @throws \RuntimeException
      */
-    private function loadDiscriminatorColumns(ClassMetadataInfo $metadata)
+    private function loadDiscriminatorColumns(ClassMetadataInfo $metadata): void
     {
         if (!array_key_exists($metadata->name, $this->discriminatorColumns)) {
             return;
@@ -269,7 +271,7 @@ class DoctrineORMMapper implements EventSubscriber
      *
      * @throws \RuntimeException
      */
-    private function loadInheritanceTypes(ClassMetadataInfo $metadata)
+    private function loadInheritanceTypes(ClassMetadataInfo $metadata): void
     {
         if (!array_key_exists($metadata->name, $this->inheritanceTypes)) {
             return;
@@ -289,7 +291,7 @@ class DoctrineORMMapper implements EventSubscriber
      *
      * @throws \RuntimeException
      */
-    private function loadDiscriminators(ClassMetadataInfo $metadata)
+    private function loadDiscriminators(ClassMetadataInfo $metadata): void
     {
         if (!array_key_exists($metadata->name, $this->discriminators)) {
             return;
@@ -310,7 +312,7 @@ class DoctrineORMMapper implements EventSubscriber
     /**
      * @param ClassMetadataInfo $metadata
      */
-    private function loadIndexes(ClassMetadataInfo $metadata)
+    private function loadIndexes(ClassMetadataInfo $metadata): void
     {
         if (!array_key_exists($metadata->name, $this->indexes)) {
             return;
@@ -324,7 +326,7 @@ class DoctrineORMMapper implements EventSubscriber
     /**
      * @param ClassMetadataInfo $metadata
      */
-    private function loadUniques(ClassMetadataInfo $metadata)
+    private function loadUniques(ClassMetadataInfo $metadata): void
     {
         if (!array_key_exists($metadata->name, $this->uniques)) {
             return;
@@ -340,7 +342,7 @@ class DoctrineORMMapper implements EventSubscriber
      *
      * @throws \RuntimeException
      */
-    private function loadOverrides(ClassMetadataInfo $metadata)
+    private function loadOverrides(ClassMetadataInfo $metadata): void
     {
         if (!array_key_exists($metadata->name, $this->overrides)) {
             return;

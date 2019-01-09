@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -29,7 +31,7 @@ class BundleGenerator implements GeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
+    public function generate(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $this->generateBundleDirectory($output, $bundleMetadata);
         $this->generateBundleFile($output, $bundleMetadata);
@@ -39,7 +41,7 @@ class BundleGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateBundleDirectory(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateBundleDirectory(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $directories = [
             '',
@@ -68,7 +70,7 @@ class BundleGenerator implements GeneratorInterface
      * @param OutputInterface $output
      * @param BundleMetadata  $bundleMetadata
      */
-    protected function generateBundleFile(OutputInterface $output, BundleMetadata $bundleMetadata)
+    protected function generateBundleFile(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $application = $bundleMetadata->getApplication();
         $file = sprintf('%s/%s%s.php', $bundleMetadata->getExtendedDirectory(), $application, $bundleMetadata->getName());

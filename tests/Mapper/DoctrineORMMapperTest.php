@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -28,13 +30,13 @@ class DoctrineORMMapperTest extends TestCase
      */
     private $metadata;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->doctrine = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry', [], [], '', false);
         $this->metadata = $this->createMock('Doctrine\ORM\Mapping\ClassMetadataInfo', [], [], '', false);
     }
 
-    public function testLoadDiscriminators()
+    public function testLoadDiscriminators(): void
     {
         $this->metadata
             ->expects($this->atLeastOnce())
@@ -51,7 +53,7 @@ class DoctrineORMMapperTest extends TestCase
         $m->invoke($mapper, $this->metadata);
     }
 
-    public function testLoadDiscriminatorColumns()
+    public function testLoadDiscriminatorColumns(): void
     {
         $this->metadata
             ->expects($this->atLeastOnce())
@@ -68,7 +70,7 @@ class DoctrineORMMapperTest extends TestCase
         $m->invoke($mapper, $this->metadata);
     }
 
-    public function testInheritanceTypes()
+    public function testInheritanceTypes(): void
     {
         $this->metadata
             ->expects($this->atLeastOnce())
