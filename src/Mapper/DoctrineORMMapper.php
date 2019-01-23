@@ -299,7 +299,7 @@ class DoctrineORMMapper implements EventSubscriber
 
         try {
             foreach ($this->discriminators[$metadata->name] as $key => $class) {
-                if (\in_array($key, $metadata->discriminatorMap)) {
+                if (\in_array($key, $metadata->discriminatorMap, true)) {
                     continue;
                 }
                 $metadata->setDiscriminatorMap([$key => $class]);

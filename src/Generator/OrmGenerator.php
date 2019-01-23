@@ -110,9 +110,9 @@ class OrmGenerator implements GeneratorInterface
 
                 $string = Mustache::replace($this->getEntityTemplate(), [
                     'extended_namespace' => $bundleMetadata->getExtendedNamespace(),
-                    'name' => $name != $extendedName ? $extendedName : $name,
+                    'name' => $name !== $extendedName ? $extendedName : $name,
                     'class' => $name,
-                    'extended_name' => $name == $extendedName ? 'Base'.$name : $extendedName,
+                    'extended_name' => $name === $extendedName ? 'Base'.$name : $extendedName,
                     'namespace' => $bundleMetadata->getNamespace(),
                 ]);
 
