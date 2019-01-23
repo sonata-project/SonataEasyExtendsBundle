@@ -20,20 +20,20 @@ class MustacheTest extends TestCase
 {
     public function testMustache()
     {
-        $this->assertEquals(Mustache::replace(' Hello {{ world }}', [
+        $this->assertSame(Mustache::replace(' Hello {{ world }}', [
           'world' => 'world',
         ]), ' Hello world');
 
-        $this->assertEquals(Mustache::replace(' Hello {{world}}', [
+        $this->assertSame(Mustache::replace(' Hello {{world}}', [
           'world' => 'world',
         ]), ' Hello world');
 
-        $this->assertEquals(Mustache::replace(' Hello {{ world }}', [
+        $this->assertSame(Mustache::replace(' Hello {{ world }}', [
           'no-world' => 'world',
         ]), ' Hello {{ world }}');
 
         $file = sprintf('%s/../fixtures/test.mustache', __DIR__);
-        $this->assertEquals(Mustache::replaceFromFile($file, [
+        $this->assertSame(Mustache::replaceFromFile($file, [
           'world' => 'world',
         ]), 'Hello world');
     }
