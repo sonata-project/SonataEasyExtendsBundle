@@ -38,11 +38,11 @@ class BundleMetadataTest extends TestCase
 
         $this->assertTrue($bundleMetadata->isExtendable());
         $this->assertTrue($bundleMetadata->isValid());
-        $this->assertEquals('SonataAcmeBundle', $bundleMetadata->getName());
-        $this->assertEquals('Sonata', $bundleMetadata->getVendor());
-        $this->assertEquals('Sonata\AcmeBundle', $bundleMetadata->getNamespace());
-        $this->assertEquals('app/Application/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
-        $this->assertEquals('Application\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
+        $this->assertSame('SonataAcmeBundle', $bundleMetadata->getName());
+        $this->assertSame('Sonata', $bundleMetadata->getVendor());
+        $this->assertSame('Sonata\AcmeBundle', $bundleMetadata->getNamespace());
+        $this->assertSame('app/Application/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
+        $this->assertSame('Application\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
         $this->assertInstanceOf('Sonata\EasyExtendsBundle\Bundle\OrmMetadata', $bundleMetadata->getOrmMetadata());
         $this->assertInstanceOf('Sonata\EasyExtendsBundle\Bundle\OdmMetadata', $bundleMetadata->getOdmMetadata());
         $this->assertSame($bundle, $bundleMetadata->getBundle());
@@ -58,8 +58,8 @@ class BundleMetadataTest extends TestCase
             'namespace_prefix' => '',
         ]);
 
-        $this->assertEquals('app/Custom/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
-        $this->assertEquals('Custom\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
+        $this->assertSame('app/Custom/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
+        $this->assertSame('Custom\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
     }
 
     public function testApplicationNotExtendableBundle()
@@ -126,12 +126,12 @@ class BundleMetadataTest extends TestCase
             'namespace_prefix' => 'App\\',
         ]);
 
-        $this->assertEquals('SonataAcmeBundle', $bundleMetadata->getName());
-        $this->assertEquals('Sonata', $bundleMetadata->getVendor());
-        $this->assertEquals('Application', $bundleMetadata->getApplication());
-        $this->assertEquals('Sonata\AcmeBundle', $bundleMetadata->getNamespace());
-        $this->assertEquals('src/Application/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
-        $this->assertEquals('App\Application\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
+        $this->assertSame('SonataAcmeBundle', $bundleMetadata->getName());
+        $this->assertSame('Sonata', $bundleMetadata->getVendor());
+        $this->assertSame('Application', $bundleMetadata->getApplication());
+        $this->assertSame('Sonata\AcmeBundle', $bundleMetadata->getNamespace());
+        $this->assertSame('src/Application/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
+        $this->assertSame('App\Application\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
         $this->assertSame($bundle, $bundleMetadata->getBundle());
     }
 }

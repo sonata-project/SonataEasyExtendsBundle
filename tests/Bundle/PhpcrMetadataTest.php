@@ -48,7 +48,7 @@ class PhpcrMetadataTest extends TestCase
 
         $directory = $odmMetadata->getMappingDocumentDirectory();
 
-        $this->assertEquals($expectedDirectory, $directory);
+        $this->assertSame($expectedDirectory, $directory);
     }
 
     public function testGetExtendedMappingDocumentDirectory()
@@ -60,7 +60,7 @@ class PhpcrMetadataTest extends TestCase
 
         $directory = $odmMetadata->getExtendedMappingDocumentDirectory();
 
-        $this->assertEquals($expectedDirectory, $directory);
+        $this->assertSame($expectedDirectory, $directory);
     }
 
     public function testGetDocumentDirectory()
@@ -72,7 +72,7 @@ class PhpcrMetadataTest extends TestCase
 
         $directory = $odmMetadata->getDocumentDirectory();
 
-        $this->assertEquals($expectedDirectory, $directory);
+        $this->assertSame($expectedDirectory, $directory);
     }
 
     public function testGetExtendedDocumentDirectory()
@@ -84,7 +84,7 @@ class PhpcrMetadataTest extends TestCase
 
         $directory = $odmMetadata->getExtendedDocumentDirectory();
 
-        $this->assertEquals($expectedDirectory, $directory);
+        $this->assertSame($expectedDirectory, $directory);
     }
 
     public function testGetExtendedSerializerDirectory()
@@ -96,7 +96,7 @@ class PhpcrMetadataTest extends TestCase
 
         $directory = $odmMetadata->getExtendedSerializerDirectory();
 
-        $this->assertEquals($expectedDirectory, $directory);
+        $this->assertSame($expectedDirectory, $directory);
     }
 
     public function testGetDocumentMappingFiles()
