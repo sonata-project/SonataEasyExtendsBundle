@@ -4,25 +4,22 @@
 Installation
 ============
 
-To begin, add the dependent bundle:
+Download the Bundle
+-------------------
 
 .. code-block:: bash
 
-    php composer.phar require sonata-project/easy-extends-bundle
+    composer require sonata-project/easy-extends-bundle --dev
 
-Next, be sure to enable the new bundle in your application kernel:
+Enable the Bundle
+-----------------
 
-.. code-block:: php
+Then, enable the bundle by adding it to the list of registered bundles
+in ``bundles.php`` file of your project::
 
-  <?php
+    // config/bundles.php
 
-  // app/AppKernel.php
-
-  public function registerBundles()
-  {
-      return array(
-          // ...
-          new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-          // ...
-      );
-  }
+    return [
+        // ...
+        Sonata\EasyExtendsBundle\SonataEasyExtendsBundle::class => ['dev' => true],
+    ];

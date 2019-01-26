@@ -151,7 +151,7 @@ EOT
 
         /** @var BundleInterface $bundle */
         foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
-            if ($bundle->getName() != $bundleName) {
+            if ($bundle->getName() !== $bundleName) {
                 continue;
             }
 

@@ -216,13 +216,13 @@ class BundleMetadata
             return;
         }
 
-        if (3 != \count($information)) {
+        if (3 !== \count($information)) {
             $this->valid = false;
 
             return;
         }
 
-        if ($information[0].$information[1] != $information[2]) {
+        if ($information[0].$information[1] !== $information[2]) {
             $this->valid = false;
 
             return;

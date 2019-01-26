@@ -29,13 +29,13 @@ class DoctrineCollectorTest extends TestCase
     public function testDefaultValues(): void
     {
         $collector = DoctrineCollector::getInstance();
-        $this->assertEquals([], $collector->getIndexes());
-        $this->assertEquals([], $collector->getUniques());
-        $this->assertEquals([], $collector->getInheritanceTypes());
-        $this->assertEquals([], $collector->getDiscriminatorColumns());
-        $this->assertEquals([], $collector->getAssociations());
-        $this->assertEquals([], $collector->getDiscriminators());
-        $this->assertEquals([], $collector->getOverrides());
+        $this->assertSame([], $collector->getIndexes());
+        $this->assertSame([], $collector->getUniques());
+        $this->assertSame([], $collector->getInheritanceTypes());
+        $this->assertSame([], $collector->getDiscriminatorColumns());
+        $this->assertSame([], $collector->getAssociations());
+        $this->assertSame([], $collector->getDiscriminators());
+        $this->assertSame([], $collector->getOverrides());
     }
 
     public function testClear(): void
@@ -51,12 +51,12 @@ class DoctrineCollectorTest extends TestCase
 
         $collector->clear();
 
-        $this->assertEquals([], $collector->getIndexes());
-        $this->assertEquals([], $collector->getUniques());
-        $this->assertEquals([], $collector->getInheritanceTypes());
-        $this->assertEquals([], $collector->getDiscriminatorColumns());
-        $this->assertEquals([], $collector->getAssociations());
-        $this->assertEquals([], $collector->getDiscriminators());
-        $this->assertEquals([], $collector->getOverrides());
+        $this->assertSame([], $collector->getIndexes());
+        $this->assertSame([], $collector->getUniques());
+        $this->assertSame([], $collector->getInheritanceTypes());
+        $this->assertSame([], $collector->getDiscriminatorColumns());
+        $this->assertSame([], $collector->getAssociations());
+        $this->assertSame([], $collector->getDiscriminators());
+        $this->assertSame([], $collector->getOverrides());
     }
 }

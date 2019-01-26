@@ -50,7 +50,7 @@ class OrmMetadataTest extends TestCase
 
         $directory = $ormMetadata->getMappingEntityDirectory();
 
-        $this->assertEquals($expectedDirectory, $directory);
+        $this->assertSame($expectedDirectory, $directory);
     }
 
     public function testGetExtendedMappingEntityDirectory(): void
@@ -62,7 +62,7 @@ class OrmMetadataTest extends TestCase
 
         $directory = $ormMetadata->getExtendedMappingEntityDirectory();
 
-        $this->assertEquals($expectedDirectory, $directory);
+        $this->assertSame($expectedDirectory, $directory);
     }
 
     public function testGetEntityDirectory(): void
@@ -74,7 +74,7 @@ class OrmMetadataTest extends TestCase
 
         $directory = $ormMetadata->getEntityDirectory();
 
-        $this->assertEquals($expectedDirectory, $directory);
+        $this->assertSame($expectedDirectory, $directory);
     }
 
     public function testGetExtendedEntityDirectory(): void
@@ -86,7 +86,7 @@ class OrmMetadataTest extends TestCase
 
         $directory = $ormMetadata->getExtendedEntityDirectory();
 
-        $this->assertEquals($expectedDirectory, $directory);
+        $this->assertSame($expectedDirectory, $directory);
     }
 
     public function testGetExtendedSerializerDirectory(): void
@@ -98,7 +98,7 @@ class OrmMetadataTest extends TestCase
 
         $directory = $ormMetadata->getExtendedSerializerDirectory();
 
-        $this->assertEquals($expectedDirectory, $directory);
+        $this->assertSame($expectedDirectory, $directory);
     }
 
     public function testGetEntityMappingFiles(): void

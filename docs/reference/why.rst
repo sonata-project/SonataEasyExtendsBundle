@@ -98,7 +98,7 @@ At last you can run:
 
 .. code-block:: bash
 
-    php app/console sonata:easy-extends:generate YourVBBundleName
+    bin/console sonata:easy-extends:generate YourVBBundleName
 
 Command Options
 ---------------
