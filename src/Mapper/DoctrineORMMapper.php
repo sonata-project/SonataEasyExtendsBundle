@@ -222,7 +222,7 @@ class DoctrineORMMapper implements EventSubscriber
      */
     private function loadAssociations(ClassMetadataInfo $metadata): void
     {
-        if (!array_key_exists($metadata->name, $this->associations)) {
+        if (!\array_key_exists($metadata->name, $this->associations)) {
             return;
         }
 
@@ -253,7 +253,7 @@ class DoctrineORMMapper implements EventSubscriber
      */
     private function loadDiscriminatorColumns(ClassMetadataInfo $metadata): void
     {
-        if (!array_key_exists($metadata->name, $this->discriminatorColumns)) {
+        if (!\array_key_exists($metadata->name, $this->discriminatorColumns)) {
             return;
         }
 
@@ -284,7 +284,7 @@ class DoctrineORMMapper implements EventSubscriber
      */
     private function loadInheritanceTypes(ClassMetadataInfo $metadata): void
     {
-        if (!array_key_exists($metadata->name, $this->inheritanceTypes)) {
+        if (!\array_key_exists($metadata->name, $this->inheritanceTypes)) {
             return;
         }
 
@@ -308,7 +308,7 @@ class DoctrineORMMapper implements EventSubscriber
      */
     private function loadDiscriminators(ClassMetadataInfo $metadata): void
     {
-        if (!array_key_exists($metadata->name, $this->discriminators)) {
+        if (!\array_key_exists($metadata->name, $this->discriminators)) {
             return;
         }
 
@@ -333,7 +333,7 @@ class DoctrineORMMapper implements EventSubscriber
      */
     private function loadIndexes(ClassMetadataInfo $metadata): void
     {
-        if (!array_key_exists($metadata->name, $this->indexes)) {
+        if (!\array_key_exists($metadata->name, $this->indexes)) {
             return;
         }
 
@@ -347,7 +347,7 @@ class DoctrineORMMapper implements EventSubscriber
      */
     private function loadUniques(ClassMetadataInfo $metadata): void
     {
-        if (!array_key_exists($metadata->name, $this->uniques)) {
+        if (!\array_key_exists($metadata->name, $this->uniques)) {
             return;
         }
 
@@ -363,7 +363,7 @@ class DoctrineORMMapper implements EventSubscriber
      */
     private function loadOverrides(ClassMetadataInfo $metadata): void
     {
-        if (!array_key_exists($metadata->name, $this->overrides)) {
+        if (!\array_key_exists($metadata->name, $this->overrides)) {
             return;
         }
 
