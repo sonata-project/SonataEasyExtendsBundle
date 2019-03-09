@@ -54,7 +54,7 @@ class PhpcrMetadataTest extends TestCase
     public function testGetExtendedMappingDocumentDirectory()
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
-        $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/doctrine/';
+        $expectedDirectory = 'App/Sonata/AcmeBundle/Resources/config/doctrine/';
 
         $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock($bundlePath));
 
@@ -78,7 +78,7 @@ class PhpcrMetadataTest extends TestCase
     public function testGetExtendedDocumentDirectory()
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
-        $expectedDirectory = 'Application/Sonata/AcmeBundle/PHPCR';
+        $expectedDirectory = 'App/Sonata/AcmeBundle/PHPCR';
 
         $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock($bundlePath));
 
@@ -90,7 +90,7 @@ class PhpcrMetadataTest extends TestCase
     public function testGetExtendedSerializerDirectory()
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
-        $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/serializer';
+        $expectedDirectory = 'App/Sonata/AcmeBundle/Resources/config/serializer';
 
         $odmMetadata = new PhpcrMetadata($this->getBundleMetadataMock($bundlePath));
 
@@ -184,7 +184,7 @@ class PhpcrMetadataTest extends TestCase
             ->will($this->returnValue('Sonata\\AcmeBundle\\SonataAcmeBundle'));
         $bundleMetadata->expects($this->any())
             ->method('getExtendedDirectory')
-            ->will($this->returnValue('Application/Sonata/AcmeBundle'));
+            ->will($this->returnValue('App/Sonata/AcmeBundle'));
 
         return $bundleMetadata;
     }

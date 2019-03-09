@@ -53,7 +53,7 @@ final class GenerateCommandTest extends TestCase
                 [
                     '--dest' => 'src',
                     'bundle' => ['SonataAcmeBundle'],
-                    '--namespace' => 'Application\\Sonata',
+                    '--namespace' => 'App\\Sonata',
                 ],
             ],
             [
@@ -67,7 +67,7 @@ final class GenerateCommandTest extends TestCase
                 [
                     '--dest' => 'src',
                     'bundle' => ['SonataAcmeBundle'],
-                    '--namespace' => 'Application\\Sonata',
+                    '--namespace' => 'App\\Sonata',
                     '--namespace_prefix' => 'App',
                 ],
             ],
@@ -136,7 +136,7 @@ final class GenerateCommandTest extends TestCase
     public function testInvalidFolderStructure()
     {
         $commandTester = $this->buildCommand(
-            $this->mockContainerWithKernel(new \Application\Sonata\NotExtendableBundle())
+            $this->mockContainerWithKernel(new \App\Sonata\NotExtendableBundle())
         );
 
         $commandTester->execute([
@@ -145,7 +145,7 @@ final class GenerateCommandTest extends TestCase
         ]);
 
         $this->assertContains(
-            sprintf('Application\Sonata\NotExtendableBundle : wrong directory structure'),
+            sprintf('App\Sonata\NotExtendableBundle : wrong directory structure'),
             $commandTester->getDisplay()
         );
     }

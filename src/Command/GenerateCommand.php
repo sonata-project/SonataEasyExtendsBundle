@@ -71,7 +71,7 @@ EOT
                 throw new \InvalidArgumentException('The provided namespace \'%s\' is not a valid namespace!', $namespace);
             }
         } else {
-            $namespace = 'Application\:vendor';
+            $namespace = 'App\:vendor';
         }
 
         $configuration = [

@@ -1,6 +1,10 @@
 UPGRADE 2.x
 ===========
 
+### Namespace
+
+The generated namespace was changed from `Application` to `App`.
+
 ### Deprecated
 
 Generated Bundles no longer use Bundle inheritance, because Symfony dropped the support for this in 3.4+ [symfony blog](https://symfony.com/blog/new-in-symfony-3-4-deprecated-bundle-inheritance)

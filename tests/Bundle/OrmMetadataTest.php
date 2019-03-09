@@ -56,7 +56,7 @@ class OrmMetadataTest extends TestCase
     public function testGetExtendedMappingEntityDirectory()
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
-        $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/doctrine/';
+        $expectedDirectory = 'App/Sonata/AcmeBundle/Resources/config/doctrine/';
 
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock($bundlePath));
 
@@ -80,7 +80,7 @@ class OrmMetadataTest extends TestCase
     public function testGetExtendedEntityDirectory()
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
-        $expectedDirectory = 'Application/Sonata/AcmeBundle/Entity';
+        $expectedDirectory = 'App/Sonata/AcmeBundle/Entity';
 
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock($bundlePath));
 
@@ -92,7 +92,7 @@ class OrmMetadataTest extends TestCase
     public function testGetExtendedSerializerDirectory()
     {
         $bundlePath = __DIR__.'/Fixtures/bundle1';
-        $expectedDirectory = 'Application/Sonata/AcmeBundle/Resources/config/serializer';
+        $expectedDirectory = 'App/Sonata/AcmeBundle/Resources/config/serializer';
 
         $ormMetadata = new OrmMetadata($this->getBundleMetadataMock($bundlePath));
 
@@ -186,7 +186,7 @@ class OrmMetadataTest extends TestCase
             ->will($this->returnValue('Sonata\\AcmeBundle\\SonataAcmeBundle'));
         $bundleMetadata->expects($this->any())
             ->method('getExtendedDirectory')
-            ->will($this->returnValue('Application/Sonata/AcmeBundle'));
+            ->will($this->returnValue('App/Sonata/AcmeBundle'));
 
         return $bundleMetadata;
     }

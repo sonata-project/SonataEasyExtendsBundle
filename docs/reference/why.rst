@@ -67,7 +67,7 @@ A pragmatic way to solve this issue
 -----------------------------------
 
 The easiest way to solve this problem is to use global namespace inside your VB, the global namespace is the only
-namespace allowed  ``Application\YourBundle\Entity``.
+namespace allowed  ``App\Entity``.
 
 So, inside your mapping definition or inside your VB code, you will use one final namespace: ``problem solved``.
 How to achieve this:
@@ -75,11 +75,11 @@ How to achieve this:
 * Declare only SuperClass inside a VB, don’t use final entity,
 * Call your entity ``BaseXXXX`` and make it abstract, change the properties from private to protected,
 * The same goes for a repository,
-* Always use ``Application\YourBundle\Entity\XXXX`` inside your code.
+* Always use ``App\Entity\XXXX`` inside your code.
 
 Of course, you need to create for each VB bundle:
 
-* a valid structure inside the Application directory,
+* a valid structure inside the `App` directory,
 * a valid entity mapping definition,
 * a model inside the entity folder.
 
@@ -108,7 +108,7 @@ There are few options that you can add when executing command:
 * the ``--dest`` option allows you to choose the target directory, such
   as `src`. The default destination is the directory of your Kernel.
 * the ``--namespace`` option allows you to choose the base namespace, such
-  as `Application\\Sonata`. The default destination is `Application\\:vendor`.
+  as `App\\Sonata`. The default destination is `App\\:vendor`.
 * the ``--namespace_prefix`` option allows to provide a prefix for your namespace,
   this option is added because of the new directory structure that symfony-flex
   brings us. There is no Default value so if you are using flex you should

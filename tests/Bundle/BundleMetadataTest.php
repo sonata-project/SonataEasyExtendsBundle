@@ -31,8 +31,8 @@ class BundleMetadataTest extends TestCase
         $bundle = new \Sonata\AcmeBundle\SonataAcmeBundle();
 
         $bundleMetadata = new BundleMetadata($bundle, [
-            'application_dir' => 'app/Application/:vendor',
-            'namespace' => 'Application\\:vendor',
+            'application_dir' => 'app/App/:vendor',
+            'namespace' => 'App\\:vendor',
             'namespace_prefix' => '',
         ]);
 
@@ -41,8 +41,8 @@ class BundleMetadataTest extends TestCase
         $this->assertSame('SonataAcmeBundle', $bundleMetadata->getName());
         $this->assertSame('Sonata', $bundleMetadata->getVendor());
         $this->assertSame('Sonata\AcmeBundle', $bundleMetadata->getNamespace());
-        $this->assertSame('app/Application/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
-        $this->assertSame('Application\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
+        $this->assertSame('app/App/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
+        $this->assertSame('App\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
         $this->assertInstanceOf('Sonata\EasyExtendsBundle\Bundle\OrmMetadata', $bundleMetadata->getOrmMetadata());
         $this->assertInstanceOf('Sonata\EasyExtendsBundle\Bundle\OdmMetadata', $bundleMetadata->getOdmMetadata());
         $this->assertSame($bundle, $bundleMetadata->getBundle());
@@ -64,11 +64,11 @@ class BundleMetadataTest extends TestCase
 
     public function testApplicationNotExtendableBundle()
     {
-        $bundle = new \Application\Sonata\NotExtendableBundle();
+        $bundle = new \App\Sonata\NotExtendableBundle();
 
         $bundleMetadata = new BundleMetadata($bundle, [
-            'application_dir' => 'Application',
-            'namespace' => 'Application',
+            'application_dir' => 'App',
+            'namespace' => 'App',
             'namespace_prefix' => '',
         ]);
 
@@ -81,8 +81,8 @@ class BundleMetadataTest extends TestCase
         $bundle = new \Symfony\Bundle\NotExtendableBundle();
 
         $bundleMetadata = new BundleMetadata($bundle, [
-            'application_dir' => 'Application',
-            'namespace' => 'Application',
+            'application_dir' => 'App',
+            'namespace' => 'App',
             'namespace_prefix' => '',
         ]);
 
@@ -95,8 +95,8 @@ class BundleMetadataTest extends TestCase
         $bundle = new \Sonata\Bundle\AcmeBundle\LongNamespaceBundle();
 
         $bundleMetadata = new BundleMetadata($bundle, [
-            'application_dir' => 'Application',
-            'namespace' => 'Application',
+            'application_dir' => 'App',
+            'namespace' => 'App',
             'namespace_prefix' => '',
         ]);
 
@@ -108,8 +108,8 @@ class BundleMetadataTest extends TestCase
         $bundle = new \Sonata\AcmeBundle\AcmeBundle();
 
         $bundleMetadata = new BundleMetadata($bundle, [
-            'application_dir' => 'Application',
-            'namespace' => 'Application',
+            'application_dir' => 'App',
+            'namespace' => 'App',
             'namespace_prefix' => '',
         ]);
 
@@ -121,17 +121,17 @@ class BundleMetadataTest extends TestCase
         $bundle = new \Sonata\AcmeBundle\SonataAcmeBundle();
 
         $bundleMetadata = new BundleMetadata($bundle, [
-            'application_dir' => 'src/Application/:vendor',
-            'namespace' => 'Application\\:vendor',
-            'namespace_prefix' => 'App\\',
+            'application_dir' => 'src/App/:vendor',
+            'namespace' => 'App\\:vendor',
+            'namespace_prefix' => 'Acme\\',
         ]);
 
         $this->assertSame('SonataAcmeBundle', $bundleMetadata->getName());
         $this->assertSame('Sonata', $bundleMetadata->getVendor());
-        $this->assertSame('Application', $bundleMetadata->getApplication());
+        $this->assertSame('App', $bundleMetadata->getApplication());
         $this->assertSame('Sonata\AcmeBundle', $bundleMetadata->getNamespace());
-        $this->assertSame('src/Application/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
-        $this->assertSame('App\Application\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
+        $this->assertSame('src/App/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
+        $this->assertSame('Acme\App\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
         $this->assertSame($bundle, $bundleMetadata->getBundle());
     }
 }
