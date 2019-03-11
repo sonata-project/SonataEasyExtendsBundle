@@ -2,9 +2,18 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="Sonata\EasyExtendsBundle\Command\DumpMappingCommand" class="Sonata\EasyExtendsBundle\Command\DumpMappingCommand" public="true">
+            <argument type="constant">null</argument>
+            <argument type="service" id="doctrine"/>
             <tag name="console.command"/>
         </service>
         <service id="Sonata\EasyExtendsBundle\Command\GenerateCommand" class="Sonata\EasyExtendsBundle\Command\GenerateCommand" public="true">
+            <argument type="constant">null</argument>
+            <argument type="service" id="kernel"/>
+            <argument type="service" id="sonata.easy_extends.generator.bundle"/>
+            <argument type="service" id="sonata.easy_extends.generator.orm"/>
+            <argument type="service" id="sonata.easy_extends.generator.odm"/>
+            <argument type="service" id="sonata.easy_extends.generator.phpcr"/>
+            <argument type="service" id="sonata.easy_extends.generator.serializer"/>
             <tag name="console.command"/>
         </service>
     </services>

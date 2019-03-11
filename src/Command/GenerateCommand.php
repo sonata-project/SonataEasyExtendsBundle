@@ -14,20 +14,119 @@ declare(strict_types=1);
 namespace Sonata\EasyExtendsBundle\Command;
 
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
+use Sonata\EasyExtendsBundle\Generator\BundleGenerator;
+use Sonata\EasyExtendsBundle\Generator\OdmGenerator;
+use Sonata\EasyExtendsBundle\Generator\OrmGenerator;
+use Sonata\EasyExtendsBundle\Generator\PHPCRGenerator;
+use Sonata\EasyExtendsBundle\Generator\SerializerGenerator;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Generate Application entities from bundle entities.
+ *
+ * NEXT_MAJOR: stop extending ContainerAwareCommand.
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
 class GenerateCommand extends ContainerAwareCommand
 {
+    /**
+     * @var KernelInterface|null
+     */
+    private $kernel;
+
+    /**
+     * @var BundleGenerator|null
+     */
+    private $bundleGenerator;
+
+    /**
+     * @var OrmGenerator|null
+     */
+    private $ormGenerator;
+
+    /**
+     * @var OdmGenerator|null
+     */
+    private $odmGenerator;
+
+    /**
+     * @var PHPCRGenerator|null
+     */
+    private $phpcrGenerator;
+
+    /**
+     * @var SerializerGenerator|null
+     */
+    private $serializerGenerator;
+
+    public function __construct(
+        string $name = null,
+        KernelInterface $kernel = null,
+        BundleGenerator $bundleGenerator = null,
+        OrmGenerator $ormGenerator = null,
+        OdmGenerator $odmGenerator = null,
+        PHPCRGenerator $phpcrGenerator = null,
+        SerializerGenerator $serializerGenerator = null
+    ) {
+        parent::__construct($name);
+
+        if (null === $kernel) {
+            @trigger_error(sprintf(
+                'Not providing a kernel to "%s" is deprecated since 2.x and will no longer be possible in 3.0',
+                \get_class($this)
+            ), E_USER_DEPRECATED);
+        }
+
+        if (null === $bundleGenerator) {
+            @trigger_error(sprintf(
+                'Not providing a bundleGenerator to "%s" is deprecated since 2.x and will no longer be possible in 3.0',
+                \get_class($this)
+            ), E_USER_DEPRECATED);
+        }
+
+        if (null === $ormGenerator) {
+            @trigger_error(sprintf(
+                'Not providing a ormGenerator to "%s" is deprecated since 2.x and will no longer be possible in 3.0',
+                \get_class($this)
+            ), E_USER_DEPRECATED);
+        }
+
+        if (null === $odmGenerator) {
+            @trigger_error(sprintf(
+                'Not providing a odmGenerator to "%s" is deprecated since 2.x and will no longer be possible in 3.0',
+                \get_class($this)
+            ), E_USER_DEPRECATED);
+        }
+
+        if (null === $phpcrGenerator) {
+            @trigger_error(sprintf(
+                'Not providing a phpcrGenerator to "%s" is deprecated since 2.x and will no longer be possible in 3.0',
+                \get_class($this)
+            ), E_USER_DEPRECATED);
+        }
+
+        if (null === $serializerGenerator) {
+            @trigger_error(sprintf(
+                'Not providing a serializerGenerator to "%s" is deprecated since 2.x and will no longer be possible in 3.0',
+                \get_class($this)
+            ), E_USER_DEPRECATED);
+        }
+
+        $this->kernel = $kernel;
+        $this->bundleGenerator = $bundleGenerator;
+        $this->ormGenerator = $ormGenerator;
+        $this->odmGenerator = $odmGenerator;
+        $this->phpcrGenerator = $phpcrGenerator;
+        $this->serializerGenerator = $serializerGenerator;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -62,7 +161,7 @@ EOT
                 throw new \RuntimeException(sprintf('The provided destination folder \'%s\' does not exist!', $destOption));
             }
         } else {
-            $dest = $this->getContainer()->get('kernel')->getRootDir();
+            $dest = $this->getKernel()->getRootDir();
         }
 
         $namespace = $input->getOption('namespace');
@@ -92,7 +191,7 @@ EOT
             $output->writeln('');
             $output->writeln('  Bundles availables :');
             /** @var BundleInterface $bundle */
-            foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
+            foreach ($this->getKernel()->getBundles() as $bundle) {
                 $bundleMetadata = new BundleMetadata($bundle, $configuration);
 
                 if (!$bundleMetadata->isExtendable()) {
@@ -135,7 +234,7 @@ EOT
         $processed = false;
 
         /** @var BundleInterface $bundle */
-        foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
+        foreach ($this->getKernel()->getBundles() as $bundle) {
             if ($bundle->getName() !== $bundleName) {
                 continue;
             }
@@ -162,28 +261,82 @@ EOT
 
             $output->writeln(sprintf('Processing bundle : "<info>%s</info>"', $bundleMetadata->getName()));
 
-            $this->getContainer()->get('sonata.easy_extends.generator.bundle')
+            $this->getBundleGenerator()
                 ->generate($output, $bundleMetadata);
 
             $output->writeln(sprintf('Processing Doctrine ORM : "<info>%s</info>"', $bundleMetadata->getName()));
-            $this->getContainer()->get('sonata.easy_extends.generator.orm')
+            $this->getOrmGenerator()
                 ->generate($output, $bundleMetadata);
 
             $output->writeln(sprintf('Processing Doctrine ODM : "<info>%s</info>"', $bundleMetadata->getName()));
-            $this->getContainer()->get('sonata.easy_extends.generator.odm')
+            $this->getOdmGenerator()
                 ->generate($output, $bundleMetadata);
 
             $output->writeln(sprintf('Processing Doctrine PHPCR : "<info>%s</info>"', $bundleMetadata->getName()));
-            $this->getContainer()->get('sonata.easy_extends.generator.phpcr')
+            $this->getPHPCRGenerator()
                 ->generate($output, $bundleMetadata);
 
             $output->writeln(sprintf('Processing Serializer config : "<info>%s</info>"', $bundleMetadata->getName()));
-            $this->getContainer()->get('sonata.easy_extends.generator.serializer')
+            $this->getSerializerGenerator()
                 ->generate($output, $bundleMetadata);
 
             $output->writeln('');
         }
 
         return $processed;
+    }
+
+    private function getKernel(): KernelInterface
+    {
+        if (null === $this->kernel) {
+            return $this->getContainer()->get('kernel');
+        }
+
+        return $this->kernel;
+    }
+
+    private function getBundleGenerator(): BundleGenerator
+    {
+        if (null === $this->bundleGenerator) {
+            return $this->getContainer()->get('sonata.easy_extends.generator.bundle');
+        }
+
+        return $this->bundleGenerator;
+    }
+
+    private function getOrmGenerator(): OrmGenerator
+    {
+        if (null === $this->ormGenerator) {
+            return $this->getContainer()->get('sonata.easy_extends.generator.orm');
+        }
+
+        return $this->ormGenerator;
+    }
+
+    private function getOdmGenerator(): OdmGenerator
+    {
+        if (null === $this->odmGenerator) {
+            return $this->getContainer()->get('sonata.easy_extends.generator.odm');
+        }
+
+        return $this->odmGenerator;
+    }
+
+    private function getPHPCRGenerator(): PHPCRGenerator
+    {
+        if (null === $this->phpcrGenerator) {
+            return $this->getContainer()->get('sonata.easy_extends.generator.phpcr');
+        }
+
+        return $this->phpcrGenerator;
+    }
+
+    private function getSerializerGenerator(): SerializerGenerator
+    {
+        if (null === $this->serializerGenerator) {
+            return $this->getContainer()->get('sonata.easy_extends.generator.serializer');
+        }
+
+        return $this->serializerGenerator;
     }
 }

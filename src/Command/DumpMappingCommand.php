@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\EasyExtendsBundle\Command;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\Tools\Export\ClassMetadataExporter;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -22,10 +23,31 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Generate Application entities from bundle entities.
  *
+ * NEXT_MAJOR: stop extending ContainerAwareCommand.
+ *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
 class DumpMappingCommand extends ContainerAwareCommand
 {
+    /**
+     * @var Registry|null
+     */
+    private $registry;
+
+    public function __construct(string $name = null, Registry $registry = null)
+    {
+        parent::__construct($name);
+
+        if (null === $registry) {
+            @trigger_error(sprintf(
+                'Not providing a registry to "%s" is deprecated since 2.x and will no longer be possible in 3.0',
+                \get_class($this)
+            ), E_USER_DEPRECATED);
+        }
+
+        $this->registry = $registry;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -43,7 +65,7 @@ class DumpMappingCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
-        $factory = $this->getContainer()->get('doctrine')->getManager($input->getArgument('manager'))->getMetadataFactory();
+        $factory = $this->getDoctrineRegistry()->getManager($input->getArgument('manager'))->getMetadataFactory();
 
         $metadata = $factory->getMetadataFor($input->getArgument('model'));
 
@@ -54,5 +76,14 @@ class DumpMappingCommand extends ContainerAwareCommand
         $output->writeln('Done!');
 
         return 0;
+    }
+
+    private function getDoctrineRegistry(): Registry
+    {
+        if (null === $this->registry) {
+            return $this->getContainer()->get('doctrine');
+        }
+
+        return $this->registry;
     }
 }

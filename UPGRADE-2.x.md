@@ -1,6 +1,14 @@
 UPGRADE 2.x
 ===========
 
+## Deprecated commands that get the dependencies from the container
+
+Any command that extends `Sonata\CacheBundle\Command\DumpMappingCommand` or
+`Sonata\CacheBundle\Command\DumpMappingCommand` should all dependencies as a 
+constructor parameter.
+This should be done automatically in applications that have
+autowiring enabled for such commands.
+
 ### Deprecated
 
 Generated Bundles no longer use Bundle inheritance, because Symfony dropped the support for this in 3.4+ [symfony blog](https://symfony.com/blog/new-in-symfony-3-4-deprecated-bundle-inheritance)
