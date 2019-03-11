@@ -23,9 +23,9 @@ class BundleMetadata
     protected $bundle;
 
     /**
-     * @var string|bool
+     * @var string
      */
-    protected $vendor = false;
+    protected $vendor;
 
     /**
      * @var bool
@@ -43,14 +43,14 @@ class BundleMetadata
     protected $name;
 
     /**
-     * @var bool
+     * @var string
      */
-    protected $extendedDirectory = false;
+    protected $extendedDirectory;
 
     /**
-     * @var bool
+     * @var string
      */
-    protected $extendedNamespace = false;
+    protected $extendedNamespace;
 
     /**
      * @var array
@@ -60,17 +60,17 @@ class BundleMetadata
     /**
      * @var OrmMetadata
      */
-    protected $ormMetadata = null;
+    protected $ormMetadata;
 
     /**
      * @var OdmMetadata
      */
-    protected $odmMetadata = null;
+    protected $odmMetadata;
 
     /**
      * @var PhpcrMetadata
      */
-    protected $phpcrMetadata = null;
+    protected $phpcrMetadata;
 
     /**
      * @var string

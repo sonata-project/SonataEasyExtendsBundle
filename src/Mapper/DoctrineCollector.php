@@ -51,7 +51,7 @@ class DoctrineCollector
     protected $overrides;
 
     /**
-     * @var DoctrineCollector
+     * @var DoctrineCollector|null
      */
     private static $instance;
 
