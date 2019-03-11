@@ -25,7 +25,7 @@ class BundleGenerator implements GeneratorInterface
 
     public function __construct()
     {
-        $this->bundleTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/bundle/bundle.mustache');
+        $this->bundleTemplate = (string) file_get_contents(__DIR__.'/../Resources/skeleton/bundle/bundle.mustache');
     }
 
     /**
