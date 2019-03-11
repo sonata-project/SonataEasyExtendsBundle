@@ -41,7 +41,7 @@ class DumpMappingCommand extends ContainerAwareCommand
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $factory = $this->getContainer()->get('doctrine')->getManager($input->getArgument('manager'))->getMetadataFactory();
 
@@ -52,5 +52,7 @@ class DumpMappingCommand extends ContainerAwareCommand
 
         $output->writeln($exporter->exportClassMetadata($metadata));
         $output->writeln('Done!');
+
+        return 0;
     }
 }
