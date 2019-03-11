@@ -65,7 +65,7 @@ class DoctrineCollector
      */
     public static function getInstance()
     {
-        if (!self::$instance) {
+        if (null === self::$instance) {
             self::$instance = new self();
         }
 
