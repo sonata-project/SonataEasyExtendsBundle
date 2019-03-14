@@ -30,8 +30,8 @@ class SerializerGenerator implements GeneratorInterface
 
     public function __construct()
     {
-        $this->entitySerializerTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/serializer/entity.mustache');
-        $this->documentSerializerTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/serializer/document.mustache');
+        $this->entitySerializerTemplate = (string) file_get_contents(__DIR__.'/../Resources/skeleton/serializer/entity.mustache');
+        $this->documentSerializerTemplate = (string) file_get_contents(__DIR__.'/../Resources/skeleton/serializer/document.mustache');
     }
 
     /**

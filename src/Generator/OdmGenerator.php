@@ -30,8 +30,8 @@ class OdmGenerator implements GeneratorInterface
 
     public function __construct()
     {
-        $this->documentTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/odm/document.mustache');
-        $this->documentRepositoryTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/odm/repository.mustache');
+        $this->documentTemplate = (string) file_get_contents(__DIR__.'/../Resources/skeleton/odm/document.mustache');
+        $this->documentRepositoryTemplate = (string) file_get_contents(__DIR__.'/../Resources/skeleton/odm/repository.mustache');
     }
 
     /**
