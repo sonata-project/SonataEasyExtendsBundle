@@ -51,7 +51,7 @@ class DoctrineCollector
     protected $overrides;
 
     /**
-     * @var DoctrineCollector
+     * @var DoctrineCollector|null
      */
     private static $instance;
 
@@ -65,7 +65,7 @@ class DoctrineCollector
      */
     public static function getInstance(): self
     {
-        if (!self::$instance) {
+        if (null === self::$instance) {
             self::$instance = new self();
         }
 

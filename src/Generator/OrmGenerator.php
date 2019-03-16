@@ -30,8 +30,8 @@ class OrmGenerator implements GeneratorInterface
 
     public function __construct()
     {
-        $this->entityTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/orm/entity.mustache');
-        $this->entityRepositoryTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/orm/repository.mustache');
+        $this->entityTemplate = (string) file_get_contents(__DIR__.'/../Resources/skeleton/orm/entity.mustache');
+        $this->entityRepositoryTemplate = (string) file_get_contents(__DIR__.'/../Resources/skeleton/orm/repository.mustache');
     }
 
     /**

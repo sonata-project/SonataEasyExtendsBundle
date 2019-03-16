@@ -60,17 +60,17 @@ class BundleMetadata
     /**
      * @var OrmMetadata
      */
-    protected $ormMetadata = null;
+    protected $ormMetadata;
 
     /**
      * @var OdmMetadata
      */
-    protected $odmMetadata = null;
+    protected $odmMetadata;
 
     /**
      * @var PhpcrMetadata
      */
-    protected $phpcrMetadata = null;
+    protected $phpcrMetadata;
 
     /**
      * @var string

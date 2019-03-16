@@ -30,8 +30,8 @@ class PHPCRGenerator implements GeneratorInterface
 
     public function __construct()
     {
-        $this->DocumentTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/document.mustache');
-        $this->DocumentRepositoryTemplate = file_get_contents(
+        $this->DocumentTemplate = (string) file_get_contents(__DIR__.'/../Resources/skeleton/phpcr/document.mustache');
+        $this->DocumentRepositoryTemplate = (string) file_get_contents(
             __DIR__.'/../Resources/skeleton/phpcr/repository.mustache'
         );
     }
