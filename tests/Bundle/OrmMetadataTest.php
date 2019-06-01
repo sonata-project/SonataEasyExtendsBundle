@@ -169,7 +169,7 @@ class OrmMetadataTest extends TestCase
         $bundle = $this->createMock('Symfony\Component\HttpKernel\Bundle\Bundle');
         $bundle->expects($this->any())
             ->method('getPath')
-            ->will($this->returnValue($bundlePath));
+            ->willReturn($bundlePath);
 
         $bundleMetadata = $this->createMock(
             'Sonata\EasyExtendsBundle\Bundle\BundleMetadata',
@@ -180,13 +180,13 @@ class OrmMetadataTest extends TestCase
         );
         $bundleMetadata->expects($this->any())
             ->method('getBundle')
-            ->will($this->returnValue($bundle));
+            ->willReturn($bundle);
         $bundleMetadata->expects($this->any())
             ->method('getClass')
-            ->will($this->returnValue('Sonata\\AcmeBundle\\SonataAcmeBundle'));
+            ->willReturn('Sonata\\AcmeBundle\\SonataAcmeBundle');
         $bundleMetadata->expects($this->any())
             ->method('getExtendedDirectory')
-            ->will($this->returnValue('Application/Sonata/AcmeBundle'));
+            ->willReturn('Application/Sonata/AcmeBundle');
 
         return $bundleMetadata;
     }
