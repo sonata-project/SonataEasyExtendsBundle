@@ -21,5 +21,5 @@ in ``bundles.php`` file of your project::
 
     return [
         // ...
-        Sonata\EasyExtendsBundle\SonataEasyExtendsBundle::class => ['dev' => true],
+        Sonata\EasyExtendsBundle\SonataEasyExtendsBundle::class => ['all' => true],
     ];
