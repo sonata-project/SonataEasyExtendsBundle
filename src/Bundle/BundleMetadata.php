@@ -77,10 +77,6 @@ class BundleMetadata
      */
     private $application;
 
-    /**
-     * @param BundleInterface $bundle
-     * @param array           $configuration
-     */
     public function __construct(BundleInterface $bundle, array $configuration = [])
     {
         $this->bundle = $bundle;

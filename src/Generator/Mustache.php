@@ -17,7 +17,6 @@ class Mustache
 {
     /**
      * @param string $string
-     * @param array  $parameters
      *
      * @return mixed
      */
@@ -32,7 +31,6 @@ class Mustache
 
     /**
      * @param string $file
-     * @param array  $parameters
      *
      * @return mixed
      */

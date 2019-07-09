@@ -60,16 +60,6 @@ class DoctrineORMMapper implements EventSubscriber
      */
     protected $overrides;
 
-    /**
-     * @param ManagerRegistry $doctrine
-     * @param array           $associations
-     * @param array           $indexes
-     * @param array           $discriminators
-     * @param array           $discriminatorColumns
-     * @param array           $inheritanceTypes
-     * @param array           $uniques
-     * @param array           $overrides
-     */
     public function __construct(ManagerRegistry $doctrine, array $associations = [], array $indexes = [], array $discriminators = [], array $discriminatorColumns = [], array $inheritanceTypes = [], array $uniques = [], array $overrides = [])
     {
         $this->doctrine = $doctrine;
@@ -95,7 +85,6 @@ class DoctrineORMMapper implements EventSubscriber
     /**
      * @param string $class
      * @param string $field
-     * @param array  $options
      */
     public function addAssociation($class, $field, array $options)
     {
@@ -126,7 +115,6 @@ class DoctrineORMMapper implements EventSubscriber
 
     /**
      * @param string $class
-     * @param array  $columnDef
      */
     public function addDiscriminatorColumn($class, array $columnDef)
     {
@@ -149,7 +137,6 @@ class DoctrineORMMapper implements EventSubscriber
     /**
      * @param string $class
      * @param string $name
-     * @param array  $columns
      */
     public function addIndex($class, $name, array $columns)
     {
@@ -167,7 +154,6 @@ class DoctrineORMMapper implements EventSubscriber
     /**
      * @param string $class
      * @param string $name
-     * @param array  $columns
      */
     public function addUnique($class, $name, array $columns)
     {
@@ -187,7 +173,6 @@ class DoctrineORMMapper implements EventSubscriber
      *
      * @param string $class
      * @param string $type
-     * @param array  $options
      */
     final public function addOverride($class, $type, array $options)
     {
@@ -216,8 +201,6 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
-     * @param ClassMetadataInfo $metadata
-     *
      * @throws \RuntimeException
      */
     private function loadAssociations(ClassMetadataInfo $metadata)
@@ -243,8 +226,6 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
-     * @param ClassMetadataInfo $metadata
-     *
      * @throws \RuntimeException
      */
     private function loadDiscriminatorColumns(ClassMetadataInfo $metadata)
@@ -267,8 +248,6 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
-     * @param ClassMetadataInfo $metadata
-     *
      * @throws \RuntimeException
      */
     private function loadInheritanceTypes(ClassMetadataInfo $metadata)
@@ -287,8 +266,6 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
-     * @param ClassMetadataInfo $metadata
-     *
      * @throws \RuntimeException
      */
     private function loadDiscriminators(ClassMetadataInfo $metadata)
@@ -309,9 +286,6 @@ class DoctrineORMMapper implements EventSubscriber
         }
     }
 
-    /**
-     * @param ClassMetadataInfo $metadata
-     */
     private function loadIndexes(ClassMetadataInfo $metadata)
     {
         if (!\array_key_exists($metadata->name, $this->indexes)) {
@@ -323,9 +297,6 @@ class DoctrineORMMapper implements EventSubscriber
         }
     }
 
-    /**
-     * @param ClassMetadataInfo $metadata
-     */
     private function loadUniques(ClassMetadataInfo $metadata)
     {
         if (!\array_key_exists($metadata->name, $this->uniques)) {
@@ -338,8 +309,6 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
-     * @param ClassMetadataInfo $metadata
-     *
      * @throws \RuntimeException
      */
     private function loadOverrides(ClassMetadataInfo $metadata)
