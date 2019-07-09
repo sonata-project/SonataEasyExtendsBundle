@@ -42,9 +42,6 @@ class OrmMetadata
      */
     protected $extendedSerializerDirectory;
 
-    /**
-     * @param BundleMetadata $bundleMetadata
-     */
     public function __construct(BundleMetadata $bundleMetadata)
     {
         $this->mappingEntityDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());

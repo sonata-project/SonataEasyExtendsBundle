@@ -44,10 +44,6 @@ class PHPCRGenerator implements GeneratorInterface
         $this->generateDocumentRepositoryFiles($output, $bundleMetadata);
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     public function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $output->writeln(' - Copy Document files');
@@ -76,10 +72,6 @@ class PHPCRGenerator implements GeneratorInterface
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     public function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $output->writeln(' - Generating Document files');
@@ -121,10 +113,6 @@ class PHPCRGenerator implements GeneratorInterface
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     public function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $output->writeln(' - Generating Document repository files');
