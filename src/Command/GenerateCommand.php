@@ -123,7 +123,6 @@ EOT
      * Generates a bundle entities from a bundle name.
      *
      * @param string          $bundleName
-     * @param array           $configuration
      * @param OutputInterface $output
      *
      * @return bool

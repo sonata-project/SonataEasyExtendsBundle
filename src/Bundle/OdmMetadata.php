@@ -42,9 +42,6 @@ class OdmMetadata
      */
     protected $extendedSerializerDirectory;
 
-    /**
-     * @param BundleMetadata $bundleMetadata
-     */
     public function __construct(BundleMetadata $bundleMetadata)
     {
         $this->mappingDocumentDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());

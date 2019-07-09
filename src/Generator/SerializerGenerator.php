@@ -44,10 +44,6 @@ class SerializerGenerator implements GeneratorInterface
         $this->generatePhpcrSerializer($output, $bundleMetadata);
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     protected function generateOrmSerializer(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $names = $bundleMetadata->getOrmMetadata()->getEntityNames();
@@ -63,10 +59,6 @@ class SerializerGenerator implements GeneratorInterface
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     protected function generateOdmSerializer(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $names = $bundleMetadata->getOdmMetadata()->getDocumentNames();
@@ -82,10 +74,6 @@ class SerializerGenerator implements GeneratorInterface
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     protected function generatePhpcrSerializer(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
         $names = $bundleMetadata->getPhpcrMetadata()->getDocumentNames();
@@ -102,11 +90,9 @@ class SerializerGenerator implements GeneratorInterface
     }
 
     /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     * @param string          $template
-     * @param string          $destFile
-     * @param string          $name
+     * @param string $template
+     * @param string $destFile
+     * @param string $name
      */
     protected function writeSerializerFile(OutputInterface $output, BundleMetadata $bundleMetadata, $template, $destFile, $name)
     {

@@ -94,7 +94,6 @@ class DoctrineCollector
      * Add the Discriminator Column.
      *
      * @param string $class
-     * @param array  $columnDef
      */
     public function addDiscriminatorColumn($class, array $columnDef)
     {
@@ -117,7 +116,6 @@ class DoctrineCollector
     /**
      * @param string $class
      * @param string $type
-     * @param array  $options
      */
     public function addAssociation($class, $type, array $options)
     {
@@ -135,7 +133,6 @@ class DoctrineCollector
     /**
      * @param string $class
      * @param string $name
-     * @param array  $columns
      */
     public function addIndex($class, $name, array $columns)
     {
@@ -153,7 +150,6 @@ class DoctrineCollector
     /**
      * @param string $class
      * @param string $name
-     * @param array  $columns
      */
     public function addUnique($class, $name, array $columns)
     {
@@ -173,7 +169,6 @@ class DoctrineCollector
      *
      * @param string $class
      * @param string $type
-     * @param array  $options
      */
     final public function addOverride($class, $type, array $options)
     {
