@@ -44,10 +44,6 @@ class OrmGenerator implements GeneratorInterface
         $this->generateEntityRepositoryFiles($output, $bundleMetadata);
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     public function generateMappingEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Copy entity files');
@@ -76,10 +72,6 @@ class OrmGenerator implements GeneratorInterface
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     public function generateEntityFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Generating entity files');
@@ -121,10 +113,6 @@ class OrmGenerator implements GeneratorInterface
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     public function generateEntityRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $output->writeln(' - Generating entity repository files');
@@ -157,17 +145,11 @@ class OrmGenerator implements GeneratorInterface
         }
     }
 
-    /**
-     * @return string
-     */
     public function getEntityTemplate(): string
     {
         return $this->entityTemplate;
     }
 
-    /**
-     * @return string
-     */
     public function getEntityRepositoryTemplate(): string
     {
         return $this->entityRepositoryTemplate;

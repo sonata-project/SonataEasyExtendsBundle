@@ -42,9 +42,6 @@ class OrmMetadata
      */
     protected $extendedSerializerDirectory;
 
-    /**
-     * @param BundleMetadata $bundleMetadata
-     */
     public function __construct(BundleMetadata $bundleMetadata)
     {
         $this->mappingEntityDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
@@ -54,41 +51,26 @@ class OrmMetadata
         $this->extendedSerializerDirectory = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
     }
 
-    /**
-     * @return string
-     */
     public function getMappingEntityDirectory(): string
     {
         return $this->mappingEntityDirectory;
     }
 
-    /**
-     * @return string
-     */
     public function getExtendedMappingEntityDirectory(): string
     {
         return $this->extendedMappingEntityDirectory;
     }
 
-    /**
-     * @return string
-     */
     public function getEntityDirectory(): string
     {
         return $this->entityDirectory;
     }
 
-    /**
-     * @return string
-     */
     public function getExtendedEntityDirectory(): string
     {
         return $this->extendedEntityDirectory;
     }
 
-    /**
-     * @return string
-     */
     public function getExtendedSerializerDirectory(): string
     {
         return $this->extendedSerializerDirectory;
@@ -111,9 +93,6 @@ class OrmMetadata
         }
     }
 
-    /**
-     * @return array
-     */
     public function getEntityNames(): array
     {
         $names = [];

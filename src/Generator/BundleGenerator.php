@@ -37,10 +37,6 @@ class BundleGenerator implements GeneratorInterface
         $this->generateBundleFile($output, $bundleMetadata);
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     protected function generateBundleDirectory(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $directories = [
@@ -66,10 +62,6 @@ class BundleGenerator implements GeneratorInterface
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     */
     protected function generateBundleFile(OutputInterface $output, BundleMetadata $bundleMetadata): void
     {
         $application = $bundleMetadata->getApplication();
@@ -95,9 +87,6 @@ class BundleGenerator implements GeneratorInterface
         file_put_contents($file, $string);
     }
 
-    /**
-     * @return string
-     */
     protected function getBundleTemplate(): string
     {
         return $this->bundleTemplate;

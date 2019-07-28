@@ -44,28 +44,16 @@ class OdmGenerator implements GeneratorInterface
         $this->generateDocumentRepositoryFiles($output, $bundleMetadata);
     }
 
-    /**
-     * @return string
-     */
     public function getDocumentTemplate(): string
     {
         return $this->documentTemplate;
     }
 
-    /**
-     * @return string
-     */
     public function getDocumentRepositoryTemplate(): string
     {
         return $this->documentRepositoryTemplate;
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     *
-     * @return string
-     */
     protected function generateMappingDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata): string
     {
         $output->writeln(' - Copy document files');
@@ -103,12 +91,6 @@ class OdmGenerator implements GeneratorInterface
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     *
-     * @return string
-     */
     protected function generateDocumentFiles(OutputInterface $output, BundleMetadata $bundleMetadata): string
     {
         $output->writeln(' - Generating document files');
@@ -150,12 +132,6 @@ class OdmGenerator implements GeneratorInterface
         }
     }
 
-    /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
-     *
-     * @return string
-     */
     protected function generateDocumentRepositoryFiles(OutputInterface $output, BundleMetadata $bundleMetadata): string
     {
         $output->writeln(' - Generating document repository files');

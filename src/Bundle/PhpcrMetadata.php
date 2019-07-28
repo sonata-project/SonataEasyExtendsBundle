@@ -42,9 +42,6 @@ class PhpcrMetadata
      */
     protected $extendedSerializerDirectory;
 
-    /**
-     * @param BundleMetadata $bundleMetadata
-     */
     public function __construct(BundleMetadata $bundleMetadata)
     {
         $this->mappingDocumentDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
@@ -54,41 +51,26 @@ class PhpcrMetadata
         $this->extendedSerializerDirectory = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
     }
 
-    /**
-     * @return string
-     */
     public function getMappingDocumentDirectory(): string
     {
         return $this->mappingDocumentDirectory;
     }
 
-    /**
-     * @return string
-     */
     public function getExtendedMappingDocumentDirectory(): string
     {
         return $this->extendedMappingDocumentDirectory;
     }
 
-    /**
-     * @return string
-     */
     public function getDocumentDirectory(): string
     {
         return $this->documentDirectory;
     }
 
-    /**
-     * @return string
-     */
     public function getExtendedDocumentDirectory(): string
     {
         return $this->extendedDocumentDirectory;
     }
 
-    /**
-     * @return string
-     */
     public function getExtendedSerializerDirectory(): string
     {
         return $this->extendedSerializerDirectory;
@@ -110,9 +92,6 @@ class PhpcrMetadata
         }
     }
 
-    /**
-     * @return array
-     */
     public function getDocumentNames(): array
     {
         $names = [];

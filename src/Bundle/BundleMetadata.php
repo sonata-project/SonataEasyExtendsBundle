@@ -77,10 +77,6 @@ class BundleMetadata
      */
     private $application;
 
-    /**
-     * @param BundleInterface $bundle
-     * @param array           $configuration
-     */
     public function __construct(BundleInterface $bundle, array $configuration = [])
     {
         $this->bundle = $bundle;
@@ -89,9 +85,6 @@ class BundleMetadata
         $this->buildInformation();
     }
 
-    /**
-     * @return bool
-     */
     public function isExtendable(): bool
     {
         // does not extends Application bundle ...
@@ -101,49 +94,31 @@ class BundleMetadata
         );
     }
 
-    /**
-     * @return string
-     */
     public function getClass(): string
     {
         return \get_class($this->bundle);
     }
 
-    /**
-     * @return bool
-     */
     public function isValid(): bool
     {
         return $this->valid;
     }
 
-    /**
-     * @return string
-     */
     public function getExtendedDirectory(): string
     {
         return $this->extendedDirectory;
     }
 
-    /**
-     * @return string
-     */
     public function getVendor(): string
     {
         return $this->vendor;
     }
 
-    /**
-     * @return string
-     */
     public function getExtendedNamespace(): string
     {
         return $this->extendedNamespace;
     }
 
-    /**
-     * @return string
-     */
     public function getNamespace(): string
     {
         return $this->namespace;
@@ -167,33 +142,21 @@ class BundleMetadata
         return $this->application;
     }
 
-    /**
-     * @return BundleInterface
-     */
     public function getBundle(): BundleInterface
     {
         return $this->bundle;
     }
 
-    /**
-     * @return OdmMetadata
-     */
     public function getOdmMetadata(): OdmMetadata
     {
         return $this->odmMetadata;
     }
 
-    /**
-     * @return OrmMetadata
-     */
     public function getOrmMetadata(): OrmMetadata
     {
         return $this->ormMetadata;
     }
 
-    /**
-     * @return PhpcrMetadata
-     */
     public function getPhpcrMetadata(): PhpcrMetadata
     {
         return $this->phpcrMetadata;

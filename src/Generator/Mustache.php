@@ -15,12 +15,6 @@ namespace Sonata\EasyExtendsBundle\Generator;
 
 class Mustache
 {
-    /**
-     * @param string $string
-     * @param array  $parameters
-     *
-     * @return string
-     */
     public static function replace(string $string, array $parameters): string
     {
         $replacer = static function ($match) use ($parameters) {
@@ -30,12 +24,6 @@ class Mustache
         return preg_replace_callback('/{{\s*(.+?)\s*}}/', $replacer, $string);
     }
 
-    /**
-     * @param string $file
-     * @param array  $parameters
-     *
-     * @return string
-     */
     public static function replaceFromFile(string $file, array $parameters): string
     {
         return self::replace(file_get_contents($file), $parameters);

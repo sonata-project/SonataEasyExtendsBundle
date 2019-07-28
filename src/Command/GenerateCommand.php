@@ -138,12 +138,6 @@ EOT
 
     /**
      * Generates a bundle entities from a bundle name.
-     *
-     * @param string          $bundleName
-     * @param array           $configuration
-     * @param OutputInterface $output
-     *
-     * @return bool
      */
     protected function generate(string $bundleName, array $configuration, OutputInterface $output): bool
     {
