@@ -108,10 +108,7 @@ EOT
                 $processed = $this->generate($bundleName, $configuration, $output);
 
                 if (!$processed) {
-                    throw new \RuntimeException(sprintf(
-                        '<error>The bundle \'%s\' does not exist or is not registered in the kernel!</error>',
-                        $bundleName
-                    ));
+                    throw new \RuntimeException(sprintf('<error>The bundle \'%s\' does not exist or is not registered in the kernel!</error>', $bundleName));
                 }
             }
         }

@@ -324,9 +324,7 @@ class DoctrineORMMapper implements EventSubscriber
                 }
             }
         } catch (\ReflectionException $e) {
-            throw new \RuntimeException(
-                sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e
-            );
+            throw new \RuntimeException(sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e);
         }
     }
 }
