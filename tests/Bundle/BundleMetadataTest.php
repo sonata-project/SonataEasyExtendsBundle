@@ -23,6 +23,8 @@ require_once __DIR__.'/Fixtures/bundle1/AcmeBundle.php';
 
 use PHPUnit\Framework\TestCase;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
+use Sonata\EasyExtendsBundle\Bundle\OdmMetadata;
+use Sonata\EasyExtendsBundle\Bundle\OrmMetadata;
 
 class BundleMetadataTest extends TestCase
 {
@@ -43,8 +45,8 @@ class BundleMetadataTest extends TestCase
         $this->assertSame('Sonata\AcmeBundle', $bundleMetadata->getNamespace());
         $this->assertSame('app/Application/Sonata/AcmeBundle', $bundleMetadata->getExtendedDirectory());
         $this->assertSame('Application\Sonata\AcmeBundle', $bundleMetadata->getExtendedNamespace());
-        $this->assertInstanceOf('Sonata\EasyExtendsBundle\Bundle\OrmMetadata', $bundleMetadata->getOrmMetadata());
-        $this->assertInstanceOf('Sonata\EasyExtendsBundle\Bundle\OdmMetadata', $bundleMetadata->getOdmMetadata());
+        $this->assertInstanceOf(OrmMetadata::class, $bundleMetadata->getOrmMetadata());
+        $this->assertInstanceOf(OdmMetadata::class, $bundleMetadata->getOdmMetadata());
         $this->assertSame($bundle, $bundleMetadata->getBundle());
     }
 
