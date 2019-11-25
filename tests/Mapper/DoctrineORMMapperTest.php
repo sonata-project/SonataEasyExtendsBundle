@@ -30,10 +30,10 @@ class DoctrineORMMapperTest extends TestCase
      */
     private $metadata;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->doctrine = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry', [], [], '', false);
-        $this->metadata = $this->createMock('Doctrine\ORM\Mapping\ClassMetadataInfo', [], [], '', false);
+        $this->doctrine = $this->createMock(ManagerRegistry::class);
+        $this->metadata = $this->createMock(ClassMetadataInfo::class);
     }
 
     public function testLoadDiscriminators()
