@@ -34,8 +34,8 @@ class DumpMappingCommand extends ContainerAwareCommand
         $this->setName('sonata:easy-extends:dump-mapping');
         $this->setDescription('Dump some mapping information (debug only)');
 
-        $this->addArgument('manager', InputArgument::OPTIONAL, 'The manager name to use', false);
-        $this->addArgument('model', InputArgument::OPTIONAL, 'The class to dump', false);
+        $this->addArgument('manager', InputArgument::OPTIONAL, 'The manager name to use');
+        $this->addArgument('model', InputArgument::OPTIONAL, 'The class to dump');
     }
 
     /**

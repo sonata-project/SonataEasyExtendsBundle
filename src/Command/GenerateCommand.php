@@ -77,10 +77,10 @@ EOT
         $namespace = $input->getOption('namespace');
         if ($namespace) {
             if (!preg_match('/^(?:(?:[[:alnum:]]+|:vendor)\\\\?)+$/', $namespace)) {
-                throw new \InvalidArgumentException(
-                    'The provided namespace \'%s\' is not a valid namespace!',
+                throw new \InvalidArgumentException(sprintf(
+                    'The provided namespace "%s" is not a valid namespace!',
                     $namespace
-                );
+                ));
             }
         } else {
             $namespace = 'Application\:vendor';

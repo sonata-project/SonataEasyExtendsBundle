@@ -14,8 +14,11 @@ declare(strict_types=1);
 namespace Sonata\EasyExtendsBundle\Tests\Bundle;
 
 use PHPUnit\Framework\TestCase;
+use Sonata\AcmeBundle\SonataAcmeBundle;
 use Sonata\EasyExtendsBundle\Bundle\BundleMetadata;
 use Sonata\EasyExtendsBundle\Bundle\OrmMetadata;
+use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class OrmMetadataTest extends TestCase
 {
@@ -113,7 +116,7 @@ class OrmMetadataTest extends TestCase
         }
 
         $this->assertInstanceOf('Iterator', $filterIterator);
-        $this->assertContainsOnly('Symfony\Component\Finder\SplFileInfo', $filterIterator);
+        $this->assertContainsOnly(SplFileInfo::class, $filterIterator);
         $this->assertContains('Block.orm.xml.skeleton', $files);
         $this->assertContains('Page.orm.xml.skeleton', $files);
         $this->assertNotContains('Block.mongodb.xml.skeleton', $files);
@@ -126,7 +129,7 @@ class OrmMetadataTest extends TestCase
 
         $result = $ormMetadata->getEntityMappingFiles();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertEmpty($result);
     }
 
@@ -142,7 +145,7 @@ class OrmMetadataTest extends TestCase
         }
 
         $this->assertInstanceOf('Iterator', $filterIterator);
-        $this->assertContainsOnly('Symfony\Component\Finder\SplFileInfo', $filterIterator);
+        $this->assertContainsOnly(SplFileInfo::class, $filterIterator);
         $this->assertContains('BlockRepository.php', $files);
         $this->assertContains('PageRepository.php', $files);
         $this->assertNotContains('Block.php', $files);
@@ -155,7 +158,7 @@ class OrmMetadataTest extends TestCase
 
         $result = $ormMetadata->getRepositoryFiles();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertEmpty($result);
     }
 
@@ -166,25 +169,19 @@ class OrmMetadataTest extends TestCase
      */
     private function getBundleMetadataMock($bundlePath)
     {
-        $bundle = $this->createMock('Symfony\Component\HttpKernel\Bundle\Bundle');
-        $bundle->expects($this->any())
+        $bundle = $this->createMock(Bundle::class);
+        $bundle
             ->method('getPath')
             ->willReturn($bundlePath);
 
-        $bundleMetadata = $this->createMock(
-            'Sonata\EasyExtendsBundle\Bundle\BundleMetadata',
-            [],
-            [$bundle],
-            '',
-            true
-        );
-        $bundleMetadata->expects($this->any())
+        $bundleMetadata = $this->createMock(BundleMetadata::class);
+        $bundleMetadata
             ->method('getBundle')
             ->willReturn($bundle);
-        $bundleMetadata->expects($this->any())
+        $bundleMetadata
             ->method('getClass')
-            ->willReturn('Sonata\\AcmeBundle\\SonataAcmeBundle');
-        $bundleMetadata->expects($this->any())
+            ->willReturn(SonataAcmeBundle::class);
+        $bundleMetadata
             ->method('getExtendedDirectory')
             ->willReturn('Application/Sonata/AcmeBundle');
 

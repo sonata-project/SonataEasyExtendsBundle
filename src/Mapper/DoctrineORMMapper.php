@@ -189,7 +189,7 @@ class DoctrineORMMapper implements EventSubscriber
                         continue;
                     }
 
-                    \call_user_func([$metadata, $type], $mapping);
+                    $metadata->$type($mapping);
                 }
             }
         } catch (\ReflectionException $e) {
@@ -311,7 +311,7 @@ class DoctrineORMMapper implements EventSubscriber
         try {
             foreach ($this->overrides[$metadata->name] as $type => $overrides) {
                 foreach ($overrides as $override) {
-                    \call_user_func([$metadata, $type], $override['fieldName'], $override);
+                    $metadata->$type($override['fieldName'], $override);
                 }
             }
         } catch (\ReflectionException $e) {

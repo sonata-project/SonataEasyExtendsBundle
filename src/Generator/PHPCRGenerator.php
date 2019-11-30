@@ -124,7 +124,7 @@ class PHPCRGenerator implements GeneratorInterface
 
                 $string = Mustache::replace($this->getDocumentTemplate(), [
                     'extended_namespace' => $bundleMetadata->getExtendedNamespace(),
-                    'name' => $name !== $extendedName ? $extendedName : $name,
+                    'name' => $extendedName,
                     'class' => $name,
                     'extended_name' => $name === $extendedName ? 'Base'.$name : $extendedName,
                     'namespace' => $bundleMetadata->getNamespace(),

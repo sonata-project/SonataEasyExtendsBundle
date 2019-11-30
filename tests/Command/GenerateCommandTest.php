@@ -34,7 +34,7 @@ final class GenerateCommandTest extends TestCase
         $commandTester = $this->buildCommand($this->mockContainer());
         $commandTester->execute($args);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'done!',
             $commandTester->getDisplay()
         );
@@ -94,7 +94,7 @@ final class GenerateCommandTest extends TestCase
             '--dest' => 'src',
         ]);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'You must provide a bundle name!',
             $commandTester->getDisplay()
         );
@@ -112,7 +112,7 @@ final class GenerateCommandTest extends TestCase
             'bundle' => ['FakeBundle'],
         ]);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'You must provide a bundle name!',
             $commandTester->getDisplay()
         );
@@ -127,7 +127,7 @@ final class GenerateCommandTest extends TestCase
             'bundle' => ['NotExtendableBundle'],
         ]);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             sprintf('Ignoring bundle : "Symfony\Bundle\NotExtendableBundle"'),
             $commandTester->getDisplay()
         );
@@ -144,7 +144,7 @@ final class GenerateCommandTest extends TestCase
             'bundle' => ['NotExtendableBundle'],
         ]);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             sprintf('Application\Sonata\NotExtendableBundle : wrong directory structure'),
             $commandTester->getDisplay()
         );
