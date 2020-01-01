@@ -53,7 +53,7 @@ EOT
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $destOption = $input->getOption('dest');
         if ($destOption) {
@@ -120,6 +120,8 @@ EOT
         }
 
         $output->writeln('done!');
+
+        return 0;
     }
 
     /**
